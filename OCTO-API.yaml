@@ -18,6 +18,7 @@ paths:
   /supplier:
     get:
       summary: Get Supplier
+      operationId: getSupplier
       tags:
       - Supplier
       responses:
@@ -27,10 +28,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Supplier'
-      description: Returns the supplier and associated contact details.
+      description: |-
+        Returns the Supplier associated with the API Key (Bearer Token), including its details.
+
+        All API calls MUST include a valid API Key. That API Key scopes the request to a specific Supplier.
   /products:
     get:
-      summary: Get Products
+      summary: List Products
+      operationId: listProducts
       tags:
       - Products
       responses:
@@ -42,10 +47,12 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Product'
-      description: Fetch the list of products.
+      description: |-
+        Returns all Products offered by the Supplier.
   /products/{id}:
     get:
       summary: Get Product
+      operationId: getProduct
       tags:
       - Products
       parameters:
@@ -62,10 +69,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Product'
-      description: Fetch the product for the given id.
+      description: |-
+        Returns the Product for the specified Product ID.
   /availability/calendar:
     post:
       summary: Availability Calendar
+      operationId: availabilityCalendar
       tags:
       - Availability
       responses:
@@ -149,12 +158,16 @@ paths:
                   - id: child
                     quantity: 1
       description: |-
-        This endpoint is highly optimised and will return a single object per day. It's designed to be queried for large date ranges and the result is used to populate an availability calendar.
+        Returns one Availability Calendar object per day for the specified date range, Product, and Option. Optimized for querying large date ranges where only date-level availability is required, not individual timeslots and their Availability.  
+        Commonly used to quickly populate an availability calendar UI element.
 
-        When the end user selects an open date you can call on `/availability` endpoint to get the `availabilityId` to create the booking.
+        The Availability Check endpoint MUST still be called to obtain the `availabilityId` required to create a Booking.
+
+        The following parameters MUST be provided: `localDateStart` and `localDateEnd`.
   /availability:
     post:
       summary: Availability Check
+      operationId: availabilityCheck
       tags:
       - Availability
       responses:
@@ -251,18 +264,15 @@ paths:
                   - id: child
                     quantity: 1
       description: |-
-        This endpoint is slightly slower as it will return an object for each individual departure time (or day). You have to perform this step to retrieve an `availabilityId` in order to confirm a sale, so if you just want to use this endpoint and skip the calendar endpoint then that's perfectly ok.
+        Returns granular Availability details for the specified Product and Option. Returns individual Availability objects that each cover a specific timeslot/departure time or simply a single object per day, depending on the Product's configuration.  Provides the availability ID required to Create Booking.
 
-        You must pass in one of the following combinations of parameters for this endpoint:
-        - `localDate`
-        - `localeDateStart` and `localDateEnd`
-        - `availabilityIds`
+        One of the following parameter combinations MUST be provided, or a logical comnbination thereof: `localDate`; `localDateStart` and `localDateEnd`; or `availabilityIds`.
   /bookings:
     post:
-      summary: Booking Reservation
+      summary: Create Booking
       tags:
       - Bookings
-      operationId: post-bookings
+      operationId: createBooking
       responses:
         '200':
           description: OK
@@ -279,20 +289,21 @@ paths:
       - $ref: '#/components/parameters/ContentType'
       requestBody:
         $ref: '#/components/requestBodies/BookingReservation'
-      description: |
-        Reserving availability when making a booking. The steps to make a reservation are:
+      description: |-
+        Creates a Booking by reserving a specific `availabilityId`.
 
-        1. **Check Availability**: Check the availability on the [/availability](docs/octo/branches/main/5b08f5f75e75d-availability-check) endpoint to retrieve an `availabilityId`
-        2. **Booking Reservation** (this step): Create a booking that reserves the availability while you collect payment and contact information from the customer. The booking will remain with status `ON_HOLD` until the booking is confirmed or the reservation hold expires.
+        The `availabilityId` MUST be obtained from the Availability Check endpoint prior to creating the Booking.
 
-        The availability for the booking is held for the amount of time equal to the`expirationMinutes` parameter (if provided), up to an internal limit set by either the supplier or the OCTo provider. The `utc_expires_at` parameter in the response object will indicate when a reservtion will expire. A reservation can be extended by calling the [/bookings/{uuid}/extend](docs/octo/branches/main/2c7924ab9128f-extend-reservation) endpoint.
+        This step reserves the selected Availability (i.e., “tickets”) to guarantee it remains available for the Booking if it is confirmed within the defined time window. The Booking remains in `ON_HOLD` status until it is confirmed or the reservation expires.
 
-        A reserved booking can be confirmed after the customer finalizes their choice on the [/bookings/{uuid}/confirm](docs/octo/branches/main/614d1613b2d70-booking-confirmation) endpoint provided the reservation had not expired.
+        The reservation duration is defined by the `expirationMinutes` parameter, if provided, up to an internal limit set by the Supplier or the OCTO provider. The `utc_expires_at` field in the response indicates exactly when the reservation will expire.
+
+        A reserved Booking MAY be confirmed using the Confirm Booking endpoint, provided the reservation has not expired.
     get:
-      summary: Get Bookings
+      summary: List Bookings
       tags:
       - Bookings
-      operationId: get-bookings
+      operationId: listBookings
       responses:
         '200':
           description: OK
@@ -539,20 +550,19 @@ paths:
         name: optionId
         description: The option id to filter by
       description: |-
-        This endpoint will fetch the bookings you have made for the given filters.
+        Returns Bookings that match the provided filters.
 
-        When using this endpoint you must include one of the following query parameters:
-
+        At least one of the following query parameters MUST be included:
         - `resellerReference`
         - `supplierReference`
         - `localDate`
         - `localDateStart` and `localDateEnd`
   /bookings/{uuid}/confirm:
     post:
-      summary: Booking Confirmation
+      summary: Confirm Booking
       tags:
       - Bookings
-      operationId: post-bookings-uuid-confirm
+      operationId: confirmBooking
       responses:
         '200':
           description: OK
@@ -565,7 +575,8 @@ paths:
                   $ref: '#/components/examples/BookingConfirmed'
         '400':
           $ref: '#/components/responses/BookingConfirmError'
-      description: This endpoint confirms the booking so it's ready to be used.
+      description: |-
+        Triggers Booking Confirmation, signaling that the Reseller has committed to the purchase. This prompts the Supplier System to persist the Booking and provide the Reseller System with the required ticket(s).
       parameters:
       - $ref: '#/components/parameters/ContentType'
       requestBody:
@@ -700,10 +711,10 @@ paths:
       description: The UUID of the booking
   /bookings/{uuid}/cancel:
     post:
-      summary: Booking Cancellation
+      summary: Cancel Booking
       tags:
       - Bookings
-      operationId: delete-bookings-:uuid
+      operationId: cancelBooking
       responses:
         '200':
           description: OK
@@ -716,7 +727,8 @@ paths:
                   $ref: '#/components/examples/BookingCancelled'
         '400':
           $ref: '#/components/responses/BookingCancelError'
-      description: For cancelling bookings. You can only cancel a booking if `booking.cancellable` is `TRUE`, and is within the booking cancellation cut-off window.
+      description: |-
+        Cancels a Booking. A Booking MAY only be cancelled if `booking.cancellable` is `true` and the request is within the cancellation cut-off window.
       requestBody:
         $ref: '#/components/requestBodies/BookingCancellation'
       parameters:
@@ -751,13 +763,14 @@ paths:
                   $ref: '#/components/examples/BookingConfirmed'
         '400':
           $ref: '#/components/responses/BookingGetError'
-      operationId: get-bookings-:uuid
-      description: Fetch the status of an existing booking.
+      operationId: getBooking
+      description: |-
+        Returns an existing Booking identified by `uuid`.
     patch:
-      summary: Booking Update
+      summary: Update Booking
       tags:
       - Bookings
-      operationId: patch-bookings-:uuid
+      operationId: updateBooking
       responses:
         '200':
           description: OK
@@ -904,7 +917,10 @@ paths:
         in: header
         name: Content-Type
         description: Required field on all PATCH requests
-      description: Updates a booking before and after it has been confirmed as long as it hasn''t been redeemed or within the cancellation cutoff window. To know if the booking can be updated check the booking''s `cancellable` field. If the booking can be cancelled, it can also be updated. It''s generally preferred to update a booking rather than cancelling it and rebooking.
+      description: |-
+        Updates a Booking both before and after confirmation, provided no modification restrictions apply. For example: the Booking has not been redeemed and is within the cancellation cut-off window.
+
+        A Booking MUST only be updated if `booking.cancellable` is `true`. If a Booking is cancellable, it SHOULD also be updatable. Updating a Booking SHOULD be preferred over cancelling and recreating it.
     parameters:
     - schema:
         type: string
@@ -921,10 +937,10 @@ paths:
       required: true
       description: The UUID of the booking
     post:
-      summary: Extend Reservation
+      summary: Extend Booking Hold
       tags:
       - Bookings
-      operationId: post-bookings-uuid-extend
+      operationId: extendBookingHold
       responses:
         '200':
           description: OK
@@ -941,7 +957,8 @@ paths:
         $ref: '#/components/requestBodies/ExtendReservation'
       parameters:
       - $ref: '#/components/parameters/ContentType'
-      description: Use this endpoint to hold the availability for a booking longer if the status is `ON_HOLD`.
+      description: |-
+        Extends the reservation hold for a Booking with `ON_HOLD` status, preserving the reserved availability while additional time is required to complete the Booking. It is up to the Supplier to define what limits to apply.
 components:
   schemas:
     FullName:
@@ -3702,3 +3719,10 @@ tags:
     description: Docs
     url: https://docs.octo.travel/octo-core/bookings
   name: Bookings
+x-tagGroups:
+- name: OCTO Core
+  tags:
+  - Supplier
+  - Products
+  - Availability
+  - Bookings
