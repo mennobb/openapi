@@ -58,10 +58,12 @@ paths:
       parameters:
       - schema:
           type: string
+          examples:
+          - 6b903d44-dc24-4ca4-ae71-6bde6c4f4854
         name: id
         in: path
         required: true
-        description: The product id
+        description: Identifier of the Product being queried.
       responses:
         '200':
           description: OK
@@ -103,22 +105,22 @@ paths:
                   type: string
                   examples:
                   - 6b903d44-dc24-4ca4-ae71-6bde6c4f4854
-                  description: The product id.
+                  description: Identifier of the Product being queried.
                 optionId:
                   type: string
                   examples:
                   - DEFAULT
-                  description: The option id.
+                  description: Identifier of the Option being queried.
                 localDateStart:
                   type: string
                   examples:
                   - '2022-05-23'
-                  description: Start date to query for (YYYY-MM-DD).
+                  description: Start date of range (YYYY-MM-DD).
                 localDateEnd:
                   type: string
                   examples:
                   - '2022-05-29'
-                  description: End date to query for (YYYY-MM-DD).
+                  description: End date of range (YYYY-MM-DD).
                 units:
                   type: array
                   description: A list of units.
@@ -127,10 +129,14 @@ paths:
                     properties:
                       id:
                         type: string
-                        description: The unit id.
+                        examples:
+                        - adult123
+                        description: Unit id for capacity filtering.
                       quantity:
                         type: integer
-                        description: The quantity of the unit.
+                        examples:
+                        - 2
+                        description: Quantity of the unit.
                     required:
                     - id
                     - quantity
@@ -196,29 +202,29 @@ paths:
                   type: string
                   examples:
                   - 6b903d44-dc24-4ca4-ae71-6bde6c4f4854
-                  description: The product id.
+                  description: The Product id.
                 optionId:
                   type: string
                   examples:
                   - DEFAULT
-                  description: The option id.
+                  description: The Option id.
                 localDateStart:
                   type: string
                   examples:
                   - '2022-05-23'
                   format: date
-                  description: Start date to query for (YYYY-MM-DD). Required if `localDateEnd` is set.
+                  description: Start date. Required if localDateEnd is set.
                 localDateEnd:
                   type: string
                   format: date
                   examples:
                   - '2022-05-29'
-                  description: End date to query for (YYYY-MM-DD). Required if `localDateStart` is set.
+                  description: End date. Required if localDateStart is set.
                 availabilityIds:
                   type: array
                   examples:
                   - - '2022-05-23T00:00:00+01:00'
-                  description: Filter the results by the given ids.
+                  description: Filter by specific availability IDs.
                   items:
                     type: string
                 units:
@@ -229,10 +235,14 @@ paths:
                     properties:
                       id:
                         type: string
-                        description: The unit id.
+                        examples:
+                        - adult123
+                        description: Unit id for capacity filtering.
                       quantity:
                         type: integer
-                        description: The quantity of the unit.
+                        examples:
+                        - 2
+                        description: Quantity of the unit.
                     required:
                     - id
                     - quantity
@@ -516,39 +526,62 @@ paths:
       parameters:
       - schema:
           type: string
+          examples:
+          - 102-256952-3
         in: query
         name: resellerReference
-        description: The reseller reference on the booking
+        description: Reseller reference associated with the Booking.
       - schema:
           type: string
+          examples:
+          - 300SK9
         in: query
         name: supplierReference
-        description: The reference provided by the supplier
+        description: Supplier reference associated with the Booking.
       - schema:
           type: string
+          examples:
+          - '2026-05-01'
         in: query
         name: localDate
-        description: All bookings made for a specific date
+        description: |-
+          Local date of the Booking in ISO 8601 format (YYYY-MM-DD).
+
+          Filters Bookings for a specific date.
       - schema:
           type: string
+          examples:
+          - '2026-05-01'
         in: query
         name: localDateStart
-        description: First date of a date range search
+        description: |-
+          Start of the local date range in ISO 8601 format (YYYY-MM-DD).
+
+          MUST be used together with localDateEnd.
       - schema:
           type: string
+          examples:
+          - '2026-05-31'
         in: query
         name: localDateEnd
-        description: Last date of a date range search
+        description: |-
+          End of the local date range in ISO 8601 format (YYYY-MM-DD).
+
+          MUST be used together with localDateStart.
       - schema:
           type: string
+          examples:
+          - 6b903d44-dc24-4ca4-ae71-6bde6c4f4854
         in: query
         name: productId
-        description: The product id to filter by
+        description: Identifier of the Product associated with the Booking.
       - schema:
           type: string
+          examples:
+          - DEFAULT
         in: query
         name: optionId
-        description: The option id to filter by
+        description: Identifier of the Option associated with the Booking.
       description: |-
         Returns Bookings that match the provided filters.
 
@@ -587,48 +620,67 @@ paths:
               properties:
                 emailReceipt:
                   type: boolean
-                  description: Whether you want OCTO Cloud to email the guest a copy of their receipt and tickets. (defaults to false)
+                  description: |-
+                    Indicates whether the ticket receipt is sent to the guest by email.
+
+                    If not provided, the default value MUST be `false`.
+                  examples:
+                  - false
                 resellerReference:
                   type: string
-                  description: Your reference for this booking. Also known as a Voucher Number.
+                  description: |-
+                    Reseller reference associated with the Booking.
+
+                    This field MUST be provided when required by the Reseller configuration.
                   examples:
-                  - 4ec08a62-892c-48c1-a608-dc946531a33b
+                  - 102-256952-3
                 contact:
                   type: object
                   description: Contact details for the main guest who will attend the tour/attraction. Contact schema can be applied to both the booking object (the main reservation) or the unit object (individual ticket holders - if the supplier requires this information).
                   properties:
                     fullName:
                       type: string
-                      description: The full name of the booking holder. Can also be retrieved as an alias for the concatenation of firstName and lastName.
+                      description: |-
+                        Full name of the booking holder.
+
+                        This field MAY be used as an alternative to firstName and lastName.
                       examples:
                       - John Doe
                     firstName:
                       type: string
-                      description: The first name of the booking holder.
+                      description: |-
+                        First name of the booking holder.
+
+                        This field MUST be provided if defined in requiredContactFields.
                       examples:
                       - John
                     lastName:
                       type: string
-                      description: The last name of the booking holder.
+                      description: Last name of the booking holder.
                       examples:
                       - Doe
                     emailAddress:
                       type: string
-                      description: The email address of the booking holder.
+                      description: Email address of the booking holder.
                       format: email
                       examples:
-                      - johndoe@email.com
+                      - john@example.com
                     phoneNumber:
                       type: string
-                      description: The phone number of the booking holder.
+                      description: Phone number of the booking holder in E.164 format.
+                      examples:
+                      - '+447840739436'
                     locales:
                       $ref: '#/components/schemas/Locales'
+                      description: Ordered list of preferred locales using BCP 47 language tags.
                     postalCode:
                       type: string
                       description: The PO Box of the booking holder.
                     country:
                       type: string
-                      description: The country of the booking holder.
+                      description: ISO 3166-1 alpha-2 country code of the booking holder.
+                      examples:
+                      - GB
                     notes:
                       type: string
                       description: Optional notes for the booking holder.
@@ -640,12 +692,27 @@ paths:
                     properties:
                       uuid:
                         type: string
-                        description: A unique UUID to identify the unit, same as the booking uuid except per unit.
+                        description: |-
+                          Unique idempotency key for the unit item.
+
+                          If the same value is reused, the Supplier MUST treat the request as idempotent for this unit item.
+                        examples:
+                        - 3b1bc2ee-3155-4738-9471-f49842a07327
                       unitId:
                         type: string
-                        description: The unit item unit ID.
+                        description: |-
+                          Identifier of the Unit type to be confirmed.
+
+                          All unit items MUST be provided.
+
+                          Providing this field MUST replace all existing unit items in the Booking.
+                        examples:
+                        - adult123
                       resellerReference:
                         $ref: '#/components/schemas/UnitResellerReference'
+                        description: Reseller reference associated with the individual unit item.
+                        examples:
+                        - TICKET-001
                       contact:
                         type: object
                         description: Contact details for the main guest who will attend the tour/attraction. Contact schema can be applied to both the booking object (the main reservation) or the unit object (individual ticket holders - if the supplier requires this information).
@@ -705,10 +772,12 @@ paths:
     parameters:
     - schema:
         type: string
+        examples:
+        - ec0ce0c2-03f0-4c64-bbc5-5e0f7d1e1c0a
       name: uuid
       in: path
       required: true
-      description: The UUID of the booking
+      description: Unique identifier of the Booking to be confirmed.
   /bookings/{uuid}/cancel:
     post:
       summary: Cancel Booking
@@ -742,10 +811,12 @@ paths:
     parameters:
     - schema:
         type: string
+        examples:
+        - ec0ce0c2-03f0-4c64-bbc5-5e0f7d1e1c0a
       name: uuid
       in: path
       required: true
-      description: The UUID of the booking
+      description: Unique identifier of the Booking to be cancelled.
   /bookings/{uuid}:
     get:
       summary: Get Booking
@@ -766,6 +837,15 @@ paths:
       operationId: getBooking
       description: |-
         Returns an existing Booking identified by `uuid`.
+      parameters:
+      - schema:
+          type: string
+          examples:
+          - ec0ce0c2-03f0-4c64-bbc5-5e0f7d1e1c0a
+        name: uuid
+        in: path
+        required: true
+        description: Unique identifier of the Booking to retrieve.
     patch:
       summary: Update Booking
       tags:
@@ -791,28 +871,32 @@ paths:
               properties:
                 resellerReference:
                   type: string
-                  description: Your reference for this booking. Also known as a Voucher Number.
+                  description: Updated Reseller reference associated with the Booking.
                   examples:
-                  - ec08a62-892c-48c1-a608-dc946531a33b
+                  - 102-256952-3
                 productId:
                   type: string
-                  description: The product ID.
+                  description: Updated identifier of the Product for the Booking.
                   examples:
                   - 6b903d44-dc24-4ca4-ae71-6bde6c4f4854
                 optionId:
                   type: string
-                  description: The option id.
+                  description: Updated identifier of the Option for the Booking.
                   examples:
                   - DEFAULT
                 availabilityId:
                   type: string
-                  description: The availability ID for the selected timeslot.
+                  description: Updated identifier of the Availability (ISO 8601 datetime) for the Booking.
+                  examples:
+                  - '2026-06-30T12:00:00+01:00'
                 expirationMinutes:
                   type: string
                   description: How many minutes to reserve the availability, otherwise defaults to the supplier default amount.
                 notes:
                   type: string
-                  description: Optional notes for the booking.
+                  description: Updated notes associated with the Booking.
+                  examples:
+                  - 'Dietary: vegan'
                 emailReceipt:
                   type: boolean
                   description: Whether you want OCTO Cloud to email the guest a copy of their receipt and tickets. (defaults to false).
@@ -827,7 +911,12 @@ paths:
                         description: A unique UUID to identify the unit item.
                       unitId:
                         type: string
-                        description: The unit item unit ID.
+                        description: |-
+                          Identifier of the Unit type to be booked.
+
+                          All unit items MUST be provided in the request to retain them.
+                        examples:
+                        - adult
                       resellerReference:
                         $ref: '#/components/schemas/UnitResellerReference'
                       contact:
@@ -880,31 +969,36 @@ paths:
                       - John Doe
                     firstName:
                       type: string
-                      description: The first name of the booking holder.
+                      description: First name of the lead traveller.
                       examples:
                       - John
                     lastName:
                       type: string
-                      description: The last name of the booking holder.
+                      description: Last name of the lead traveller.
                       examples:
                       - Doe
                     emailAddress:
                       type: string
-                      description: The email address of the booking holder.
+                      description: Email address of the lead traveller.
                       format: email
                       examples:
-                      - johndoe@gmail.com
+                      - john@example.com
                     phoneNumber:
                       type: string
-                      description: The phone number of the booking holder.
+                      description: Phone number of the lead traveller in E.164 format.
+                      examples:
+                      - '+447840739436'
                     locales:
                       $ref: '#/components/schemas/Locales'
+                      description: Ordered list of preferred locales for the lead traveller using BCP 47 language tags.
                     postalCode:
                       type: string
                       description: The PO Box of the booking holder.
                     country:
                       type: string
-                      description: The country of the booking holder.
+                      description: ISO 3166-1 alpha-2 country code of the lead traveller.
+                      examples:
+                      - GB
                     notes:
                       type: string
                       description: Optional notes for the booking holder.
@@ -917,25 +1011,28 @@ paths:
         in: header
         name: Content-Type
         description: Required field on all PATCH requests
+      - schema:
+          type: string
+          examples:
+          - ec0ce0c2-03f0-4c64-bbc5-5e0f7d1e1c0a
+        name: uuid
+        in: path
+        required: true
+        description: Unique identifier of the Booking to be updated.
       description: |-
         Updates a Booking both before and after confirmation, provided no modification restrictions apply. For example: the Booking has not been redeemed and is within the cancellation cut-off window.
 
         A Booking MUST only be updated if `booking.cancellable` is `true`. If a Booking is cancellable, it SHOULD also be updatable. Updating a Booking SHOULD be preferred over cancelling and recreating it.
-    parameters:
-    - schema:
-        type: string
-      name: uuid
-      in: path
-      required: true
-      description: The UUID of the booking
   /bookings/{uuid}/extend:
     parameters:
     - schema:
         type: string
+        examples:
+        - a88b4b8d-9c3b-4a09-ba27-323b43af57e4
       name: uuid
       in: path
       required: true
-      description: The UUID of the booking
+      description: Unique identifier of the Booking in `ON_HOLD` status.
     post:
       summary: Extend Booking Hold
       tags:
@@ -3473,8 +3570,8 @@ components:
               reason:
                 type: string
                 examples:
-                - Customer Requested
-                description: A text value describing why the cancellation happened.
+                - Customer requested
+                description: Text value describing why the Booking is cancelled.
               force:
                 type: boolean
           examples:
@@ -3492,6 +3589,10 @@ components:
                 type: integer
                 examples:
                 - 15
+                description: |-
+                  Number of additional minutes to extend the Booking hold period.
+
+                  The total hold duration MUST NOT exceed the Supplier-defined maximum.
           examples:
             example-1:
               value:
@@ -3583,35 +3684,48 @@ components:
             properties:
               uuid:
                 type: string
-                description: A unique UUID to identify the booking. Setting this value acts like an idempotency key preventing you from double booking.
+                description: |-
+                  Unique idempotency key for the booking request.
+
+                  Resellers SHOULD provide a uuid to ensure idempotent booking creation.
+
+                  If the same value is reused, the Supplier MUST return the same result and MUST NOT create a duplicate Booking.
                 format: uuid
                 examples:
                 - 559aed3d-6d5b-4fe0-bfca-99f5e7218a56
               productId:
                 type: string
-                description: The product ID for this booking.
+                description: Identifier of the Product to be booked.
                 examples:
                 - 6b903d44-dc24-4ca4-ae71-6bde6c4f4854
               optionId:
                 type: string
-                description: The option ID for this booking.
+                description: Identifier of the Option to be booked for the selected Product.
                 examples:
                 - DEFAULT
               availabilityId:
                 type: string
-                description: The availability ID for the selected timeslot.
+                description: |-
+                  Identifier of the selected Availability (ISO 8601 datetime) for the Booking.
+
+                  This value MUST be obtained from the `/availability` endpoint.
                 examples:
-                - '2021-10-27T00:00:00-04:00'
+                - '2026-06-30T12:00:00+01:00'
               expirationMinutes:
                 type: integer
-                description: How many minutes to reserve the availability, otherwise defaults to the supplier default amount.
+                description: |-
+                  Number of minutes the selected Availability is held before confirmation.
+
+                  If not provided, the Supplier default MUST be applied.
+
+                  After expiration, the held Availability MAY be released and the Booking request MUST be rejected if not confirmed.
                 examples:
                 - 30
               notes:
                 type: string
-                description: Optional notes for the booking.
+                description: Additional notes associated with the Booking.
                 examples:
-                - Optional notes
+                - Wheelchair accessible tour please
               unitItems:
                 type: array
                 description: A list of unit items that will be included in the booking.
@@ -3620,14 +3734,20 @@ components:
                   properties:
                     uuid:
                       type: string
-                      description: A unique UUID to identify the unit, same as the booking uuid except per unit.
+                      description: |-
+                        Unique idempotency key for the unit item.
+
+                        If the same value is reused, the Supplier MUST treat the request as idempotent for this unit item.
                       examples:
                       - 3b1bc2ee-3155-4738-9471-f49842a07327
                     unitId:
                       type: string
-                      description: The unit item unit ID.
+                      description: |-
+                        Identifier of the Unit type to be booked.
+
+                        The value MUST match a valid `unitId` defined in the selected Option.
                       examples:
-                      - youth_f6446706-885a-437c-8461-efd6d7080910
+                      - adult
                   required:
                   - unitId
             required:
