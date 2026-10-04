@@ -11,7 +11,7 @@ info:
 
     OCTO is open source. Available to anyone who wants to use it. You do not need to be a member to use this specification in your business.
 servers:
-- url: https://api.example.com/octo
+- url: https://api.acme-attractions.com/octo
 security:
 - Auth: []
 paths:
@@ -59,7 +59,7 @@ paths:
       - schema:
           type: string
           examples:
-          - 6b903d44-dc24-4ca4-ae71-6bde6c4f4854
+          - PROD-OBSWHEEL-001
         name: id
         in: path
         required: true
@@ -104,22 +104,22 @@ paths:
                 productId:
                   type: string
                   examples:
-                  - 6b903d44-dc24-4ca4-ae71-6bde6c4f4854
+                  - PROD-OBSWHEEL-001
                   description: Identifier of the Product being queried.
                 optionId:
                   type: string
                   examples:
-                  - DEFAULT
+                  - OPT-STANDARD-001
                   description: Identifier of the Option being queried.
                 localDateStart:
                   type: string
                   examples:
-                  - '2022-05-23'
+                  - '2026-06-15'
                   description: Start date of range (YYYY-MM-DD).
                 localDateEnd:
                   type: string
                   examples:
-                  - '2022-05-29'
+                  - '2026-06-18'
                   description: End date of range (YYYY-MM-DD).
                 units:
                   type: array
@@ -130,7 +130,7 @@ paths:
                       id:
                         type: string
                         examples:
-                        - adult123
+                        - UNIT-ADULT
                         description: Unit id for capacity filtering.
                       quantity:
                         type: integer
@@ -148,20 +148,20 @@ paths:
             examples:
               Date Range:
                 value:
-                  productId: 6b903d44-dc24-4ca4-ae71-6bde6c4f4854
-                  optionId: DEFAULT
-                  localDateStart: '2022-06-14'
-                  localDateEnd: '2022-06-16'
+                  productId: PROD-OBSWHEEL-001
+                  optionId: OPT-STANDARD-001
+                  localDateStart: '2026-06-15'
+                  localDateEnd: '2026-06-18'
               WITH UNITS:
                 value:
-                  productId: 6b903d44-dc24-4ca4-ae71-6bde6c4f4854
-                  optionId: DEFAULT
-                  localDateStart: '2022-06-14'
-                  localDateEnd: '2022-06-16'
+                  productId: PROD-OBSWHEEL-001
+                  optionId: OPT-STANDARD-001
+                  localDateStart: '2026-06-15'
+                  localDateEnd: '2026-06-18'
                   units:
-                  - id: adult
+                  - id: UNIT-ADULT
                     quantity: 2
-                  - id: child
+                  - id: UNIT-CHILD
                     quantity: 1
       description: |-
         Returns one Availability Calendar object per day for the specified date range, Product, and Option. Optimized for querying large date ranges where only date-level availability is required, not individual timeslots and their Availability.  
@@ -201,29 +201,29 @@ paths:
                 productId:
                   type: string
                   examples:
-                  - 6b903d44-dc24-4ca4-ae71-6bde6c4f4854
+                  - PROD-OBSWHEEL-001
                   description: The Product id.
                 optionId:
                   type: string
                   examples:
-                  - DEFAULT
+                  - OPT-STANDARD-001
                   description: The Option id.
                 localDateStart:
                   type: string
                   examples:
-                  - '2022-05-23'
+                  - '2026-06-15'
                   format: date
                   description: Start date. Required if localDateEnd is set.
                 localDateEnd:
                   type: string
                   format: date
                   examples:
-                  - '2022-05-29'
+                  - '2026-06-18'
                   description: End date. Required if localDateStart is set.
                 availabilityIds:
                   type: array
                   examples:
-                  - - '2022-05-23T00:00:00+01:00'
+                  - - AVAIL-AVAILABLE-001
                   description: Filter by specific availability IDs.
                   items:
                     type: string
@@ -236,7 +236,7 @@ paths:
                       id:
                         type: string
                         examples:
-                        - adult123
+                        - UNIT-ADULT
                         description: Unit id for capacity filtering.
                       quantity:
                         type: integer
@@ -252,26 +252,26 @@ paths:
             examples:
               Date Range:
                 value:
-                  productId: 6b903d44-dc24-4ca4-ae71-6bde6c4f4854
-                  optionId: DEFAULT
-                  localDateStart: '2022-05-23'
-                  localDateEnd: '2022-05-29'
+                  productId: PROD-OBSWHEEL-001
+                  optionId: OPT-STANDARD-001
+                  localDateStart: '2026-06-15'
+                  localDateEnd: '2026-06-18'
               Availability IDs:
                 value:
-                  productId: 6b903d44-dc24-4ca4-ae71-6bde6c4f4854
-                  optionId: DEFAULT
+                  productId: PROD-OBSWHEEL-001
+                  optionId: OPT-STANDARD-001
                   availabilityIds:
-                  - '2022-05-23T00:00:00+01:00'
+                  - AVAIL-AVAILABLE-001
               With Units:
                 value:
-                  productId: 6b903d44-dc24-4ca4-ae71-6bde6c4f4854
-                  optionId: DEFAULT
-                  localDateStart: '2022-05-23'
-                  localDateEnd: '2022-05-29'
+                  productId: PROD-OBSWHEEL-001
+                  optionId: OPT-STANDARD-001
+                  localDateStart: '2026-06-15'
+                  localDateEnd: '2026-06-18'
                   units:
-                  - id: adult
+                  - id: UNIT-ADULT
                     quantity: 2
-                  - id: child
+                  - id: UNIT-CHILD
                     quantity: 1
       description: |-
         Returns granular Availability details for the specified Product and Option. Returns individual Availability objects that each cover a specific timeslot/departure time or simply a single object per day, depending on the Product's configuration.  Provides the availability ID required to Create Booking.
@@ -326,22 +326,22 @@ paths:
               examples:
                 example-1:
                   value:
-                  - id: 187583938745-D
+                  - id: BOOK-CONFIRMED-001
                     uuid: 559aed3d-6d5b-4fe0-bfca-99f5e7218a56
                     testMode: false
-                    resellerReference: 102-256952-3
-                    supplierReference: 300SK9
+                    resellerReference: RES-BOOK-001
+                    supplierReference: SUP-BOOK-001
                     status: CONFIRMED
-                    utcCreatedAt: '2026-02-17T23:28:43Z'
-                    utcUpdatedAt: '2026-02-17T23:32:33Z'
+                    utcCreatedAt: '2026-06-15T08:30:00Z'
+                    utcUpdatedAt: '2026-06-15T08:35:00Z'
                     utcExpiresAt: null
                     utcRedeemedAt: null
-                    utcConfirmedAt: '2026-02-17T23:32:33Z'
-                    productId: LEYE-6bde6c4f4854
+                    utcConfirmedAt: '2026-06-15T08:35:00Z'
+                    productId: PROD-OBSWHEEL-001
                     product:
-                      id: LEYE-6bde6c4f4854
-                      internalName: London Eye Admission
-                      reference: LEYE
+                      id: PROD-OBSWHEEL-001
+                      internalName: Observation Wheel Admission
+                      reference: OBSWHEEL
                       locale: en-GB
                       timeZone: Europe/London
                       allowFreesale: false
@@ -356,16 +356,16 @@ paths:
                       - TICKET
                       redemptionMethod: DIGITAL
                       options:
-                      - id: 2214b32d-ffa1-426c-b4d2-947dca724e50
+                      - id: OPT-STANDARD-001
                         default: true
-                        internalName: Fast Track
-                        reference: LEYE-FT
+                        internalName: Standard Admission
+                        reference: STANDARD
                         availabilityLocalStartTimes:
-                        - '09:00'
+                        - '10:00'
                         - '14:00'
-                        - '17:00'
-                        cancellationCutoff: 1 hour
-                        cancellationCutoffAmount: 1
+                        - '16:00'
+                        cancellationCutoff: 24 hours
+                        cancellationCutoffAmount: 24
                         cancellationCutoffUnit: hour
                         requiredContactFields:
                         - firstName
@@ -374,9 +374,9 @@ paths:
                           minUnits: 1
                           maxUnits: 20
                         units:
-                        - id: adult_697e3ce8
-                          internalName: Adult(s)
-                          reference: LR1-01
+                        - id: UNIT-ADULT
+                          internalName: Adult
+                          reference: ADULT
                           type: ADULT
                           requiredContactFields:
                           - firstName
@@ -389,10 +389,10 @@ paths:
                             maxQuantity: 7
                             paxCount: 1
                             accompaniedBy: []
-                        - id: youth_f6446706
-                          internalName: Youth(s)
-                          reference: LR1-02
-                          type: YOUTH
+                        - id: UNIT-CHILD
+                          internalName: Child
+                          reference: CHILD
+                          type: CHILD
                           requiredContactFields:
                           - firstName
                           - lastName
@@ -404,19 +404,19 @@ paths:
                             maxQuantity: 7
                             paxCount: 1
                             accompaniedBy:
-                            - adult_697e3ce8
-                    optionId: 2214b32d-ffa1-426c-b4d2-947dca724e50
+                            - UNIT-ADULT
+                    optionId: OPT-STANDARD-001
                     option:
-                      id: 2214b32d-ffa1-426c-b4d2-947dca724e50
+                      id: OPT-STANDARD-001
                       default: true
-                      internalName: Fast Track
-                      reference: LEYE-FT
+                      internalName: Standard Admission
+                      reference: STANDARD
                       availabilityLocalStartTimes:
-                      - '09:00'
+                      - '10:00'
                       - '14:00'
-                      - '17:00'
-                      cancellationCutoff: 1 hour
-                      cancellationCutoffAmount: 1
+                      - '16:00'
+                      cancellationCutoff: 24 hours
+                      cancellationCutoffAmount: 24
                       cancellationCutoffUnit: hour
                       requiredContactFields:
                       - firstName
@@ -425,9 +425,9 @@ paths:
                         minUnits: 1
                         maxUnits: 20
                       units:
-                      - id: adult_697e3ce8
-                        internalName: Adult(s)
-                        reference: LR1-01
+                      - id: UNIT-ADULT
+                        internalName: Adult
+                        reference: ADULT
                         type: ADULT
                         requiredContactFields:
                         - firstName
@@ -440,10 +440,10 @@ paths:
                           maxQuantity: 7
                           paxCount: 1
                           accompaniedBy: []
-                      - id: youth_f6446706
-                        internalName: Youth(s)
-                        reference: LR1-02
-                        type: YOUTH
+                      - id: UNIT-CHILD
+                        internalName: Child
+                        reference: CHILD
+                        type: CHILD
                         requiredContactFields:
                         - firstName
                         - lastName
@@ -455,41 +455,41 @@ paths:
                           maxQuantity: 7
                           paxCount: 1
                           accompaniedBy:
-                          - adult_697e3ce8
+                          - UNIT-ADULT
                     cancellable: true
                     cancellation: null
                     freesale: false
-                    availabilityId: FE32BA12
+                    availabilityId: AVAIL-AVAILABLE-001
                     availability:
-                      id: FE32BA12
-                      localDateTimeStart: '2026-02-28T09:00:00+00:00'
-                      localDateTimeEnd: '2026-02-28T09:30:00+00:00'
+                      id: AVAIL-AVAILABLE-001
+                      localDateTimeStart: '2026-06-15T10:00:00+01:00'
+                      localDateTimeEnd: '2026-06-15T10:30:00+01:00'
                       allDay: false
                       openingHours: []
                     contact:
                       fullName: John Doe
                       firstName: John
                       lastName: Doe
-                      emailAddress: john@example.com
-                      phoneNumber: '+44 7777 777777'
+                      emailAddress: john.doe@example.com
+                      phoneNumber: '+442021436587'
                       locales:
                       - en-GB
-                      postalCode: W1H 7EJ
+                      postalCode: SE1 9AA
                       country: GB
-                      notes: 'Dietary: vegan'
-                    notes: Wheelchair accessible tour please
+                      notes: Wheelchair access requested
+                    notes: Wheelchair accessible entry requested
                     deliveryMethods:
                     - TICKET
                     voucher: null
                     unitItems:
                     - uuid: 3b1bc2ee-3155-4738-9471-f49842a07327
-                      resellerReference: 102-256952-3
-                      supplierReference: J9T7R6
-                      unitId: adult_697e3ce8
+                      resellerReference: RES-TICKET-001
+                      supplierReference: SUP-TICKET-001
+                      unitId: UNIT-ADULT
                       unit:
-                        id: adult_697e3ce8
-                        internalName: Adult(s)
-                        reference: LR1-01
+                        id: UNIT-ADULT
+                        internalName: Adult
+                        reference: ADULT
                         type: ADULT
                         requiredContactFields:
                         - firstName
@@ -514,30 +514,66 @@ paths:
                         utcRedeemedAt: null
                         deliveryOptions:
                         - deliveryFormat: QRCODE
-                          deliveryValue: DIE382Q388455
+                          deliveryValue: TICKET-QRCODE-001
                         - deliveryFormat: PDF_URL
-                          deliveryValue: https://api.octomock.com/octo/pdf?booking=ec0ce0c2-03f0-4c64-bbc5-5e0f7d1e1c0a
+                          deliveryValue: https://api.acme-attractions.com/octo/tickets/BOOK-CONFIRMED-001.pdf
+                    - uuid: b0d4f2a1-7c58-4a19-9f3e-2c7d8e5a1b64
+                      resellerReference: RES-TICKET-002
+                      supplierReference: SUP-TICKET-002
+                      unitId: UNIT-CHILD
+                      unit:
+                        id: UNIT-CHILD
+                        internalName: Child
+                        reference: CHILD
+                        type: CHILD
+                        requiredContactFields:
+                        - firstName
+                        - lastName
+                        restrictions:
+                          minAge: 3
+                          maxAge: 17
+                          idRequired: false
+                          minQuantity: 0
+                          maxQuantity: 7
+                          paxCount: 1
+                          accompaniedBy:
+                          - UNIT-ADULT
+                      status: CONFIRMED
+                      utcRedeemedAt: null
+                      contact:
+                        firstName: Jane
+                        lastName: Doe
+                        locales:
+                        - en-GB
+                      ticket:
+                        redemptionMethod: DIGITAL
+                        utcRedeemedAt: null
+                        deliveryOptions:
+                        - deliveryFormat: QRCODE
+                          deliveryValue: TICKET-QRCODE-002
+                        - deliveryFormat: PDF_URL
+                          deliveryValue: https://api.acme-attractions.com/octo/tickets/BOOK-CONFIRMED-001.pdf
         '400':
           $ref: '#/components/responses/BookingListError'
       parameters:
       - schema:
           type: string
           examples:
-          - 102-256952-3
+          - RES-BOOK-001
         in: query
         name: resellerReference
         description: Reseller reference associated with the Booking.
       - schema:
           type: string
           examples:
-          - 300SK9
+          - SUP-BOOK-001
         in: query
         name: supplierReference
         description: Supplier reference associated with the Booking.
       - schema:
           type: string
           examples:
-          - '2026-05-01'
+          - '2026-06-15'
         in: query
         name: localDate
         description: |-
@@ -547,7 +583,7 @@ paths:
       - schema:
           type: string
           examples:
-          - '2026-05-01'
+          - '2026-06-15'
         in: query
         name: localDateStart
         description: |-
@@ -557,7 +593,7 @@ paths:
       - schema:
           type: string
           examples:
-          - '2026-05-31'
+          - '2026-06-18'
         in: query
         name: localDateEnd
         description: |-
@@ -567,14 +603,14 @@ paths:
       - schema:
           type: string
           examples:
-          - 6b903d44-dc24-4ca4-ae71-6bde6c4f4854
+          - PROD-OBSWHEEL-001
         in: query
         name: productId
         description: Identifier of the Product associated with the Booking.
       - schema:
           type: string
           examples:
-          - DEFAULT
+          - OPT-STANDARD-001
         in: query
         name: optionId
         description: Identifier of the Option associated with the Booking.
@@ -614,7 +650,7 @@ paths:
     - schema:
         type: string
         examples:
-        - ec0ce0c2-03f0-4c64-bbc5-5e0f7d1e1c0a
+        - 559aed3d-6d5b-4fe0-bfca-99f5e7218a56
       name: uuid
       in: path
       required: true
@@ -653,7 +689,7 @@ paths:
     - schema:
         type: string
         examples:
-        - ec0ce0c2-03f0-4c64-bbc5-5e0f7d1e1c0a
+        - 559aed3d-6d5b-4fe0-bfca-99f5e7218a56
       name: uuid
       in: path
       required: true
@@ -682,7 +718,7 @@ paths:
       - schema:
           type: string
           examples:
-          - ec0ce0c2-03f0-4c64-bbc5-5e0f7d1e1c0a
+          - 559aed3d-6d5b-4fe0-bfca-99f5e7218a56
         name: uuid
         in: path
         required: true
@@ -717,7 +753,7 @@ paths:
       - schema:
           type: string
           examples:
-          - ec0ce0c2-03f0-4c64-bbc5-5e0f7d1e1c0a
+          - 559aed3d-6d5b-4fe0-bfca-99f5e7218a56
         name: uuid
         in: path
         required: true
@@ -731,7 +767,7 @@ paths:
     - schema:
         type: string
         examples:
-        - a88b4b8d-9c3b-4a09-ba27-323b43af57e4
+        - 559aed3d-6d5b-4fe0-bfca-99f5e7218a56
       name: uuid
       in: path
       required: true
@@ -788,7 +824,7 @@ components:
       - string
       format: email
       examples:
-      - john@example.com
+      - john.doe@example.com
       description: The email address of the booking holder or the ticket holder.
     PhoneNumber:
       type:
@@ -796,14 +832,14 @@ components:
       - string
       description: The phone number of the booking holder or the ticket holder.
       examples:
-      - +44 7777 777777
+      - '+442021436587'
     PostalCode:
       type:
       - 'null'
       - string
       description: The postal / ZIP code of the booking holder or the ticket holder.
       examples:
-      - W1H 7EJ
+      - SE1 9AA
     Country:
       type:
       - 'null'
@@ -817,7 +853,7 @@ components:
       items:
         type: string
         examples:
-        - '["en"]'
+        - en-GB
     BookingHolderContact:
       type: object
       properties:
@@ -871,13 +907,13 @@ components:
       - 'null'
       description: Indicates the number of remaining vacancies. This value SHOULD be less than or equal to `capacity`. A `null` value MUST be returned when `status` equals `FREESALE`. A `null` value MAY be returned when capacity details cannot be reliably shared. This SHOULD NOT be done unless necessary. In this case, the `status` field SHOULD be used as an approximate indication of remaining availability.
       examples:
-      - 10
+      - 25
     Product:
       type: object
       examples:
-      - id: LEYE-6bde6c4f4854
-        internalName: London Eye Admission
-        reference: LEYE
+      - id: PROD-OBSWHEEL-001
+        internalName: Observation Wheel Admission
+        reference: OBSWHEEL
         locale: en-GB
         timeZone: Europe/London
         allowFreesale: false
@@ -892,16 +928,16 @@ components:
         - TICKET
         redemptionMethod: DIGITAL
         options:
-        - id: 2214b32d-ffa1-426c-b4d2-947dca724e50
+        - id: OPT-STANDARD-001
           default: true
-          internalName: Fast Track
-          reference: LEYE-FT
+          internalName: Standard Admission
+          reference: STANDARD
           availabilityLocalStartTimes:
-          - '09:00'
+          - '10:00'
           - '14:00'
-          - '17:00'
-          cancellationCutoff: 1 hour
-          cancellationCutoffAmount: 1
+          - '16:00'
+          cancellationCutoff: 24 hours
+          cancellationCutoffAmount: 24
           cancellationCutoffUnit: hour
           requiredContactFields:
           - firstName
@@ -910,9 +946,9 @@ components:
             minUnits: 1
             maxUnits: 20
           units:
-          - id: adult_697e3ce8
-            internalName: Adult(s)
-            reference: LR1-01
+          - id: UNIT-ADULT
+            internalName: Adult
+            reference: ADULT
             type: ADULT
             requiredContactFields:
             - firstName
@@ -925,10 +961,10 @@ components:
               maxQuantity: 7
               paxCount: 1
               accompaniedBy: []
-          - id: youth_f6446706
-            internalName: Youth(s)
-            reference: LR1-02
-            type: YOUTH
+          - id: UNIT-CHILD
+            internalName: Child
+            reference: CHILD
+            type: CHILD
             requiredContactFields:
             - firstName
             - lastName
@@ -940,13 +976,13 @@ components:
               maxQuantity: 7
               paxCount: 1
               accompaniedBy:
-              - adult_697e3ce8
+              - UNIT-ADULT
       description: A bookable product listed by a supplier.
       properties:
         id:
           type: string
           examples:
-          - LEYE-6bde6c4f4854
+          - PROD-OBSWHEEL-001
           description: Unique identifier for the Product. Used across Availability checks, Bookings, and other operations. MUST be unique within the respective Supplier's scope. (Max. 255 ASCII characters)
         internalName:
           type:
@@ -954,14 +990,14 @@ components:
           - 'null'
           description: Internal name used by the Supplier to identify the Product. The customer-facing name is defined in title under the Content capability.
           examples:
-          - London Eye Admission
+          - Observation Wheel Admission
         reference:
           type:
           - 'null'
           - string
           description: Internal reference code used by the Supplier to identify the Product.
           examples:
-          - LEYE
+          - OBSWHEEL
         locale:
           type: string
           examples:
@@ -981,7 +1017,7 @@ components:
             [DEPRECATED] Use availabilityRequired instead.
             Indicates whether an `availabilityId` is required to create a Booking. When false, open-dated Bookings can be created without specifying a travel date.
           examples:
-          - true
+          - false
         instantConfirmation:
           type: boolean
           description: Indicates whether a Booking is immediately confirmed upon a confirmation request. When false, the Booking enters a `PENDING` state until the Supplier accepts or rejects it.
@@ -1041,9 +1077,9 @@ components:
     Unit:
       type: object
       examples:
-      - id: adult_697e3ce8
-        internalName: Adult(s)
-        reference: LR1-01
+      - id: UNIT-ADULT
+        internalName: Adult
+        reference: ADULT
         type: ADULT
         requiredContactFields:
         - firstName
@@ -1056,16 +1092,61 @@ components:
           maxQuantity: 7
           paxCount: 1
           accompaniedBy: []
+      - id: UNIT-CHILD
+        internalName: Child
+        reference: CHILD
+        type: CHILD
+        requiredContactFields:
+        - firstName
+        - lastName
+        restrictions:
+          minAge: 3
+          maxAge: 17
+          idRequired: false
+          minQuantity: 0
+          maxQuantity: 7
+          paxCount: 1
+          accompaniedBy:
+          - UNIT-ADULT
+      - id: UNIT-INFANT
+        internalName: Infant
+        reference: INFANT
+        type: INFANT
+        requiredContactFields: []
+        restrictions:
+          minAge: 0
+          maxAge: 2
+          idRequired: false
+          minQuantity: 0
+          maxQuantity: 7
+          paxCount: 1
+          accompaniedBy:
+          - UNIT-ADULT
+      - id: UNIT-SENIOR
+        internalName: Senior
+        reference: SENIOR
+        type: SENIOR
+        requiredContactFields:
+        - firstName
+        - lastName
+        restrictions:
+          minAge: 65
+          maxAge: 99
+          idRequired: true
+          minQuantity: 0
+          maxQuantity: 7
+          paxCount: 1
+          accompaniedBy: []
       properties:
         id:
           type: string
           description: Unique unit identifier within the Option scope. (Max. 255 ASCII characters)
           examples:
-          - adult_697e3ce8
+          - UNIT-ADULT
         internalName:
           type: string
           examples:
-          - Adult(s)
+          - Adult
           description: Supplier's label for this unit type. NOT for display to end customers.
         reference:
           type:
@@ -1073,7 +1154,7 @@ components:
           - string
           description: Optional supplier internal reference for the unit
           examples:
-          - LR1-01
+          - ADULT
         type:
           $ref: '#/components/schemas/UnitType'
         requiredContactFields:
@@ -1143,7 +1224,7 @@ components:
           items:
             type: string
             examples:
-            - adult_697e3ce8-1860-4cbf-80ad-95857df1f640
+            - UNIT-ADULT
       required:
       - minAge
       - maxAge
@@ -1195,7 +1276,7 @@ components:
       - OTHER
       examples:
       - ADULT
-      - YOUTH
+      - CHILD
       description: |-
         Base unit type category.
 
@@ -1236,16 +1317,16 @@ components:
     Option:
       type: object
       examples:
-      - id: 2214b32d-ffa1-426c-b4d2-947dca724e50
+      - id: OPT-STANDARD-001
         default: true
-        internalName: Fast Track
-        reference: LEYE-FT
+        internalName: Standard Admission
+        reference: STANDARD
         availabilityLocalStartTimes:
-        - '09:00'
+        - '10:00'
         - '14:00'
-        - '17:00'
-        cancellationCutoff: 1 hour
-        cancellationCutoffAmount: 1
+        - '16:00'
+        cancellationCutoff: 24 hours
+        cancellationCutoffAmount: 24
         cancellationCutoffUnit: hour
         requiredContactFields:
         - firstName
@@ -1254,9 +1335,9 @@ components:
           minUnits: 1
           maxUnits: 20
         units:
-        - id: adult_697e3ce8
-          internalName: Adult(s)
-          reference: LR1-01
+        - id: UNIT-ADULT
+          internalName: Adult
+          reference: ADULT
           type: ADULT
           requiredContactFields:
           - firstName
@@ -1269,10 +1350,10 @@ components:
             maxQuantity: 7
             paxCount: 1
             accompaniedBy: []
-        - id: youth_f6446706
-          internalName: Youth(s)
-          reference: LR1-02
-          type: YOUTH
+        - id: UNIT-CHILD
+          internalName: Child
+          reference: CHILD
+          type: CHILD
           requiredContactFields:
           - firstName
           - lastName
@@ -1284,33 +1365,66 @@ components:
             maxQuantity: 7
             paxCount: 1
             accompaniedBy:
-            - adult_697e3ce8
+            - UNIT-ADULT
+      - id: OPT-PRIORITY-001
+        default: false
+        internalName: Priority Entry
+        reference: PRIORITY
+        availabilityLocalStartTimes:
+        - '10:00'
+        - '14:00'
+        - '16:00'
+        cancellationCutoff: 24 hours
+        cancellationCutoffAmount: 24
+        cancellationCutoffUnit: hour
+        requiredContactFields:
+        - firstName
+        - lastName
+        restrictions:
+          minUnits: 1
+          maxUnits: 20
+        units:
+        - id: UNIT-ADULT
+          internalName: Adult
+          reference: ADULT
+          type: ADULT
+          requiredContactFields:
+          - firstName
+          - lastName
+          restrictions:
+            minAge: 18
+            maxAge: 99
+            idRequired: false
+            minQuantity: 1
+            maxQuantity: 7
+            paxCount: 1
+            accompaniedBy: []
       description: Product options are subdivisions of the original product that will affect price and / or duration. Within the OCTo spec, every product must contain an option.
       properties:
         id:
           type: string
           examples:
-          - 2214b32d-ffa1-426c-b4d2-947dca724e50
+          - OPT-STANDARD-001
           description: Unique identifier for the Option within the Product. Used across Availability checks, Bookings, and other operations. MUST be unique within the respective Product's scope. (Max. 255 ASCII characters)
         default:
           type: boolean
           description: Indicates whether the option is the default selection. Default option SHOULD be rendered and selected first in customer-facing interfaces.
           examples:
-          - false
+          - true
         internalName:
           type:
           - string
           - 'null'
           description: Internal name used by the Supplier to identify the Option. The customer-facing name is defined in `title` under the Content capability if the Supplier System supports that capability.
           examples:
-          - Fast Track
+          - Standard Admission
         reference:
           type:
           - 'null'
           - string
           description: Internal reference code used by the Supplier to identify the Option.
           examples:
-          - LEYE-FT
+          - STANDARD
         availabilityLocalStartTimes:
           type:
           - array
@@ -1318,22 +1432,22 @@ components:
           description: All possible start times for the Option, as returned during Availability checks (e.g., ["09:00", "14:00", "17:00"]).
           items:
             type: string
-            default: 00:00
+            default: '00:00'
             examples:
-            - 09:00
+            - '10:00'
         cancellationCutoff:
           type:
           - string
           - 'null'
           examples:
-          - Final Sale. All tickets are non-refundable and non-transferable once purchased.
+          - Free cancellation up to 24 hours before the start time.
           description: Human-readable description of the cancellation policy for the Option.
         cancellationCutoffAmount:
           type:
           - integer
           - 'null'
           examples:
-          - 1
+          - 24
           description: Numeric value of the cancellation cutoff period, relative to the start time or closing hour of the Product.
         cancellationCutoffUnit:
           oneOf:
@@ -1481,32 +1595,32 @@ components:
     Supplier:
       type: object
       examples:
-      - id: 697e3ce8-1860-4cbf-80ad-95857df1f640
-        name: Merlin Entertainments
-        endpoint: https://trade.api.merlinentertainments.biz/b2b-trade/octo
+      - id: supplier-95857df1f640
+        name: Acme Attractions Ltd
+        endpoint: https://api.acme-attractions.com/octo
         contact:
-          website: https://www.merlinentertainments.biz
-          email: info@merlinentertainments.biz
-          telephone: '+441202666900'
-          address: Link House, 25 West St, Poole BH15 1LD, United Kingdom
+          website: https://www.acme-attractions.com
+          email: support@acme-attractions.com
+          telephone: '+442012345678'
+          address: 100 Riverside Way, London SE1 9AA, United Kingdom
       properties:
         id:
           type: string
           examples:
-          - 697e3ce8-1860-4cbf-80ad-95857df1f640
+          - supplier-95857df1f640
           description: A unique identifier for this Supplier. MUST NOT exceed 255 printable ASCII characters.
         name:
           type: string
           description: The human-readable name of this Supplier, used to identify it within the system.
           examples:
-          - Merlin Entertainments
+          - Acme Attractions Ltd
         endpoint:
           type: string
           format: uri
           deprecated: true
           description: '[DEPRECATED] The base URL prepended to all API request paths. MUST be a valid URI and MUST NOT include a trailing slash.'
           examples:
-          - https://trade.api.merlinentertainments.biz/b2b-trade/octo
+          - https://api.acme-attractions.com/octo
         contact:
           description: The contact details for this Supplier, including available communication methods and mailing address.
           type: object
@@ -1523,7 +1637,7 @@ components:
               format: uri
               description: The official website URL of this Supplier. MUST be a valid URI and MUST NOT include a trailing slash.
               examples:
-              - https://www.merlinentertainments.biz
+              - https://www.acme-attractions.com
             email:
               type:
               - 'null'
@@ -1531,21 +1645,21 @@ components:
               format: email
               description: The customer service email address for this Supplier.
               examples:
-              - info@merlinentertainments.biz
+              - support@acme-attractions.com
             telephone:
               type:
               - 'null'
               - string
               description: The customer service telephone number for this Supplier. MUST be formatted according to E.164.
               examples:
-              - '+441202666900'
+              - '+442012345678'
             address:
               type:
               - 'null'
               - string
               description: The full mailing address for this Supplier, provided as a single string. SHOULD include street, city, postal code, and country.
               examples:
-              - Link House, 25 West St, Poole BH15 1LD, United Kingdom
+              - 100 Riverside Way, London SE1 9AA, United Kingdom
       required:
       - id
       - name
@@ -1553,29 +1667,29 @@ components:
     Availability:
       type: object
       examples:
-      - id: '2026-02-28T00:00:00+00:00'
-        localDateTimeStart: '2026-02-28T00:00:00+00:00'
-        localDateTimeEnd: '2026-03-01T00:00:00+00:00'
+      - id: AVAIL-FREESALE-001
+        localDateTimeStart: '2026-06-15T00:00:00+01:00'
+        localDateTimeEnd: '2026-06-16T00:00:00+01:00'
         allDay: true
         available: true
         status: FREESALE
         vacancies: null
         capacity: null
         maxUnits: null
-        utcCutoffAt: '2026-02-27T22:00:00Z'
+        utcCutoffAt: '2026-06-15T08:00:00Z'
         openingHours:
         - from: '09:00'
           to: '17:00'
-      - id: FE32BA12
-        localDateTimeStart: '2026-02-28T09:00:00+00:00'
-        localDateTimeEnd: '2026-02-28T09:30:00+00:00'
+      - id: AVAIL-AVAILABLE-001
+        localDateTimeStart: '2026-06-15T10:00:00+01:00'
+        localDateTimeEnd: '2026-06-15T10:30:00+01:00'
         allDay: false
         available: true
         status: AVAILABLE
-        vacancies: 10
-        capacity: 10
+        vacancies: 25
+        capacity: 100
         maxUnits: 10
-        utcCutoffAt: '2026-02-28T08:00:00Z'
+        utcCutoffAt: '2026-06-15T08:00:00Z'
         openingHours: []
       title: ''
       description: Schema for the `/availability/calendar` endpoint. It's designed to be queried for large date ranges and the result is used to populate an availability calendar.
@@ -1583,19 +1697,18 @@ components:
         id:
           type: string
           examples:
-          - FE32BA12
-          - '2022-05-23T00:00:00+01:00'
+          - AVAIL-AVAILABLE-001
           description: Unique availability identifier. Used as availabilityId when booking. Unique within the context of the respective Product. (Max. 255 ASCII characters)
         localDateTimeStart:
           type: string
           examples:
-          - '2022-06-30T12:00:00+01:00'
+          - '2026-06-15T10:00:00+01:00'
           description: Local start datetime of this slot
           format: date-time
         localDateTimeEnd:
           type: string
           examples:
-          - '2022-06-30T14:00:00+01:00'
+          - '2026-06-15T10:30:00+01:00'
           description: Local end datetime of this slot
           format: date-time
         allDay:
@@ -1618,7 +1731,7 @@ components:
           - integer
           - 'null'
           examples:
-          - 10
+          - 100
           description: Indicates the total available capacity. A `null` value MAY be returned when capacity details cannot be reliably shared. This SHOULD NOT be done unless necessary.
         maxUnits:
           type:
@@ -1630,7 +1743,7 @@ components:
         utcCutoffAt:
           type: string
           examples:
-          - '2022-06-30T10:00:00Z'
+          - '2026-06-15T08:00:00Z'
           description: UTC time by which a booking must be confirmed
         openingHours:
           description: Opening hours for this day (empty array for START_TIME products)
@@ -1672,11 +1785,11 @@ components:
     AvailabilityCalendar:
       type: object
       examples:
-      - localDate: '2026-02-25'
+      - localDate: '2026-06-15'
         available: true
         status: AVAILABLE
-        vacancies: 10
-        capacity: 10
+        vacancies: 25
+        capacity: 100
         openingHours:
         - from: '09:00'
           to: '17:00'
@@ -1685,7 +1798,7 @@ components:
         localDate:
           type: string
           examples:
-          - '2022-05-12'
+          - '2026-06-15'
           description: The date in ISO 8601 format (YYYY-MM-DD)
           format: date
         available:
@@ -1703,7 +1816,7 @@ components:
           - integer
           - 'null'
           examples:
-          - 10
+          - 100
           description: Indicates the total available capacity. A `null` value MAY be returned when capacity details cannot be reliably shared. This SHOULD NOT be done unless necessary.
         openingHours:
           type: array
@@ -1773,20 +1886,20 @@ components:
           - string
           - 'null'
           examples:
-          - TICKET-001
+          - RES-TICKET-001
           description: Per-ticket reseller reference. Omitting this value MAY complicate cross-referencing between the Reseller and the Supplier.
         supplierReference:
           type:
           - string
           - 'null'
           examples:
-          - J9T7R6
+          - SUP-TICKET-001
           description: Per-ticket supplier reference. Omitting this value MAY complicate cross-referencing between the Reseller and the Supplier.
         unitId:
           description: Unit type ID (references the `Unit.id` field in the Option object)
           type: string
           examples:
-          - adult
+          - UNIT-ADULT
         unit:
           description: Embedded `Unit` definition.
           allOf:
@@ -1831,13 +1944,13 @@ components:
       description: ''
       examples:
       - uuid: 3b1bc2ee-3155-4738-9471-f49842a07327
-        resellerReference: TICKET-001
-        supplierReference: J9T7R6
-        unitId: adult_697e3ce8
+        resellerReference: RES-TICKET-001
+        supplierReference: SUP-TICKET-001
+        unitId: UNIT-ADULT
         unit:
-          id: adult_697e3ce8
-          internalName: Adult(s)
-          reference: LR1-01
+          id: UNIT-ADULT
+          internalName: Adult
+          reference: ADULT
           type: ADULT
           requiredContactFields:
           - firstName
@@ -1862,9 +1975,9 @@ components:
           utcRedeemedAt: null
           deliveryOptions:
           - deliveryFormat: QRCODE
-            deliveryValue: DIE382Q388455
+            deliveryValue: TICKET-QRCODE-001
           - deliveryFormat: PDF_URL
-            deliveryValue: https://api.octomock.com/octo/pdf?booking=ec0ce0c2-03f0-4c64-bbc5-5e0f7d1e1c0a
+            deliveryValue: https://api.acme-attractions.com/octo/tickets/BOOK-CONFIRMED-001.pdf
     Ticket:
       type: object
       examples:
@@ -1872,9 +1985,9 @@ components:
         utcRedeemedAt: null
         deliveryOptions:
         - deliveryFormat: QRCODE
-          deliveryValue: DIE382Q388455
+          deliveryValue: TICKET-QRCODE-001
         - deliveryFormat: PDF_URL
-          deliveryValue: https://api.octomock.com/octo/pdf?booking=ec0ce0c2-03f0-4c64-bbc5-5e0f7d1e1c0a
+          deliveryValue: https://api.acme-attractions.com/octo/tickets/BOOK-CONFIRMED-001.pdf
       properties:
         redemptionMethod:
           $ref: '#/components/schemas/RedemptionMethod'
@@ -1884,7 +1997,7 @@ components:
           - string
           description: ISO 8601 UTC timestamp indicating when the Ticket/Voucher was redeemed. `null` value implies that redemption hasn't happened or the system does not have this information
           examples:
-          - '2026-03-01T13:28:43Z'
+          - '2026-06-15T10:05:00Z'
         deliveryOptions:
           description: Object containing available delivery options for the ticket or voucher. Each item defines a `deliveryFormat` and its corresponding `deliveryValue`.
           type: array
@@ -1897,8 +2010,8 @@ components:
                 type: string
                 description: Ticket payload or URL, depending on the `deliveryFormat`.
                 examples:
-                - https://api.octomock.com/octo/pdf?booking=ec0ce0c2-03f0-4c64-bbc5-5e0f7d1e1c0a
-                - DIE382Q388455
+                - https://api.acme-attractions.com/octo/tickets/BOOK-CONFIRMED-001.pdf
+                - TICKET-QRCODE-001
             required:
             - deliveryFormat
             - deliveryValue
@@ -1913,13 +2026,14 @@ components:
       - fullName: John Doe
         firstName: John
         lastName: Doe
-        emailAddress: john@example.com
-        phoneNumber: '+44 7777 777777'
+        emailAddress: john.doe@example.com
+        phoneNumber: '+442021436587'
         locales:
         - en-GB
-        postalCode: W1H 7EJ
+        - en
+        postalCode: SE1 9AA
         country: GB
-        notes: 'Dietary: vegan'
+        notes: Wheelchair access requested
       description: Contact details for the guests that will attend the tour/attraction. Contact schema can be applied to both the booking object (the main reservation) or the unit object (individual ticket holders - if the supplier requires this information)
       properties:
         fullName:
@@ -1954,7 +2068,7 @@ components:
 
             Information provided in this field MUST be considered visible to all relevant parties.
           examples:
-          - 'Dietary: vegan'
+          - Wheelchair access requested
       required:
       - locales
     Cancellation:
@@ -1979,7 +2093,7 @@ components:
         utcCancelledAt:
           type: string
           examples:
-          - '2026-03-01T13:28:43Z'
+          - '2026-06-15T09:30:00Z'
           description: ISO 8601 UTC timestamp indicating when the Booking was cancelled.
     CancellationRefund:
       type: string
@@ -1998,22 +2112,22 @@ components:
     Booking:
       type: object
       examples:
-      - id: 187583938745-D
+      - id: BOOK-CONFIRMED-001
         uuid: 559aed3d-6d5b-4fe0-bfca-99f5e7218a56
         testMode: false
-        resellerReference: 102-256952-3
-        supplierReference: 300SK9
+        resellerReference: RES-BOOK-001
+        supplierReference: SUP-BOOK-001
         status: CONFIRMED
-        utcCreatedAt: '2026-02-17T23:28:43Z'
-        utcUpdatedAt: '2026-02-17T23:32:33Z'
+        utcCreatedAt: '2026-06-15T08:30:00Z'
+        utcUpdatedAt: '2026-06-15T08:35:00Z'
         utcExpiresAt: null
         utcRedeemedAt: null
-        utcConfirmedAt: '2026-02-17T23:32:33Z'
-        productId: LEYE-6bde6c4f4854
+        utcConfirmedAt: '2026-06-15T08:35:00Z'
+        productId: PROD-OBSWHEEL-001
         product:
-          id: LEYE-6bde6c4f4854
-          internalName: London Eye Admission
-          reference: LEYE
+          id: PROD-OBSWHEEL-001
+          internalName: Observation Wheel Admission
+          reference: OBSWHEEL
           locale: en-GB
           timeZone: Europe/London
           allowFreesale: false
@@ -2028,16 +2142,16 @@ components:
           - TICKET
           redemptionMethod: DIGITAL
           options:
-          - id: 2214b32d-ffa1-426c-b4d2-947dca724e50
+          - id: OPT-STANDARD-001
             default: true
-            internalName: Fast Track
-            reference: LEYE-FT
+            internalName: Standard Admission
+            reference: STANDARD
             availabilityLocalStartTimes:
-            - '09:00'
+            - '10:00'
             - '14:00'
-            - '17:00'
-            cancellationCutoff: 1 hour
-            cancellationCutoffAmount: 1
+            - '16:00'
+            cancellationCutoff: 24 hours
+            cancellationCutoffAmount: 24
             cancellationCutoffUnit: hour
             requiredContactFields:
             - firstName
@@ -2046,9 +2160,9 @@ components:
               minUnits: 1
               maxUnits: 20
             units:
-            - id: adult_697e3ce8
-              internalName: Adult(s)
-              reference: LR1-01
+            - id: UNIT-ADULT
+              internalName: Adult
+              reference: ADULT
               type: ADULT
               requiredContactFields:
               - firstName
@@ -2061,10 +2175,10 @@ components:
                 maxQuantity: 7
                 paxCount: 1
                 accompaniedBy: []
-            - id: youth_f6446706
-              internalName: Youth(s)
-              reference: LR1-02
-              type: YOUTH
+            - id: UNIT-CHILD
+              internalName: Child
+              reference: CHILD
+              type: CHILD
               requiredContactFields:
               - firstName
               - lastName
@@ -2076,19 +2190,19 @@ components:
                 maxQuantity: 7
                 paxCount: 1
                 accompaniedBy:
-                - adult_697e3ce8
-        optionId: 2214b32d-ffa1-426c-b4d2-947dca724e50
+                - UNIT-ADULT
+        optionId: OPT-STANDARD-001
         option:
-          id: 2214b32d-ffa1-426c-b4d2-947dca724e50
+          id: OPT-STANDARD-001
           default: true
-          internalName: Fast Track
-          reference: LEYE-FT
+          internalName: Standard Admission
+          reference: STANDARD
           availabilityLocalStartTimes:
-          - '09:00'
+          - '10:00'
           - '14:00'
-          - '17:00'
-          cancellationCutoff: 1 hour
-          cancellationCutoffAmount: 1
+          - '16:00'
+          cancellationCutoff: 24 hours
+          cancellationCutoffAmount: 24
           cancellationCutoffUnit: hour
           requiredContactFields:
           - firstName
@@ -2097,9 +2211,9 @@ components:
             minUnits: 1
             maxUnits: 20
           units:
-          - id: adult_697e3ce8
-            internalName: Adult(s)
-            reference: LR1-01
+          - id: UNIT-ADULT
+            internalName: Adult
+            reference: ADULT
             type: ADULT
             requiredContactFields:
             - firstName
@@ -2112,10 +2226,10 @@ components:
               maxQuantity: 7
               paxCount: 1
               accompaniedBy: []
-          - id: youth_f6446706
-            internalName: Youth(s)
-            reference: LR1-02
-            type: YOUTH
+          - id: UNIT-CHILD
+            internalName: Child
+            reference: CHILD
+            type: CHILD
             requiredContactFields:
             - firstName
             - lastName
@@ -2127,41 +2241,42 @@ components:
               maxQuantity: 7
               paxCount: 1
               accompaniedBy:
-              - adult_697e3ce8
+              - UNIT-ADULT
         cancellable: true
         cancellation: null
         freesale: false
-        availabilityId: FE32BA12
+        availabilityId: AVAIL-AVAILABLE-001
         availability:
-          id: FE32BA12
-          localDateTimeStart: '2026-02-28T09:00:00+00:00'
-          localDateTimeEnd: '2026-02-28T09:30:00+00:00'
+          id: AVAIL-AVAILABLE-001
+          localDateTimeStart: '2026-06-15T10:00:00+01:00'
+          localDateTimeEnd: '2026-06-15T10:30:00+01:00'
           allDay: false
           openingHours: []
         contact:
           fullName: John Doe
           firstName: John
           lastName: Doe
-          emailAddress: john@example.com
-          phoneNumber: '+44 7777 777777'
+          emailAddress: john.doe@example.com
+          phoneNumber: '+442021436587'
           locales:
           - en-GB
-          postalCode: W1H 7EJ
+          - en
+          postalCode: SE1 9AA
           country: GB
-          notes: 'Dietary: vegan'
-        notes: Wheelchair accessible tour please
+          notes: Wheelchair access requested
+        notes: Wheelchair accessible entry requested
         deliveryMethods:
         - TICKET
         voucher: null
         unitItems:
         - uuid: 3b1bc2ee-3155-4738-9471-f49842a07327
-          resellerReference: TICKET-001
-          supplierReference: J9T7R6
-          unitId: adult_697e3ce8
+          resellerReference: RES-TICKET-001
+          supplierReference: SUP-TICKET-001
+          unitId: UNIT-ADULT
           unit:
-            id: adult_697e3ce8
-            internalName: Adult(s)
-            reference: LR1-01
+            id: UNIT-ADULT
+            internalName: Adult
+            reference: ADULT
             type: ADULT
             requiredContactFields:
             - firstName
@@ -2186,18 +2301,18 @@ components:
             utcRedeemedAt: null
             deliveryOptions:
             - deliveryFormat: QRCODE
-              deliveryValue: DIE382Q388455
+              deliveryValue: TICKET-QRCODE-001
             - deliveryFormat: PDF_URL
-              deliveryValue: https://api.octomock.com/octo/pdf?booking=ec0ce0c2-03f0-4c64-bbc5-5e0f7d1e1c0a
+              deliveryValue: https://api.acme-attractions.com/octo/tickets/BOOK-CONFIRMED-001.pdf
         - uuid: b0d4f2a1-7c58-4a19-9f3e-2c7d8e5a1b64
-          resellerReference: TICKET-002
-          supplierReference: J9T7R7
-          unitId: youth_f6446706
+          resellerReference: RES-TICKET-002
+          supplierReference: SUP-TICKET-002
+          unitId: UNIT-CHILD
           unit:
-            id: youth_f6446706
-            internalName: Youth(s)
-            reference: LR1-02
-            type: YOUTH
+            id: UNIT-CHILD
+            internalName: Child
+            reference: CHILD
+            type: CHILD
             requiredContactFields:
             - firstName
             - lastName
@@ -2209,7 +2324,7 @@ components:
               maxQuantity: 7
               paxCount: 1
               accompaniedBy:
-              - adult_697e3ce8
+              - UNIT-ADULT
           status: CONFIRMED
           utcRedeemedAt: null
           contact:
@@ -2222,16 +2337,16 @@ components:
             utcRedeemedAt: null
             deliveryOptions:
             - deliveryFormat: QRCODE
-              deliveryValue: DIE382Q388456
+              deliveryValue: TICKET-QRCODE-002
             - deliveryFormat: PDF_URL
-              deliveryValue: https://api.octomock.com/octo/pdf?booking=ec0ce0c2-03f0-4c64-bbc5-5e0f7d1e1c0a
+              deliveryValue: https://api.acme-attractions.com/octo/tickets/BOOK-CONFIRMED-001.pdf
       description: ''
       title: ''
       properties:
         id:
           type: string
           examples:
-          - 187583938745-D
+          - BOOK-CONFIRMED-001
           description: Unique identifier generated by the Supplier System for identifying the Booking. Unique within the context of the respective Supplier. (Max. 255 ASCII characters)
         uuid:
           type: string
@@ -2253,27 +2368,27 @@ components:
           - 'null'
           description: Reseller system-provided reference for the Booking. Value MAY be set by the Reseller in the Booking confirmation request. Omitting this value MAY complicate cross-referencing between the Reseller and the Supplier.
           examples:
-          - 102-256952-3
+          - RES-BOOK-001
         supplierReference:
           type:
           - string
           - 'null'
           description: Supplier system-provided reference for the Booking. Omitting this value MAY complicate cross-referencing between the Reseller and the Supplier.
           examples:
-          - 300SK9
+          - SUP-BOOK-001
         status:
           $ref: '#/components/schemas/BookingStatus'
         utcCreatedAt:
           type: string
           examples:
-          - '2026-02-17T23:28:43Z'
+          - '2026-06-15T08:30:00Z'
           description: ISO 8601 UTC timestamp indicating when the Booking was created in the Supplier system.
         utcUpdatedAt:
           type:
           - string
           - 'null'
           examples:
-          - '2021-10-27T23:28:43Z'
+          - '2026-06-15T08:35:00Z'
           description: ISO 8601 UTC timestamp indicating when the Booking was last updated in the Supplier system. A `null` value implies the Booking was never updated.
         utcExpiresAt:
           type:
@@ -2281,25 +2396,25 @@ components:
           - 'null'
           description: ISO 8601 UTC timestamp indicating when the Booking expires if the status is `ON_HOLD`. SHOULD be set to `null` if the `Booking.status` is NOT `ON_HOLD`. All Bookings MUST have an expiration date/time.
           examples:
-          - '2026-02-17T23:58:43Z'
+          - '2026-06-15T09:00:00Z'
         utcRedeemedAt:
           type:
           - string
           - 'null'
           description: ISO 8601 UTC timestamp indicating when the Booking was redeemed. A `null` value implies that redemption hasn't happened or the system does not have this information
           examples:
-          - '2026-02-28T09:05:13Z'
+          - '2026-06-15T10:05:00Z'
         utcConfirmedAt:
           type:
           - string
           - 'null'
           examples:
-          - '2026-02-17T23:32:33Z'
+          - '2026-06-15T08:35:00Z'
           description: ISO 8601 UTC timestamp indicating when the Booking was confirmed. A Booking with `status` = "CANCELLED" should continue to have its `utcConfirmedAt` value set.
         productId:
           type: string
           examples:
-          - LEYE-6bde6c4f4854
+          - PROD-OBSWHEEL-001
           description: Identifier of the booked product.
         product:
           description: Embedded Product object at the time of booking.
@@ -2308,7 +2423,7 @@ components:
         optionId:
           type: string
           examples:
-          - DEFAULT
+          - OPT-STANDARD-001
           description: Identifier of the Product's Option for the Booking.
         option:
           description: Embedded `option` object at the time of booking.
@@ -2337,8 +2452,7 @@ components:
             `availabilityId` used when creating the Booking.
             MAY be `null` if the Product has `availabilityRequired` set to `false`.
           examples:
-          - FE32BA12
-          - '2022-05-23T00:00:00+01:00'
+          - AVAIL-AVAILABLE-001
         availability:
           $ref: '#/components/schemas/BookedAvailability'
         contact:
@@ -2351,7 +2465,7 @@ components:
           - string
           - 'null'
           examples:
-          - Wheelchair accessible tour please
+          - Wheelchair accessible entry requested
         deliveryMethods:
           type: array
           description: The delivery methods applied to this Booking. Each value MUST be a `DeliveryMethod`, and determines which of `Booking.voucher` and `UnitItem.ticket` are populated.
@@ -2406,17 +2520,17 @@ components:
         id:
           type: string
           examples:
-          - '2021-10-27T00:00:00-04:00'
+          - AVAIL-AVAILABLE-001
           description: The availability id that was used in the request.
         localDateTimeStart:
           type: string
           examples:
-          - '2021-10-27T00:00:00-04:00'
+          - '2026-06-15T10:00:00+01:00'
           description: The `localDateTimeStart` value from the original availability object.
         localDateTimeEnd:
           type: string
           examples:
-          - '2021-10-28T00:00:00-04:00'
+          - '2026-06-15T10:30:00+01:00'
           description: The `localDateTimeEnd` value from the original availability object.
         allDay:
           type: boolean
@@ -2429,46 +2543,70 @@ components:
   examples:
     AvailabilityOpeningHours:
       value:
-      - id: '2026-02-28T00:00:00+00:00'
-        localDateTimeStart: '2026-02-28T00:00:00+00:00'
-        localDateTimeEnd: '2026-03-01T00:00:00+00:00'
+      - id: AVAIL-FREESALE-001
+        localDateTimeStart: '2026-06-15T00:00:00+01:00'
+        localDateTimeEnd: '2026-06-16T00:00:00+01:00'
         allDay: true
         available: true
         status: FREESALE
         vacancies: null
         capacity: null
         maxUnits: null
-        utcCutoffAt: '2026-02-27T22:00:00Z'
+        utcCutoffAt: '2026-06-15T08:00:00Z'
+        openingHours:
+        - from: '09:00'
+          to: '17:00'
+      - id: AVAIL-ALLDAY-001
+        localDateTimeStart: '2026-06-16T00:00:00+01:00'
+        localDateTimeEnd: '2026-06-17T00:00:00+01:00'
+        allDay: true
+        available: true
+        status: AVAILABLE
+        vacancies: 25
+        capacity: 100
+        maxUnits: 10
+        utcCutoffAt: '2026-06-15T08:00:00Z'
         openingHours:
         - from: '09:00'
           to: '17:00'
     AvailabilityStartTimes:
       value:
-      - id: FE32BA12
-        localDateTimeStart: '2026-02-28T09:00:00+00:00'
-        localDateTimeEnd: '2026-02-28T09:30:00+00:00'
+      - id: AVAIL-AVAILABLE-001
+        localDateTimeStart: '2026-06-15T10:00:00+01:00'
+        localDateTimeEnd: '2026-06-15T10:30:00+01:00'
         allDay: false
         available: true
         status: AVAILABLE
-        vacancies: 10
-        capacity: 10
+        vacancies: 25
+        capacity: 100
         maxUnits: 10
-        utcCutoffAt: '2026-02-28T08:00:00Z'
+        utcCutoffAt: '2026-06-15T08:00:00Z'
         openingHours: []
-      - id: 8A2D41CE
-        localDateTimeStart: '2026-02-28T14:00:00+00:00'
-        localDateTimeEnd: '2026-02-28T14:30:00+00:00'
+      - id: AVAIL-LIMITED-001
+        localDateTimeStart: '2026-06-15T14:00:00+01:00'
+        localDateTimeEnd: '2026-06-15T14:30:00+01:00'
         allDay: false
         available: true
         status: LIMITED
-        vacancies: 3
-        capacity: 10
+        vacancies: 5
+        capacity: 100
         maxUnits: 10
-        utcCutoffAt: '2026-02-28T13:00:00Z'
+        utcCutoffAt: '2026-06-15T08:00:00Z'
+        openingHours: []
+      - id: AVAIL-SOLD-OUT-001
+        localDateTimeStart: '2026-06-15T16:00:00+01:00'
+        localDateTimeEnd: '2026-06-15T16:30:00+01:00'
+        allDay: false
+        available: false
+        status: SOLD_OUT
+        vacancies: 0
+        capacity: 100
+        maxUnits: 10
+        utcCutoffAt: '2026-06-15T08:00:00Z'
         openingHours: []
     AvailabilityCalendarOpeningHours:
       value:
-      - localDate: '2026-02-26'
+      - localDate: '2026-06-15'
         available: true
         status: FREESALE
         vacancies: null
@@ -2476,62 +2614,66 @@ components:
         openingHours:
         - from: '09:00'
           to: '17:00'
-      - localDate: '2026-02-27'
+      - localDate: '2026-06-16'
         available: true
-        status: FREESALE
-        vacancies: null
-        capacity: null
+        status: AVAILABLE
+        vacancies: 25
+        capacity: 100
         openingHours:
         - from: '09:00'
           to: '17:00'
-      - localDate: '2026-02-28'
-        available: true
-        status: FREESALE
-        vacancies: null
-        capacity: null
-        openingHours:
-        - from: '09:00'
-          to: '17:00'
+      - localDate: '2026-06-17'
+        available: false
+        status: CLOSED
+        vacancies: 0
+        capacity: 0
+        openingHours: []
     AvailabilityCalendarStartTimes:
       value:
-      - localDate: '2026-02-26'
+      - localDate: '2026-06-15'
         available: true
         status: AVAILABLE
-        vacancies: 20
-        capacity: 20
+        vacancies: 25
+        capacity: 100
         openingHours: []
-      - localDate: '2026-02-27'
-        available: true
-        status: AVAILABLE
-        vacancies: 10
-        capacity: 10
-        openingHours: []
-      - localDate: '2026-02-28'
+      - localDate: '2026-06-16'
         available: true
         status: LIMITED
-        vacancies: 3
-        capacity: 10
+        vacancies: 5
+        capacity: 100
+        openingHours: []
+      - localDate: '2026-06-17'
+        available: false
+        status: SOLD_OUT
+        vacancies: 0
+        capacity: 100
+        openingHours: []
+      - localDate: '2026-06-18'
+        available: false
+        status: CLOSED
+        vacancies: 0
+        capacity: 0
         openingHours: []
     ErrorInvalidProductID:
       value:
         error: INVALID_PRODUCT_ID
         errorMessage: The productId was missing or invalid
-        productId: cc2a6d56-6efe-426f-99c9-6eb10e341565
+        productId: PROD-UNKNOWN-001
     ErrorInvalidOptionID:
       value:
         error: INVALID_OPTION_ID
         errorMessage: The optionId was missing or invalid
-        optionId: 681fea0f-196e-45da-bec7-467bfacb1d87
+        optionId: OPT-UNKNOWN-001
     ErrorInvalidUnitID:
       value:
         error: INVALID_UNIT_ID
         errorMessage: The unitId was missing or invalid
-        unitId: senior
+        unitId: UNIT-UNKNOWN
     ErrorInvalidAvailabilityID:
       value:
         error: INVALID_AVAILABILITY_ID
         errorMessage: The availabilityId was missing or invalid
-        availabilityId: '2022-03-12T00:00:00+00:00'
+        availabilityId: AVAIL-UNKNOWN-001
     ErrorForbidden:
       value:
         error: FORBIDDEN
@@ -2552,25 +2694,25 @@ components:
       value:
         error: INVALID_BOOKING_UUID
         errorMessage: The uuid was already used, missing or invalid
-        uuid: bbbb6227-54fc-4c32-9ed7-dc3eb99966ea
+        uuid: 00000000-0000-0000-0000-000000000000
     BookingOnHold:
       value:
-        id: 187583938745-D
+        id: BOOK-ON-HOLD-001
         uuid: 559aed3d-6d5b-4fe0-bfca-99f5e7218a56
         testMode: false
         resellerReference: null
-        supplierReference: 300SK9
+        supplierReference: SUP-BOOK-001
         status: ON_HOLD
-        utcCreatedAt: '2026-02-17T23:28:43Z'
-        utcUpdatedAt: '2026-02-17T23:28:43Z'
-        utcExpiresAt: '2026-02-17T23:58:43Z'
+        utcCreatedAt: '2026-06-15T08:30:00Z'
+        utcUpdatedAt: '2026-06-15T08:30:00Z'
+        utcExpiresAt: '2026-06-15T09:00:00Z'
         utcRedeemedAt: null
         utcConfirmedAt: null
-        productId: LEYE-6bde6c4f4854
+        productId: PROD-OBSWHEEL-001
         product:
-          id: LEYE-6bde6c4f4854
-          internalName: London Eye Admission
-          reference: LEYE
+          id: PROD-OBSWHEEL-001
+          internalName: Observation Wheel Admission
+          reference: OBSWHEEL
           locale: en-GB
           timeZone: Europe/London
           allowFreesale: false
@@ -2585,16 +2727,16 @@ components:
           - TICKET
           redemptionMethod: DIGITAL
           options:
-          - id: 2214b32d-ffa1-426c-b4d2-947dca724e50
+          - id: OPT-STANDARD-001
             default: true
-            internalName: Fast Track
-            reference: LEYE-FT
+            internalName: Standard Admission
+            reference: STANDARD
             availabilityLocalStartTimes:
-            - '09:00'
+            - '10:00'
             - '14:00'
-            - '17:00'
-            cancellationCutoff: 1 hour
-            cancellationCutoffAmount: 1
+            - '16:00'
+            cancellationCutoff: 24 hours
+            cancellationCutoffAmount: 24
             cancellationCutoffUnit: hour
             requiredContactFields:
             - firstName
@@ -2603,9 +2745,9 @@ components:
               minUnits: 1
               maxUnits: 20
             units:
-            - id: adult_697e3ce8
-              internalName: Adult(s)
-              reference: LR1-01
+            - id: UNIT-ADULT
+              internalName: Adult
+              reference: ADULT
               type: ADULT
               requiredContactFields:
               - firstName
@@ -2618,10 +2760,10 @@ components:
                 maxQuantity: 7
                 paxCount: 1
                 accompaniedBy: []
-            - id: youth_f6446706
-              internalName: Youth(s)
-              reference: LR1-02
-              type: YOUTH
+            - id: UNIT-CHILD
+              internalName: Child
+              reference: CHILD
+              type: CHILD
               requiredContactFields:
               - firstName
               - lastName
@@ -2633,19 +2775,19 @@ components:
                 maxQuantity: 7
                 paxCount: 1
                 accompaniedBy:
-                - adult_697e3ce8
-        optionId: 2214b32d-ffa1-426c-b4d2-947dca724e50
+                - UNIT-ADULT
+        optionId: OPT-STANDARD-001
         option:
-          id: 2214b32d-ffa1-426c-b4d2-947dca724e50
+          id: OPT-STANDARD-001
           default: true
-          internalName: Fast Track
-          reference: LEYE-FT
+          internalName: Standard Admission
+          reference: STANDARD
           availabilityLocalStartTimes:
-          - '09:00'
+          - '10:00'
           - '14:00'
-          - '17:00'
-          cancellationCutoff: 1 hour
-          cancellationCutoffAmount: 1
+          - '16:00'
+          cancellationCutoff: 24 hours
+          cancellationCutoffAmount: 24
           cancellationCutoffUnit: hour
           requiredContactFields:
           - firstName
@@ -2654,9 +2796,9 @@ components:
             minUnits: 1
             maxUnits: 20
           units:
-          - id: adult_697e3ce8
-            internalName: Adult(s)
-            reference: LR1-01
+          - id: UNIT-ADULT
+            internalName: Adult
+            reference: ADULT
             type: ADULT
             requiredContactFields:
             - firstName
@@ -2669,10 +2811,10 @@ components:
               maxQuantity: 7
               paxCount: 1
               accompaniedBy: []
-          - id: youth_f6446706
-            internalName: Youth(s)
-            reference: LR1-02
-            type: YOUTH
+          - id: UNIT-CHILD
+            internalName: Child
+            reference: CHILD
+            type: CHILD
             requiredContactFields:
             - firstName
             - lastName
@@ -2684,15 +2826,15 @@ components:
               maxQuantity: 7
               paxCount: 1
               accompaniedBy:
-              - adult_697e3ce8
+              - UNIT-ADULT
         cancellable: true
         cancellation: null
         freesale: false
-        availabilityId: FE32BA12
+        availabilityId: AVAIL-AVAILABLE-001
         availability:
-          id: FE32BA12
-          localDateTimeStart: '2026-02-28T09:00:00+00:00'
-          localDateTimeEnd: '2026-02-28T09:30:00+00:00'
+          id: AVAIL-AVAILABLE-001
+          localDateTimeStart: '2026-06-15T10:00:00+01:00'
+          localDateTimeEnd: '2026-06-15T10:30:00+01:00'
           allDay: false
           openingHours: []
         contact:
@@ -2712,12 +2854,12 @@ components:
         unitItems:
         - uuid: 3b1bc2ee-3155-4738-9471-f49842a07327
           resellerReference: null
-          supplierReference: J9T7R6
-          unitId: adult_697e3ce8
+          supplierReference: SUP-TICKET-001
+          unitId: UNIT-ADULT
           unit:
-            id: adult_697e3ce8
-            internalName: Adult(s)
-            reference: LR1-01
+            id: UNIT-ADULT
+            internalName: Adult
+            reference: ADULT
             type: ADULT
             requiredContactFields:
             - firstName
@@ -2743,24 +2885,58 @@ components:
             country: null
             notes: null
           ticket: null
+        - uuid: b0d4f2a1-7c58-4a19-9f3e-2c7d8e5a1b64
+          resellerReference: null
+          supplierReference: SUP-TICKET-002
+          unitId: UNIT-CHILD
+          unit:
+            id: UNIT-CHILD
+            internalName: Child
+            reference: CHILD
+            type: CHILD
+            requiredContactFields:
+            - firstName
+            - lastName
+            restrictions:
+              minAge: 3
+              maxAge: 17
+              idRequired: false
+              minQuantity: 0
+              maxQuantity: 7
+              paxCount: 1
+              accompaniedBy:
+              - UNIT-ADULT
+          status: ON_HOLD
+          utcRedeemedAt: null
+          contact:
+            fullName: null
+            firstName: null
+            lastName: null
+            emailAddress: null
+            phoneNumber: null
+            locales: []
+            postalCode: null
+            country: null
+            notes: null
+          ticket: null
     BookingConfirmed:
       value:
-        id: 187583938745-D
+        id: BOOK-CONFIRMED-001
         uuid: 559aed3d-6d5b-4fe0-bfca-99f5e7218a56
         testMode: false
-        resellerReference: 102-256952-3
-        supplierReference: 300SK9
+        resellerReference: RES-BOOK-001
+        supplierReference: SUP-BOOK-001
         status: CONFIRMED
-        utcCreatedAt: '2026-02-17T23:28:43Z'
-        utcUpdatedAt: '2026-02-17T23:32:33Z'
+        utcCreatedAt: '2026-06-15T08:30:00Z'
+        utcUpdatedAt: '2026-06-15T08:35:00Z'
         utcExpiresAt: null
         utcRedeemedAt: null
-        utcConfirmedAt: '2026-02-17T23:32:33Z'
-        productId: LEYE-6bde6c4f4854
+        utcConfirmedAt: '2026-06-15T08:35:00Z'
+        productId: PROD-OBSWHEEL-001
         product:
-          id: LEYE-6bde6c4f4854
-          internalName: London Eye Admission
-          reference: LEYE
+          id: PROD-OBSWHEEL-001
+          internalName: Observation Wheel Admission
+          reference: OBSWHEEL
           locale: en-GB
           timeZone: Europe/London
           allowFreesale: false
@@ -2775,16 +2951,16 @@ components:
           - TICKET
           redemptionMethod: DIGITAL
           options:
-          - id: 2214b32d-ffa1-426c-b4d2-947dca724e50
+          - id: OPT-STANDARD-001
             default: true
-            internalName: Fast Track
-            reference: LEYE-FT
+            internalName: Standard Admission
+            reference: STANDARD
             availabilityLocalStartTimes:
-            - '09:00'
+            - '10:00'
             - '14:00'
-            - '17:00'
-            cancellationCutoff: 1 hour
-            cancellationCutoffAmount: 1
+            - '16:00'
+            cancellationCutoff: 24 hours
+            cancellationCutoffAmount: 24
             cancellationCutoffUnit: hour
             requiredContactFields:
             - firstName
@@ -2793,9 +2969,9 @@ components:
               minUnits: 1
               maxUnits: 20
             units:
-            - id: adult_697e3ce8
-              internalName: Adult(s)
-              reference: LR1-01
+            - id: UNIT-ADULT
+              internalName: Adult
+              reference: ADULT
               type: ADULT
               requiredContactFields:
               - firstName
@@ -2808,10 +2984,10 @@ components:
                 maxQuantity: 7
                 paxCount: 1
                 accompaniedBy: []
-            - id: youth_f6446706
-              internalName: Youth(s)
-              reference: LR1-02
-              type: YOUTH
+            - id: UNIT-CHILD
+              internalName: Child
+              reference: CHILD
+              type: CHILD
               requiredContactFields:
               - firstName
               - lastName
@@ -2823,19 +2999,19 @@ components:
                 maxQuantity: 7
                 paxCount: 1
                 accompaniedBy:
-                - adult_697e3ce8
-        optionId: 2214b32d-ffa1-426c-b4d2-947dca724e50
+                - UNIT-ADULT
+        optionId: OPT-STANDARD-001
         option:
-          id: 2214b32d-ffa1-426c-b4d2-947dca724e50
+          id: OPT-STANDARD-001
           default: true
-          internalName: Fast Track
-          reference: LEYE-FT
+          internalName: Standard Admission
+          reference: STANDARD
           availabilityLocalStartTimes:
-          - '09:00'
+          - '10:00'
           - '14:00'
-          - '17:00'
-          cancellationCutoff: 1 hour
-          cancellationCutoffAmount: 1
+          - '16:00'
+          cancellationCutoff: 24 hours
+          cancellationCutoffAmount: 24
           cancellationCutoffUnit: hour
           requiredContactFields:
           - firstName
@@ -2844,9 +3020,9 @@ components:
             minUnits: 1
             maxUnits: 20
           units:
-          - id: adult_697e3ce8
-            internalName: Adult(s)
-            reference: LR1-01
+          - id: UNIT-ADULT
+            internalName: Adult
+            reference: ADULT
             type: ADULT
             requiredContactFields:
             - firstName
@@ -2859,10 +3035,10 @@ components:
               maxQuantity: 7
               paxCount: 1
               accompaniedBy: []
-          - id: youth_f6446706
-            internalName: Youth(s)
-            reference: LR1-02
-            type: YOUTH
+          - id: UNIT-CHILD
+            internalName: Child
+            reference: CHILD
+            type: CHILD
             requiredContactFields:
             - firstName
             - lastName
@@ -2874,41 +3050,42 @@ components:
               maxQuantity: 7
               paxCount: 1
               accompaniedBy:
-              - adult_697e3ce8
+              - UNIT-ADULT
         cancellable: true
         cancellation: null
         freesale: false
-        availabilityId: FE32BA12
+        availabilityId: AVAIL-AVAILABLE-001
         availability:
-          id: FE32BA12
-          localDateTimeStart: '2026-02-28T09:00:00+00:00'
-          localDateTimeEnd: '2026-02-28T09:30:00+00:00'
+          id: AVAIL-AVAILABLE-001
+          localDateTimeStart: '2026-06-15T10:00:00+01:00'
+          localDateTimeEnd: '2026-06-15T10:30:00+01:00'
           allDay: false
           openingHours: []
         contact:
           fullName: John Doe
           firstName: John
           lastName: Doe
-          emailAddress: john@example.com
-          phoneNumber: '+44 7777 777777'
+          emailAddress: john.doe@example.com
+          phoneNumber: '+442021436587'
           locales:
           - en-GB
-          postalCode: W1H 7EJ
+          - en
+          postalCode: SE1 9AA
           country: GB
-          notes: 'Dietary: vegan'
-        notes: Wheelchair accessible tour please
+          notes: Wheelchair access requested
+        notes: Wheelchair accessible entry requested
         deliveryMethods:
         - TICKET
         voucher: null
         unitItems:
         - uuid: 3b1bc2ee-3155-4738-9471-f49842a07327
-          resellerReference: 102-256952-3
-          supplierReference: J9T7R6
-          unitId: adult_697e3ce8
+          resellerReference: RES-TICKET-001
+          supplierReference: SUP-TICKET-001
+          unitId: UNIT-ADULT
           unit:
-            id: adult_697e3ce8
-            internalName: Adult(s)
-            reference: LR1-01
+            id: UNIT-ADULT
+            internalName: Adult
+            reference: ADULT
             type: ADULT
             requiredContactFields:
             - firstName
@@ -2933,27 +3110,63 @@ components:
             utcRedeemedAt: null
             deliveryOptions:
             - deliveryFormat: QRCODE
-              deliveryValue: DIE382Q388455
+              deliveryValue: TICKET-QRCODE-001
             - deliveryFormat: PDF_URL
-              deliveryValue: https://api.octomock.com/octo/pdf?booking=ec0ce0c2-03f0-4c64-bbc5-5e0f7d1e1c0a
+              deliveryValue: https://api.acme-attractions.com/octo/tickets/BOOK-CONFIRMED-001.pdf
+        - uuid: b0d4f2a1-7c58-4a19-9f3e-2c7d8e5a1b64
+          resellerReference: RES-TICKET-002
+          supplierReference: SUP-TICKET-002
+          unitId: UNIT-CHILD
+          unit:
+            id: UNIT-CHILD
+            internalName: Child
+            reference: CHILD
+            type: CHILD
+            requiredContactFields:
+            - firstName
+            - lastName
+            restrictions:
+              minAge: 3
+              maxAge: 17
+              idRequired: false
+              minQuantity: 0
+              maxQuantity: 7
+              paxCount: 1
+              accompaniedBy:
+              - UNIT-ADULT
+          status: CONFIRMED
+          utcRedeemedAt: null
+          contact:
+            firstName: Jane
+            lastName: Doe
+            locales:
+            - en-GB
+          ticket:
+            redemptionMethod: DIGITAL
+            utcRedeemedAt: null
+            deliveryOptions:
+            - deliveryFormat: QRCODE
+              deliveryValue: TICKET-QRCODE-002
+            - deliveryFormat: PDF_URL
+              deliveryValue: https://api.acme-attractions.com/octo/tickets/BOOK-CONFIRMED-001.pdf
     BookingCancelled:
       value:
-        id: 187583938745-D
+        id: BOOK-CANCELLED-001
         uuid: 559aed3d-6d5b-4fe0-bfca-99f5e7218a56
         testMode: false
-        resellerReference: 102-256952-3
-        supplierReference: 300SK9
+        resellerReference: RES-BOOK-001
+        supplierReference: SUP-BOOK-001
         status: CANCELLED
-        utcCreatedAt: '2026-02-17T23:28:43Z'
-        utcUpdatedAt: '2026-02-20T08:15:00Z'
+        utcCreatedAt: '2026-06-15T08:30:00Z'
+        utcUpdatedAt: '2026-06-15T09:30:00Z'
         utcExpiresAt: null
         utcRedeemedAt: null
-        utcConfirmedAt: '2026-02-17T23:32:33Z'
-        productId: LEYE-6bde6c4f4854
+        utcConfirmedAt: '2026-06-15T08:35:00Z'
+        productId: PROD-OBSWHEEL-001
         product:
-          id: LEYE-6bde6c4f4854
-          internalName: London Eye Admission
-          reference: LEYE
+          id: PROD-OBSWHEEL-001
+          internalName: Observation Wheel Admission
+          reference: OBSWHEEL
           locale: en-GB
           timeZone: Europe/London
           allowFreesale: false
@@ -2968,16 +3181,16 @@ components:
           - TICKET
           redemptionMethod: DIGITAL
           options:
-          - id: 2214b32d-ffa1-426c-b4d2-947dca724e50
+          - id: OPT-STANDARD-001
             default: true
-            internalName: Fast Track
-            reference: LEYE-FT
+            internalName: Standard Admission
+            reference: STANDARD
             availabilityLocalStartTimes:
-            - '09:00'
+            - '10:00'
             - '14:00'
-            - '17:00'
-            cancellationCutoff: 1 hour
-            cancellationCutoffAmount: 1
+            - '16:00'
+            cancellationCutoff: 24 hours
+            cancellationCutoffAmount: 24
             cancellationCutoffUnit: hour
             requiredContactFields:
             - firstName
@@ -2986,9 +3199,9 @@ components:
               minUnits: 1
               maxUnits: 20
             units:
-            - id: adult_697e3ce8
-              internalName: Adult(s)
-              reference: LR1-01
+            - id: UNIT-ADULT
+              internalName: Adult
+              reference: ADULT
               type: ADULT
               requiredContactFields:
               - firstName
@@ -3001,10 +3214,10 @@ components:
                 maxQuantity: 7
                 paxCount: 1
                 accompaniedBy: []
-            - id: youth_f6446706
-              internalName: Youth(s)
-              reference: LR1-02
-              type: YOUTH
+            - id: UNIT-CHILD
+              internalName: Child
+              reference: CHILD
+              type: CHILD
               requiredContactFields:
               - firstName
               - lastName
@@ -3016,19 +3229,19 @@ components:
                 maxQuantity: 7
                 paxCount: 1
                 accompaniedBy:
-                - adult_697e3ce8
-        optionId: 2214b32d-ffa1-426c-b4d2-947dca724e50
+                - UNIT-ADULT
+        optionId: OPT-STANDARD-001
         option:
-          id: 2214b32d-ffa1-426c-b4d2-947dca724e50
+          id: OPT-STANDARD-001
           default: true
-          internalName: Fast Track
-          reference: LEYE-FT
+          internalName: Standard Admission
+          reference: STANDARD
           availabilityLocalStartTimes:
-          - '09:00'
+          - '10:00'
           - '14:00'
-          - '17:00'
-          cancellationCutoff: 1 hour
-          cancellationCutoffAmount: 1
+          - '16:00'
+          cancellationCutoff: 24 hours
+          cancellationCutoffAmount: 24
           cancellationCutoffUnit: hour
           requiredContactFields:
           - firstName
@@ -3037,9 +3250,9 @@ components:
             minUnits: 1
             maxUnits: 20
           units:
-          - id: adult_697e3ce8
-            internalName: Adult(s)
-            reference: LR1-01
+          - id: UNIT-ADULT
+            internalName: Adult
+            reference: ADULT
             type: ADULT
             requiredContactFields:
             - firstName
@@ -3052,10 +3265,10 @@ components:
               maxQuantity: 7
               paxCount: 1
               accompaniedBy: []
-          - id: youth_f6446706
-            internalName: Youth(s)
-            reference: LR1-02
-            type: YOUTH
+          - id: UNIT-CHILD
+            internalName: Child
+            reference: CHILD
+            type: CHILD
             requiredContactFields:
             - firstName
             - lastName
@@ -3067,44 +3280,45 @@ components:
               maxQuantity: 7
               paxCount: 1
               accompaniedBy:
-              - adult_697e3ce8
+              - UNIT-ADULT
         cancellable: false
         cancellation:
           refund: FULL
           reason: Customer requested
-          utcCancelledAt: '2026-02-20T08:15:00Z'
+          utcCancelledAt: '2026-06-15T09:30:00Z'
         freesale: false
-        availabilityId: FE32BA12
+        availabilityId: AVAIL-AVAILABLE-001
         availability:
-          id: FE32BA12
-          localDateTimeStart: '2026-02-28T09:00:00+00:00'
-          localDateTimeEnd: '2026-02-28T09:30:00+00:00'
+          id: AVAIL-AVAILABLE-001
+          localDateTimeStart: '2026-06-15T10:00:00+01:00'
+          localDateTimeEnd: '2026-06-15T10:30:00+01:00'
           allDay: false
           openingHours: []
         contact:
           fullName: John Doe
           firstName: John
           lastName: Doe
-          emailAddress: john@example.com
-          phoneNumber: '+44 7777 777777'
+          emailAddress: john.doe@example.com
+          phoneNumber: '+442021436587'
           locales:
           - en-GB
-          postalCode: W1H 7EJ
+          - en
+          postalCode: SE1 9AA
           country: GB
-          notes: 'Dietary: vegan'
-        notes: Wheelchair accessible tour please
+          notes: Wheelchair access requested
+        notes: Wheelchair accessible entry requested
         deliveryMethods:
         - TICKET
         voucher: null
         unitItems:
         - uuid: 3b1bc2ee-3155-4738-9471-f49842a07327
-          resellerReference: 102-256952-3
-          supplierReference: J9T7R6
-          unitId: adult_697e3ce8
+          resellerReference: RES-TICKET-001
+          supplierReference: SUP-TICKET-001
+          unitId: UNIT-ADULT
           unit:
-            id: adult_697e3ce8
-            internalName: Adult(s)
-            reference: LR1-01
+            id: UNIT-ADULT
+            internalName: Adult
+            reference: ADULT
             type: ADULT
             requiredContactFields:
             - firstName
@@ -3129,27 +3343,63 @@ components:
             utcRedeemedAt: null
             deliveryOptions:
             - deliveryFormat: QRCODE
-              deliveryValue: DIE382Q388455
+              deliveryValue: TICKET-QRCODE-001
             - deliveryFormat: PDF_URL
-              deliveryValue: https://api.octomock.com/octo/pdf?booking=ec0ce0c2-03f0-4c64-bbc5-5e0f7d1e1c0a
+              deliveryValue: https://api.acme-attractions.com/octo/tickets/BOOK-CANCELLED-001.pdf
+        - uuid: b0d4f2a1-7c58-4a19-9f3e-2c7d8e5a1b64
+          resellerReference: RES-TICKET-002
+          supplierReference: SUP-TICKET-002
+          unitId: UNIT-CHILD
+          unit:
+            id: UNIT-CHILD
+            internalName: Child
+            reference: CHILD
+            type: CHILD
+            requiredContactFields:
+            - firstName
+            - lastName
+            restrictions:
+              minAge: 3
+              maxAge: 17
+              idRequired: false
+              minQuantity: 0
+              maxQuantity: 7
+              paxCount: 1
+              accompaniedBy:
+              - UNIT-ADULT
+          status: CANCELLED
+          utcRedeemedAt: null
+          contact:
+            firstName: Jane
+            lastName: Doe
+            locales:
+            - en-GB
+          ticket:
+            redemptionMethod: DIGITAL
+            utcRedeemedAt: null
+            deliveryOptions:
+            - deliveryFormat: QRCODE
+              deliveryValue: TICKET-QRCODE-002
+            - deliveryFormat: PDF_URL
+              deliveryValue: https://api.acme-attractions.com/octo/tickets/BOOK-CANCELLED-001.pdf
     BookingUpdated:
       value:
-        id: 187583938745-D
+        id: BOOK-CONFIRMED-001
         uuid: 559aed3d-6d5b-4fe0-bfca-99f5e7218a56
         testMode: false
-        resellerReference: 102-256952-3
-        supplierReference: 300SK9
+        resellerReference: RES-BOOK-001
+        supplierReference: SUP-BOOK-001
         status: CONFIRMED
-        utcCreatedAt: '2026-02-17T23:28:43Z'
-        utcUpdatedAt: '2026-02-18T10:12:05Z'
+        utcCreatedAt: '2026-06-15T08:30:00Z'
+        utcUpdatedAt: '2026-06-15T09:15:00Z'
         utcExpiresAt: null
         utcRedeemedAt: null
-        utcConfirmedAt: '2026-02-17T23:32:33Z'
-        productId: LEYE-6bde6c4f4854
+        utcConfirmedAt: '2026-06-15T08:35:00Z'
+        productId: PROD-OBSWHEEL-001
         product:
-          id: LEYE-6bde6c4f4854
-          internalName: London Eye Admission
-          reference: LEYE
+          id: PROD-OBSWHEEL-001
+          internalName: Observation Wheel Admission
+          reference: OBSWHEEL
           locale: en-GB
           timeZone: Europe/London
           allowFreesale: false
@@ -3164,16 +3414,16 @@ components:
           - TICKET
           redemptionMethod: DIGITAL
           options:
-          - id: 2214b32d-ffa1-426c-b4d2-947dca724e50
+          - id: OPT-STANDARD-001
             default: true
-            internalName: Fast Track
-            reference: LEYE-FT
+            internalName: Standard Admission
+            reference: STANDARD
             availabilityLocalStartTimes:
-            - '09:00'
+            - '10:00'
             - '14:00'
-            - '17:00'
-            cancellationCutoff: 1 hour
-            cancellationCutoffAmount: 1
+            - '16:00'
+            cancellationCutoff: 24 hours
+            cancellationCutoffAmount: 24
             cancellationCutoffUnit: hour
             requiredContactFields:
             - firstName
@@ -3182,9 +3432,9 @@ components:
               minUnits: 1
               maxUnits: 20
             units:
-            - id: adult_697e3ce8
-              internalName: Adult(s)
-              reference: LR1-01
+            - id: UNIT-ADULT
+              internalName: Adult
+              reference: ADULT
               type: ADULT
               requiredContactFields:
               - firstName
@@ -3197,10 +3447,10 @@ components:
                 maxQuantity: 7
                 paxCount: 1
                 accompaniedBy: []
-            - id: youth_f6446706
-              internalName: Youth(s)
-              reference: LR1-02
-              type: YOUTH
+            - id: UNIT-CHILD
+              internalName: Child
+              reference: CHILD
+              type: CHILD
               requiredContactFields:
               - firstName
               - lastName
@@ -3212,19 +3462,19 @@ components:
                 maxQuantity: 7
                 paxCount: 1
                 accompaniedBy:
-                - adult_697e3ce8
-        optionId: 2214b32d-ffa1-426c-b4d2-947dca724e50
+                - UNIT-ADULT
+        optionId: OPT-STANDARD-001
         option:
-          id: 2214b32d-ffa1-426c-b4d2-947dca724e50
+          id: OPT-STANDARD-001
           default: true
-          internalName: Fast Track
-          reference: LEYE-FT
+          internalName: Standard Admission
+          reference: STANDARD
           availabilityLocalStartTimes:
-          - '09:00'
+          - '10:00'
           - '14:00'
-          - '17:00'
-          cancellationCutoff: 1 hour
-          cancellationCutoffAmount: 1
+          - '16:00'
+          cancellationCutoff: 24 hours
+          cancellationCutoffAmount: 24
           cancellationCutoffUnit: hour
           requiredContactFields:
           - firstName
@@ -3233,9 +3483,9 @@ components:
             minUnits: 1
             maxUnits: 20
           units:
-          - id: adult_697e3ce8
-            internalName: Adult(s)
-            reference: LR1-01
+          - id: UNIT-ADULT
+            internalName: Adult
+            reference: ADULT
             type: ADULT
             requiredContactFields:
             - firstName
@@ -3248,10 +3498,10 @@ components:
               maxQuantity: 7
               paxCount: 1
               accompaniedBy: []
-          - id: youth_f6446706
-            internalName: Youth(s)
-            reference: LR1-02
-            type: YOUTH
+          - id: UNIT-CHILD
+            internalName: Child
+            reference: CHILD
+            type: CHILD
             requiredContactFields:
             - firstName
             - lastName
@@ -3263,41 +3513,42 @@ components:
               maxQuantity: 7
               paxCount: 1
               accompaniedBy:
-              - adult_697e3ce8
+              - UNIT-ADULT
         cancellable: true
         cancellation: null
         freesale: false
-        availabilityId: FE32BA12
+        availabilityId: AVAIL-AVAILABLE-001
         availability:
-          id: FE32BA12
-          localDateTimeStart: '2026-02-28T09:00:00+00:00'
-          localDateTimeEnd: '2026-02-28T09:30:00+00:00'
+          id: AVAIL-AVAILABLE-001
+          localDateTimeStart: '2026-06-15T10:00:00+01:00'
+          localDateTimeEnd: '2026-06-15T10:30:00+01:00'
           allDay: false
           openingHours: []
         contact:
           fullName: John Doe
           firstName: John
           lastName: Doe
-          emailAddress: john@example.com
-          phoneNumber: '+44 7777 777777'
+          emailAddress: john.doe@example.com
+          phoneNumber: '+442021436587'
           locales:
           - en-GB
-          postalCode: W1H 7EJ
+          - en
+          postalCode: SE1 9AA
           country: GB
-          notes: 'Dietary: vegan'
-        notes: Wheelchair accessible tour please. Guest now requires step-free access.
+          notes: Wheelchair access requested
+        notes: Wheelchair accessible entry requested. Guest now also requires step-free access.
         deliveryMethods:
         - TICKET
         voucher: null
         unitItems:
         - uuid: 3b1bc2ee-3155-4738-9471-f49842a07327
-          resellerReference: 102-256952-3
-          supplierReference: J9T7R6
-          unitId: adult_697e3ce8
+          resellerReference: RES-TICKET-001
+          supplierReference: SUP-TICKET-001
+          unitId: UNIT-ADULT
           unit:
-            id: adult_697e3ce8
-            internalName: Adult(s)
-            reference: LR1-01
+            id: UNIT-ADULT
+            internalName: Adult
+            reference: ADULT
             type: ADULT
             requiredContactFields:
             - firstName
@@ -3322,9 +3573,45 @@ components:
             utcRedeemedAt: null
             deliveryOptions:
             - deliveryFormat: QRCODE
-              deliveryValue: DIE382Q388455
+              deliveryValue: TICKET-QRCODE-001
             - deliveryFormat: PDF_URL
-              deliveryValue: https://api.octomock.com/octo/pdf?booking=ec0ce0c2-03f0-4c64-bbc5-5e0f7d1e1c0a
+              deliveryValue: https://api.acme-attractions.com/octo/tickets/BOOK-CONFIRMED-001.pdf
+        - uuid: b0d4f2a1-7c58-4a19-9f3e-2c7d8e5a1b64
+          resellerReference: RES-TICKET-002
+          supplierReference: SUP-TICKET-002
+          unitId: UNIT-CHILD
+          unit:
+            id: UNIT-CHILD
+            internalName: Child
+            reference: CHILD
+            type: CHILD
+            requiredContactFields:
+            - firstName
+            - lastName
+            restrictions:
+              minAge: 3
+              maxAge: 17
+              idRequired: false
+              minQuantity: 0
+              maxQuantity: 7
+              paxCount: 1
+              accompaniedBy:
+              - UNIT-ADULT
+          status: CONFIRMED
+          utcRedeemedAt: null
+          contact:
+            firstName: Jane
+            lastName: Doe
+            locales:
+            - en-GB
+          ticket:
+            redemptionMethod: DIGITAL
+            utcRedeemedAt: null
+            deliveryOptions:
+            - deliveryFormat: QRCODE
+              deliveryValue: TICKET-QRCODE-002
+            - deliveryFormat: PDF_URL
+              deliveryValue: https://api.acme-attractions.com/octo/tickets/BOOK-CONFIRMED-001.pdf
   responses:
     GetSupplierError:
       description: Example response
@@ -3365,7 +3652,7 @@ components:
               productId:
                 type: string
                 examples:
-                - 7c3eb026-3d36-4981-9c56-28d8a52a54dd
+                - PROD-UNKNOWN-001
           examples:
             Invalid Product ID:
               $ref: '#/components/examples/ErrorInvalidProductID'
@@ -3458,7 +3745,7 @@ components:
             UNPROCESSABLE_ENTITY:
               value:
                 error: UNPROCESSABLE_ENTITY
-                errorMessage: 'Validation failed: Minimum tickets is 2'
+                errorMessage: 'Validation failed: a maximum of 20 units per Booking is allowed'
             INVALID_UNIT_ID:
               $ref: '#/components/examples/ErrorInvalidUnitID'
     BookingListError:
@@ -3601,7 +3888,7 @@ components:
           examples:
             example-1:
               value:
-                reason: Customer Requested
+                reason: Customer requested
       description: ''
     ExtendReservation:
       content:
@@ -3620,7 +3907,7 @@ components:
           examples:
             example-1:
               value:
-                expirationMinutes: 0
+                expirationMinutes: 15
     BookingUpdate:
       content:
         application/json:
@@ -3631,22 +3918,22 @@ components:
                 type: string
                 description: Updated Reseller reference associated with the Booking.
                 examples:
-                - 102-256952-3
+                - RES-BOOK-001
               productId:
                 type: string
                 description: Updated identifier of the Product for the Booking.
                 examples:
-                - 6b903d44-dc24-4ca4-ae71-6bde6c4f4854
+                - PROD-OBSWHEEL-001
               optionId:
                 type: string
                 description: Updated identifier of the Option for the Booking.
                 examples:
-                - DEFAULT
+                - OPT-STANDARD-001
               availabilityId:
                 type: string
                 description: Updated identifier of the Availability (ISO 8601 datetime) for the Booking.
                 examples:
-                - '2026-06-30T12:00:00+01:00'
+                - AVAIL-AVAILABLE-001
               expirationMinutes:
                 type: string
                 description: How many minutes to reserve the availability, otherwise defaults to the supplier default amount.
@@ -3654,7 +3941,7 @@ components:
                 type: string
                 description: Updated notes associated with the Booking.
                 examples:
-                - 'Dietary: vegan'
+                - Wheelchair accessible entry requested
               emailReceipt:
                 type: boolean
                 description: Whether you want OCTO Cloud to email the guest a copy of their receipt and tickets. (defaults to false).
@@ -3674,7 +3961,7 @@ components:
 
                         All unit items MUST be provided in the request to retain them.
                       examples:
-                      - adult
+                      - UNIT-ADULT
                     resellerReference:
                       $ref: '#/components/schemas/UnitResellerReference'
                     contact:
@@ -3717,12 +4004,12 @@ components:
                 type: string
                 description: Identifier of the Product to be booked.
                 examples:
-                - 6b903d44-dc24-4ca4-ae71-6bde6c4f4854
+                - PROD-OBSWHEEL-001
               optionId:
                 type: string
                 description: Identifier of the Option to be booked for the selected Product.
                 examples:
-                - DEFAULT
+                - OPT-STANDARD-001
               availabilityId:
                 type: string
                 description: |-
@@ -3730,7 +4017,7 @@ components:
 
                   This value MUST be obtained from the `/availability` endpoint.
                 examples:
-                - '2026-06-30T12:00:00+01:00'
+                - AVAIL-AVAILABLE-001
               expirationMinutes:
                 type: integer
                 description: |-
@@ -3745,7 +4032,7 @@ components:
                 type: string
                 description: Additional notes associated with the Booking.
                 examples:
-                - Wheelchair accessible tour please
+                - Wheelchair accessible entry requested
               unitItems:
                 type: array
                 description: A list of unit items that will be included in the booking.
@@ -3767,7 +4054,7 @@ components:
 
                         The value MUST match a valid `unitId` defined in the selected Option.
                       examples:
-                      - adult
+                      - UNIT-ADULT
                   required:
                   - unitId
             required:
@@ -3778,14 +4065,16 @@ components:
           examples:
             Reserve Booking:
               value:
-                productId: 1a7213eb-3a33-4cbb-b114-64d771c201ac
-                optionId: DEFAULT
-                availabilityId: '2020-07-01T14:30:00-05:00'
-                notes: Optional notes for the booking
+                uuid: 559aed3d-6d5b-4fe0-bfca-99f5e7218a56
+                productId: PROD-OBSWHEEL-001
+                optionId: OPT-STANDARD-001
+                availabilityId: AVAIL-AVAILABLE-001
+                notes: Wheelchair accessible entry requested
                 unitItems:
-                - unitId: adult
-                - unitId: adult
-                - unitId: child
+                - uuid: 3b1bc2ee-3155-4738-9471-f49842a07327
+                  unitId: UNIT-ADULT
+                - uuid: b0d4f2a1-7c58-4a19-9f3e-2c7d8e5a1b64
+                  unitId: UNIT-CHILD
       description: ''
     BookingConfirmation:
       content:
@@ -3808,7 +4097,7 @@ components:
 
                   This field MUST be provided when required by the Reseller configuration.
                 examples:
-                - 102-256952-3
+                - RES-BOOK-001
               contact:
                 allOf:
                 - $ref: '#/components/schemas/BookingHolderContact'
@@ -3836,13 +4125,13 @@ components:
 
                         Providing this field MUST replace all existing unit items in the Booking.
                       examples:
-                      - adult123
+                      - UNIT-ADULT
                     resellerReference:
                       allOf:
                       - $ref: '#/components/schemas/UnitResellerReference'
                       description: Reseller reference associated with the individual unit item.
                       examples:
-                      - TICKET-001
+                      - RES-TICKET-001
                     contact:
                       allOf:
                       - $ref: '#/components/schemas/TicketHolderContact'
@@ -3854,16 +4143,26 @@ components:
           examples:
             Confirmation:
               value:
-                resellerReference: VOUCHER-0123
+                resellerReference: RES-BOOK-001
                 contact:
-                  fullName: Oliver Morgan
-                  emailAddress: ollym@me.com
-                  phoneNumber: '+447840739436'
+                  fullName: John Doe
+                  firstName: John
+                  lastName: Doe
+                  emailAddress: john.doe@example.com
+                  phoneNumber: '+442021436587'
                   locales:
                   - en-GB
-                  - en-US
                   - en
+                  postalCode: SE1 9AA
                   country: GB
+                  notes: Wheelchair access requested
+                unitItems:
+                - uuid: 3b1bc2ee-3155-4738-9471-f49842a07327
+                  unitId: UNIT-ADULT
+                  resellerReference: RES-TICKET-001
+                - uuid: b0d4f2a1-7c58-4a19-9f3e-2c7d8e5a1b64
+                  unitId: UNIT-CHILD
+                  resellerReference: RES-TICKET-002
       description: ''
 externalDocs:
   url: https://docs.octo.travel/
