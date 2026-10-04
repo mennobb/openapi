@@ -289,7 +289,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BookingResponse'
+                $ref: '#/components/schemas/Booking'
               examples:
                 ON_HOLD:
                   $ref: '#/components/examples/BookingOnHold'
@@ -322,205 +322,201 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/BookingResponse'
+                  $ref: '#/components/schemas/Booking'
               examples:
                 example-1:
                   value:
-                  - id: 3ef65048-5ffe-474f-8a5c-fb35a9faa6ed
-                    uuid: 814d2566-2c71-4e6a-aaa9-59b9bf26cc0d
-                    testMode: true
-                    resellerReference: null
-                    supplierReference: RNSRSM
+                  - id: 187583938745-D
+                    uuid: 559aed3d-6d5b-4fe0-bfca-99f5e7218a56
+                    testMode: false
+                    resellerReference: 102-256952-3
+                    supplierReference: 300SK9
                     status: CONFIRMED
-                    utcCreatedAt: '2022-05-25T11:07:05Z'
-                    utcUpdatedAt: '2022-05-25T11:09:32Z'
+                    utcCreatedAt: '2026-02-17T23:28:43Z'
+                    utcUpdatedAt: '2026-02-17T23:32:33Z'
                     utcExpiresAt: null
                     utcRedeemedAt: null
-                    utcConfirmedAt: '2022-05-25T11:09:32Z'
-                    productId: '1'
+                    utcConfirmedAt: '2026-02-17T23:32:33Z'
+                    productId: LEYE-6bde6c4f4854
                     product:
+                      id: LEYE-6bde6c4f4854
+                      internalName: London Eye Admission
+                      reference: LEYE
+                      locale: en-GB
+                      timeZone: Europe/London
                       allowFreesale: false
-                      availabilityRequired: true
-                      availabilityType: OPENING_HOURS
-                      deliveryFormats:
-                      - PDF_URL
-                      - QRCODE
-                      deliveryMethods:
-                      - TICKET
-                      - VOUCHER
-                      id: '1'
                       instantConfirmation: true
                       instantDelivery: true
-                      internalName: PPU | OH
-                      locale: en
-                      options:
-                      - availabilityLocalStartTimes:
-                        - 00:00
-                        cancellationCutoff: 0 hours
-                        cancellationCutoffAmount: 0
-                        cancellationCutoffUnit: hour
-                        default: true
-                        id: DEFAULT
-                        internalName: DEFAULT
-                        reference: null
-                        requiredContactFields: []
-                        restrictions:
-                          maxUnits: null
-                          minUnits: 0
-                        units:
-                        - id: adult
-                          internalName: adult
-                          reference: adult
-                          requiredContactFields: []
-                          restrictions:
-                            accompaniedBy: []
-                            idRequired: false
-                            maxAge: 100
-                            maxQuantity: null
-                            minAge: 18
-                            minQuantity: null
-                            paxCount: 1
-                          type: ADULT
+                      availabilityRequired: true
+                      availabilityType: START_TIME
+                      deliveryFormats:
+                      - QRCODE
+                      - PDF_URL
+                      deliveryMethods:
+                      - TICKET
                       redemptionMethod: DIGITAL
-                      reference: null
-                      timeZone: Europe/London
-                    optionId: DEFAULT
-                    option:
-                      availabilityLocalStartTimes:
-                      - 00:00
-                      cancellationCutoff: 0 hours
-                      cancellationCutoffAmount: 0
-                      cancellationCutoffUnit: hour
-                      default: true
-                      id: DEFAULT
-                      internalName: DEFAULT
-                      reference: null
-                      requiredContactFields: []
-                      restrictions:
-                        maxUnits: null
-                        minUnits: 0
-                      units:
-                      - id: adult
-                        internalName: adult
-                        reference: adult
-                        requiredContactFields: []
+                      options:
+                      - id: 2214b32d-ffa1-426c-b4d2-947dca724e50
+                        default: true
+                        internalName: Fast Track
+                        reference: LEYE-FT
+                        availabilityLocalStartTimes:
+                        - '09:00'
+                        - '14:00'
+                        - '17:00'
+                        cancellationCutoff: 1 hour
+                        cancellationCutoffAmount: 1
+                        cancellationCutoffUnit: hour
+                        requiredContactFields:
+                        - firstName
+                        - lastName
                         restrictions:
-                          accompaniedBy: []
-                          idRequired: false
-                          maxAge: 100
-                          maxQuantity: null
-                          minAge: 18
-                          minQuantity: null
-                          paxCount: 1
+                          minUnits: 1
+                          maxUnits: 20
+                        units:
+                        - id: adult_697e3ce8
+                          internalName: Adult(s)
+                          reference: LR1-01
+                          type: ADULT
+                          requiredContactFields:
+                          - firstName
+                          - lastName
+                          restrictions:
+                            minAge: 18
+                            maxAge: 99
+                            idRequired: false
+                            minQuantity: 1
+                            maxQuantity: 7
+                            paxCount: 1
+                            accompaniedBy: []
+                        - id: youth_f6446706
+                          internalName: Youth(s)
+                          reference: LR1-02
+                          type: YOUTH
+                          requiredContactFields:
+                          - firstName
+                          - lastName
+                          restrictions:
+                            minAge: 3
+                            maxAge: 17
+                            idRequired: false
+                            minQuantity: 0
+                            maxQuantity: 7
+                            paxCount: 1
+                            accompaniedBy:
+                            - adult_697e3ce8
+                    optionId: 2214b32d-ffa1-426c-b4d2-947dca724e50
+                    option:
+                      id: 2214b32d-ffa1-426c-b4d2-947dca724e50
+                      default: true
+                      internalName: Fast Track
+                      reference: LEYE-FT
+                      availabilityLocalStartTimes:
+                      - '09:00'
+                      - '14:00'
+                      - '17:00'
+                      cancellationCutoff: 1 hour
+                      cancellationCutoffAmount: 1
+                      cancellationCutoffUnit: hour
+                      requiredContactFields:
+                      - firstName
+                      - lastName
+                      restrictions:
+                        minUnits: 1
+                        maxUnits: 20
+                      units:
+                      - id: adult_697e3ce8
+                        internalName: Adult(s)
+                        reference: LR1-01
                         type: ADULT
+                        requiredContactFields:
+                        - firstName
+                        - lastName
+                        restrictions:
+                          minAge: 18
+                          maxAge: 99
+                          idRequired: false
+                          minQuantity: 1
+                          maxQuantity: 7
+                          paxCount: 1
+                          accompaniedBy: []
+                      - id: youth_f6446706
+                        internalName: Youth(s)
+                        reference: LR1-02
+                        type: YOUTH
+                        requiredContactFields:
+                        - firstName
+                        - lastName
+                        restrictions:
+                          minAge: 3
+                          maxAge: 17
+                          idRequired: false
+                          minQuantity: 0
+                          maxQuantity: 7
+                          paxCount: 1
+                          accompaniedBy:
+                          - adult_697e3ce8
                     cancellable: true
                     cancellation: null
                     freesale: false
-                    availabilityId: '2022-04-30T00:00:00+01:00'
+                    availabilityId: FE32BA12
                     availability:
-                      allDay: true
-                      id: '2022-04-30T00:00:00+01:00'
-                      localDateTimeEnd: '2022-05-01T00:00:00+01:00'
-                      localDateTimeStart: '2022-04-30T00:00:00+01:00'
-                      openingHours:
-                      - from: 09:00
-                        to: '17:00'
+                      id: FE32BA12
+                      localDateTimeStart: '2026-02-28T09:00:00+00:00'
+                      localDateTimeEnd: '2026-02-28T09:30:00+00:00'
+                      allDay: false
+                      openingHours: []
                     contact:
-                      fullName: John
-                      firstName: Doe
-                      lastName: null
-                      emailAddress: john.doe@email.com
-                      phoneNumber: null
-                      locales: []
-                      country: null
-                      notes: null
-                    notes: null
+                      fullName: John Doe
+                      firstName: John
+                      lastName: Doe
+                      emailAddress: john@example.com
+                      phoneNumber: '+44 7777 777777'
+                      locales:
+                      - en-GB
+                      postalCode: W1H 7EJ
+                      country: GB
+                      notes: 'Dietary: vegan'
+                    notes: Wheelchair accessible tour please
                     deliveryMethods:
                     - TICKET
-                    - VOUCHER
-                    voucher:
-                      deliveryOptions:
-                      - deliveryFormat: PDF_URL
-                        deliveryValue: https://api.octomock.com/octo/pdf?booking=814d2566-2c71-4e6a-aaa9-59b9bf26cc0d
-                      - deliveryFormat: QRCODE
-                        deliveryValue: RNSRSM
-                      redemptionMethod: DIGITAL
-                      utcRedeemedAt: null
+                    voucher: null
                     unitItems:
-                    - contact:
-                        country: null
-                        emailAddress: null
-                        firstName: null
-                        fullName: null
-                        lastName: null
-                        locales: []
-                        notes: null
-                        phoneNumber: null
-                      resellerReference: null
-                      status: ON_HOLD
-                      supplierReference: 1LTYVC
+                    - uuid: 3b1bc2ee-3155-4738-9471-f49842a07327
+                      resellerReference: 102-256952-3
+                      supplierReference: J9T7R6
+                      unitId: adult_697e3ce8
+                      unit:
+                        id: adult_697e3ce8
+                        internalName: Adult(s)
+                        reference: LR1-01
+                        type: ADULT
+                        requiredContactFields:
+                        - firstName
+                        - lastName
+                        restrictions:
+                          minAge: 18
+                          maxAge: 99
+                          idRequired: false
+                          minQuantity: 1
+                          maxQuantity: 7
+                          paxCount: 1
+                          accompaniedBy: []
+                      status: CONFIRMED
+                      utcRedeemedAt: null
+                      contact:
+                        firstName: John
+                        lastName: Doe
+                        locales:
+                        - en-GB
                       ticket:
-                        deliveryOptions:
-                        - deliveryFormat: PDF_URL
-                          deliveryValue: https://api.octomock.com/octo/pdf?booking=814d2566-2c71-4e6a-aaa9-59b9bf26cc0d&ticket=a204e6de-7909-4bf2-b7a8-2884189534bc
-                        - deliveryFormat: QRCODE
-                          deliveryValue: 1LTYVC
                         redemptionMethod: DIGITAL
                         utcRedeemedAt: null
-                      unit:
-                        id: adult
-                        internalName: adult
-                        reference: adult
-                        requiredContactFields: []
-                        restrictions:
-                          accompaniedBy: []
-                          idRequired: false
-                          maxAge: 100
-                          maxQuantity: null
-                          minAge: 18
-                          minQuantity: null
-                          paxCount: 1
-                        type: ADULT
-                      unitId: adult
-                      utcRedeemedAt: null
-                      uuid: a204e6de-7909-4bf2-b7a8-2884189534bc
-                    - contact:
-                        country: null
-                        emailAddress: null
-                        firstName: null
-                        fullName: null
-                        lastName: null
-                        locales: []
-                        notes: null
-                        phoneNumber: null
-                      resellerReference: null
-                      status: ON_HOLD
-                      supplierReference: A89VR8
-                      ticket:
                         deliveryOptions:
-                        - deliveryFormat: PDF_URL
-                          deliveryValue: https://api.octomock.com/octo/pdf?booking=814d2566-2c71-4e6a-aaa9-59b9bf26cc0d&ticket=9116e598-6713-4cb5-8ba4-e5b839f7a5d5
                         - deliveryFormat: QRCODE
-                          deliveryValue: A89VR8
-                        redemptionMethod: DIGITAL
-                        utcRedeemedAt: null
-                      unit:
-                        id: adult
-                        internalName: adult
-                        reference: adult
-                        requiredContactFields: []
-                        restrictions:
-                          accompaniedBy: []
-                          idRequired: false
-                          maxAge: 100
-                          maxQuantity: null
-                          minAge: 18
-                          minQuantity: null
-                          paxCount: 1
-                        type: ADULT
-                      unitId: adult
-                      utcRedeemedAt: null
-                      uuid: 9116e598-6713-4cb5-8ba4-e5b839f7a5d5
+                          deliveryValue: DIE382Q388455
+                        - deliveryFormat: PDF_URL
+                          deliveryValue: https://api.octomock.com/octo/pdf?booking=ec0ce0c2-03f0-4c64-bbc5-5e0f7d1e1c0a
         '400':
           $ref: '#/components/responses/BookingListError'
       parameters:
@@ -602,7 +598,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BookingResponse'
+                $ref: '#/components/schemas/Booking'
               examples:
                 CONFIRMED:
                   $ref: '#/components/examples/BookingConfirmed'
@@ -613,162 +609,7 @@ paths:
       parameters:
       - $ref: '#/components/parameters/ContentType'
       requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                emailReceipt:
-                  type: boolean
-                  description: |-
-                    Indicates whether the ticket receipt is sent to the guest by email.
-
-                    If not provided, the default value MUST be `false`.
-                  examples:
-                  - false
-                resellerReference:
-                  type: string
-                  description: |-
-                    Reseller reference associated with the Booking.
-
-                    This field MUST be provided when required by the Reseller configuration.
-                  examples:
-                  - 102-256952-3
-                contact:
-                  type: object
-                  description: Contact details for the main guest who will attend the tour/attraction. Contact schema can be applied to both the booking object (the main reservation) or the unit object (individual ticket holders - if the supplier requires this information).
-                  properties:
-                    fullName:
-                      type: string
-                      description: |-
-                        Full name of the booking holder.
-
-                        This field MAY be used as an alternative to firstName and lastName.
-                      examples:
-                      - John Doe
-                    firstName:
-                      type: string
-                      description: |-
-                        First name of the booking holder.
-
-                        This field MUST be provided if defined in requiredContactFields.
-                      examples:
-                      - John
-                    lastName:
-                      type: string
-                      description: Last name of the booking holder.
-                      examples:
-                      - Doe
-                    emailAddress:
-                      type: string
-                      description: Email address of the booking holder.
-                      format: email
-                      examples:
-                      - john@example.com
-                    phoneNumber:
-                      type: string
-                      description: Phone number of the booking holder in E.164 format.
-                      examples:
-                      - '+447840739436'
-                    locales:
-                      $ref: '#/components/schemas/Locales'
-                      description: Ordered list of preferred locales using BCP 47 language tags.
-                    postalCode:
-                      type: string
-                      description: The PO Box of the booking holder.
-                    country:
-                      type: string
-                      description: ISO 3166-1 alpha-2 country code of the booking holder.
-                      examples:
-                      - GB
-                    notes:
-                      type: string
-                      description: Optional notes for the booking holder.
-                unitItems:
-                  type: array
-                  description: An array of unit items that will be included in the booking. This allows you to provide contact details or a reseller reference for each unit item. Be careful to make sure you include ALL unit items that you also had in the original booking reservation request, if you provide more or less than in the booking reservation call this will change the number of unit items being purchased also.
-                  items:
-                    type: object
-                    properties:
-                      uuid:
-                        type: string
-                        description: |-
-                          Unique idempotency key for the unit item.
-
-                          If the same value is reused, the Supplier MUST treat the request as idempotent for this unit item.
-                        examples:
-                        - 3b1bc2ee-3155-4738-9471-f49842a07327
-                      unitId:
-                        type: string
-                        description: |-
-                          Identifier of the Unit type to be confirmed.
-
-                          All unit items MUST be provided.
-
-                          Providing this field MUST replace all existing unit items in the Booking.
-                        examples:
-                        - adult123
-                      resellerReference:
-                        $ref: '#/components/schemas/UnitResellerReference'
-                        description: Reseller reference associated with the individual unit item.
-                        examples:
-                        - TICKET-001
-                      contact:
-                        type: object
-                        description: Contact details for the main guest who will attend the tour/attraction. Contact schema can be applied to both the booking object (the main reservation) or the unit object (individual ticket holders - if the supplier requires this information).
-                        properties:
-                          fullName:
-                            type: string
-                            description: The full name of the ticket holder. Can also be retrieved as an alias for the concatenation of firstName and lastName.
-                            examples:
-                            - John Doe
-                          firstName:
-                            type: string
-                            description: The first name of the ticket holder.
-                            examples:
-                            - John
-                          lastName:
-                            type: string
-                            description: The last name of the ticket holder.
-                            examples:
-                            - Doe
-                          emailAddress:
-                            type: string
-                            description: The email address of the ticket holder.
-                            examples:
-                            - johndoe@gmail.com
-                          phoneNumber:
-                            type: string
-                            description: The phone number of the ticket holder.
-                          locales:
-                            $ref: '#/components/schemas/Locales'
-                          postalCode:
-                            type: string
-                            description: The PO Box of the ticket holder.
-                          country:
-                            type: string
-                            description: The country of the ticket holder.
-                          notes:
-                            type: string
-                            description: Optional notes for the ticket holder.
-                    required:
-                    - unitId
-              required:
-              - contact
-            examples:
-              Confirmation:
-                value:
-                  resellerReference: VOUCHER-0123
-                  contact:
-                    fullName: Oliver Morgan
-                    emailAddress: ollym@me.com
-                    phoneNumber: '+447840739436'
-                    locales:
-                    - en-GB
-                    - en-US
-                    - en
-                    country: GB
-        description: ''
+        $ref: '#/components/requestBodies/BookingConfirmation'
     parameters:
     - schema:
         type: string
@@ -790,7 +631,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BookingResponse'
+                $ref: '#/components/schemas/Booking'
               examples:
                 CANCELLED:
                   $ref: '#/components/examples/BookingCancelled'
@@ -828,7 +669,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BookingResponse'
+                $ref: '#/components/schemas/Booking'
               examples:
                 example-1:
                   $ref: '#/components/examples/BookingConfirmed'
@@ -857,152 +698,14 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BookingResponse'
+                $ref: '#/components/schemas/Booking'
               examples:
                 example-1:
                   $ref: '#/components/examples/BookingUpdated'
         '400':
           $ref: '#/components/responses/BookingConfirmError'
       requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                resellerReference:
-                  type: string
-                  description: Updated Reseller reference associated with the Booking.
-                  examples:
-                  - 102-256952-3
-                productId:
-                  type: string
-                  description: Updated identifier of the Product for the Booking.
-                  examples:
-                  - 6b903d44-dc24-4ca4-ae71-6bde6c4f4854
-                optionId:
-                  type: string
-                  description: Updated identifier of the Option for the Booking.
-                  examples:
-                  - DEFAULT
-                availabilityId:
-                  type: string
-                  description: Updated identifier of the Availability (ISO 8601 datetime) for the Booking.
-                  examples:
-                  - '2026-06-30T12:00:00+01:00'
-                expirationMinutes:
-                  type: string
-                  description: How many minutes to reserve the availability, otherwise defaults to the supplier default amount.
-                notes:
-                  type: string
-                  description: Updated notes associated with the Booking.
-                  examples:
-                  - 'Dietary: vegan'
-                emailReceipt:
-                  type: boolean
-                  description: Whether you want OCTO Cloud to email the guest a copy of their receipt and tickets. (defaults to false).
-                unitItems:
-                  type: array
-                  description: An array of unit items in the booking. To retain or modify existing unit items, you must include the unit item with the associated uuid, otherwise that unit item will be removed.
-                  items:
-                    type: object
-                    properties:
-                      uuid:
-                        type: string
-                        description: A unique UUID to identify the unit item.
-                      unitId:
-                        type: string
-                        description: |-
-                          Identifier of the Unit type to be booked.
-
-                          All unit items MUST be provided in the request to retain them.
-                        examples:
-                        - adult
-                      resellerReference:
-                        $ref: '#/components/schemas/UnitResellerReference'
-                      contact:
-                        type: object
-                        properties:
-                          fullName:
-                            type: string
-                            description: The full name of the ticket holder. Can also be retrieved as an alias for the concatenation of firstName and lastName.
-                            examples:
-                            - John Doe
-                          firstName:
-                            type: string
-                            description: The first name of the ticket holder.
-                            examples:
-                            - John
-                          lastName:
-                            type: string
-                            description: The last name of the ticket holder.
-                            examples:
-                            - Doe
-                          emailAddress:
-                            type: string
-                            description: The email address of the ticket holder.
-                            format: email
-                            examples:
-                            - johndoe@gmail.com
-                          phoneNumber:
-                            type: string
-                            description: The phone number of the ticket holder.
-                          locales:
-                            $ref: '#/components/schemas/Locales'
-                          postalCode:
-                            type: string
-                            description: The PO Box of the ticket holder.
-                          country:
-                            type: string
-                            description: The country of the ticket holder.
-                          notes:
-                            type: string
-                            description: Optional notes for the ticket holder.
-                    required:
-                    - unitId
-                contact:
-                  type: object
-                  properties:
-                    fullName:
-                      type: string
-                      description: The full name of the booking holder. Can also be retrieved as an alias for the concatenation of firstName and lastName.
-                      examples:
-                      - John Doe
-                    firstName:
-                      type: string
-                      description: First name of the lead traveller.
-                      examples:
-                      - John
-                    lastName:
-                      type: string
-                      description: Last name of the lead traveller.
-                      examples:
-                      - Doe
-                    emailAddress:
-                      type: string
-                      description: Email address of the lead traveller.
-                      format: email
-                      examples:
-                      - john@example.com
-                    phoneNumber:
-                      type: string
-                      description: Phone number of the lead traveller in E.164 format.
-                      examples:
-                      - '+447840739436'
-                    locales:
-                      $ref: '#/components/schemas/Locales'
-                      description: Ordered list of preferred locales for the lead traveller using BCP 47 language tags.
-                    postalCode:
-                      type: string
-                      description: The PO Box of the booking holder.
-                    country:
-                      type: string
-                      description: ISO 3166-1 alpha-2 country code of the lead traveller.
-                      examples:
-                      - GB
-                    notes:
-                      type: string
-                      description: Optional notes for the booking holder.
-            examples: {}
+        $ref: '#/components/requestBodies/BookingUpdate'
       parameters:
       - schema:
           type: string
@@ -1044,7 +747,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BookingResponse'
+                $ref: '#/components/schemas/Booking'
               examples:
                 example-1:
                   $ref: '#/components/examples/BookingOnHold'
@@ -1064,7 +767,7 @@ components:
       - string
       examples:
       - John Doe
-      description: The full name of the booking holder or the ticket holder. Can also be retrieved as an alias for the concatenation of `firstName` and `lastName`
+      description: The full name of the booking holder or the ticket holder. Can also be retrieved as an alias for the concatenation of `firstName` and `lastName`.
     FirstName:
       type:
       - 'null'
@@ -1085,23 +788,29 @@ components:
       - string
       format: email
       examples:
-      - johndoe@email.com
+      - john@example.com
       description: The email address of the booking holder or the ticket holder.
     PhoneNumber:
       type:
       - 'null'
       - string
       description: The phone number of the booking holder or the ticket holder.
+      examples:
+      - +44 7777 777777
     PostalCode:
       type:
       - 'null'
       - string
-      description: The PO Box of the booking holder or the ticket holder.
+      description: The postal / ZIP code of the booking holder or the ticket holder.
+      examples:
+      - W1H 7EJ
     Country:
       type:
       - 'null'
       - string
-      description: The country of the booking holder or the ticket holder.
+      description: The country code of the booking holder or the ticket holder. MUST use ISO 3166-1 alpha-2.
+      examples:
+      - GB
     Locales:
       type: array
       description: An array of locale values, equivalent to `navigator.languages` in a browser environment.
@@ -1160,134 +869,158 @@ components:
       type:
       - integer
       - 'null'
-      description: This SHOULD NOT be returned when status is `FREESALE`. This SHOULD be a shared pool for all Unit types in the Option. If availability is tracked per-Unit then this value MUST be equal to the available quantity for the Unit that has the most remaining.
+      description: Indicates the number of remaining vacancies. This value SHOULD be less than or equal to `capacity`. A `null` value MUST be returned when `status` equals `FREESALE`. A `null` value MAY be returned when capacity details cannot be reliably shared. This SHOULD NOT be done unless necessary. In this case, the `status` field SHOULD be used as an approximate indication of remaining availability.
       examples:
       - 10
     Product:
       type: object
-      x-examples:
-        example-1:
-          id: 28ca088b-bc7b-4746-ab06-5971f1ed5a5e
-          internalName: Edinburgh Hop-On Hop-Off Bus Tour
-          reference: null
-          locale: en
-          timeZone: Europe/London
-          allowFreesale: true
-          instantConfirmation: true
-          instantDelivery: true
-          availabilityRequired: false
       examples:
-      - id: 6b903d44-dc24-4ca4-ae71-6bde6c4f4854
-        internalName: Amazon River Tour
-        reference: AMZN
+      - id: LEYE-6bde6c4f4854
+        internalName: London Eye Admission
+        reference: LEYE
         locale: en-GB
         timeZone: Europe/London
-        allowFreesale: true
+        allowFreesale: false
         instantConfirmation: true
         instantDelivery: true
         availabilityRequired: true
         availabilityType: START_TIME
         deliveryFormats:
         - QRCODE
+        - PDF_URL
         deliveryMethods:
-        - VOUCHER
+        - TICKET
         redemptionMethod: DIGITAL
         options:
-        - availabilityLocalStartTimes:
-          - 09:00
+        - id: 2214b32d-ffa1-426c-b4d2-947dca724e50
+          default: true
+          internalName: Fast Track
+          reference: LEYE-FT
+          availabilityLocalStartTimes:
+          - '09:00'
+          - '14:00'
+          - '17:00'
           cancellationCutoff: 1 hour
           cancellationCutoffAmount: 1
           cancellationCutoffUnit: hour
-          default: true
-          id: DEFAULT
-          internalName: Private Morning Tour
-          reference: VIP-MORN
           requiredContactFields:
           - firstName
+          - lastName
           restrictions:
-            maxUnits: 10
-            minUnits: 'null'
+            minUnits: 1
+            maxUnits: 20
           units:
-          - id: adult_697e3ce8-1860-4cbf-80ad-95857df1f640
+          - id: adult_697e3ce8
             internalName: Adult(s)
-            reference: LR1-01-new
+            reference: LR1-01
+            type: ADULT
             requiredContactFields:
             - firstName
+            - lastName
             restrictions:
-              accompaniedBy:
-              - adult_697e3ce8-1860-4cbf-80ad-95857df1f640
-              idRequired: true
-              maxAge: 17
+              minAge: 18
+              maxAge: 99
+              idRequired: false
+              minQuantity: 1
               maxQuantity: 7
-              minAge: 3
-              minQuantity: 2
               paxCount: 1
+              accompaniedBy: []
+          - id: youth_f6446706
+            internalName: Youth(s)
+            reference: LR1-02
             type: YOUTH
+            requiredContactFields:
+            - firstName
+            - lastName
+            restrictions:
+              minAge: 3
+              maxAge: 17
+              idRequired: false
+              minQuantity: 0
+              maxQuantity: 7
+              paxCount: 1
+              accompaniedBy:
+              - adult_697e3ce8
       description: A bookable product listed by a supplier.
       properties:
         id:
           type: string
           examples:
-          - 6b903d44-dc24-4ca4-ae71-6bde6c4f4854
-          description: The id used for checking for availability and creating bookings for the product. This MUST be unique within the scope of the Supplier.
+          - LEYE-6bde6c4f4854
+          description: Unique identifier for the Product. Used across Availability checks, Bookings, and other operations. MUST be unique within the respective Supplier's scope. (Max. 255 ASCII characters)
         internalName:
-          type: string
-          description: The name the supplier calls the product.
+          type:
+          - string
+          - 'null'
+          description: Internal name used by the Supplier to identify the Product. The customer-facing name is defined in title under the Content capability.
           examples:
-          - Amazon River Tour
+          - London Eye Admission
         reference:
           type:
           - 'null'
           - string
-          description: An optional code this supplier might use to identify the product.
+          description: Internal reference code used by the Supplier to identify the Product.
           examples:
-          - AMZN
+          - LEYE
         locale:
           type: string
           examples:
           - en-GB
-          description: A language code indicating what language this product content is in. This MUST be a valid BCP 47 RFC 5646 RFC 4647 language tag.
+          description: Primary language of the Product. MUST conform to IETF BCP 47 (e.g., en-GB, fr-FR).
         timeZone:
-          type: string
+          type:
+          - string
+          - 'null'
           examples:
           - Europe/London
-          description: The IANA TimeZone name this product is located in.
+          description: IANA Time Zone identifier for the Product's location (e.g., Europe/London, America/New_York).
         allowFreesale:
           type: boolean
-          description: Whether a booking can be made for this product without having to query availability first.
+          deprecated: true
+          description: |-
+            [DEPRECATED] Use availabilityRequired instead.
+            Indicates whether an `availabilityId` is required to create a Booking. When false, open-dated Bookings can be created without specifying a travel date.
+          examples:
+          - true
         instantConfirmation:
           type: boolean
-          description: Whether bookings will be immediately confirmed when a sale is made, otherwise the supplier will later either accept or reject the booking. When `instantConfirmation` is set to false one should expect created bookings to first get into a `PENDING` state.
+          description: Indicates whether a Booking is immediately confirmed upon a confirmation request. When false, the Booking enters a `PENDING` state until the Supplier accepts or rejects it.
+          examples:
+          - true
         instantDelivery:
           type: boolean
-          description: This indicates whether the Reseller can expect immediate delivery of the customer's tickets. If `false` then the Reseller MUST be able to delay delivery of the tickets to the customer.
+          description: |-
+            Indicates whether Tickets are delivered to the Reseller immediately after Booking confirmation. When `false`, the Reseller MUST be able to delay delivery to the customer. The Reseller MUST either implement a polling mechanism or use the "Notifications" capability to detect when the Tickets have become available.
+            Note that the specification does not define a formal requirement for acceptable delays.
+          examples:
+          - true
         availabilityRequired:
           type: boolean
-          description: Whether an `availabilityId` is required when creating a booking. Without this the booking will be open-dated and not have a specified travel date.
+          description: |-
+            Indicates whether Availability MUST be checked before creating a Booking.
+            If `true`, the Reseller MUST retrieve Availability using the /availability endpoint and provide a valid availabilityId when creating a Booking.
+            If `false`, a Booking MAY be created without retrieving Availability in advance.
+
+            Indicates whether an `availabilityId` is required to create a Booking. When false, open-dated Bookings can be created without specifying a travel date.
+          examples:
+          - true
         availabilityType:
           $ref: '#/components/schemas/AvailabilityType'
         deliveryFormats:
           type: array
-          description: |-
-            An array of formats the API will deliver the tickets as. Possible values are:
-            `QRCODE` A code to be presented as a QR CODE barcode
-            `CODE128A` code to be presented as a CODE 128 barcode
-            `PDF_URL` A URL to a PDF file which contains all the ticket details
+          description: Specifies the ticket or voucher delivery formats supported by this Product. Each value MUST be a `DeliveryFormat`, which defines the meaning of each format and the Client's obligations when presenting it.
           items:
             $ref: '#/components/schemas/DeliveryFormat'
         deliveryMethods:
           type: array
-          description: |-
-            How the formats described in `deliveryFormats` will be delivered in the booking response, possible values are:
-            `TICKET`: Individually per unit in the order (i.e. single ticket for each person)
-            `VOUCHER`: One ticket for the whole booking
+          description: Specifies the ticket or voucher delivery methods supported by this Product. Each value MUST be a `DeliveryMethod`, which defines the meaning of each method and which objects it populates in the Booking response.
           items:
             $ref: '#/components/schemas/DeliveryMethod'
         redemptionMethod:
           $ref: '#/components/schemas/RedemptionMethod'
         options:
           type: array
-          description: An array of all options for this product. All products must have at least one option.
+          description: All Options for the Product. At least one Option MUST be present.
           items:
             $ref: '#/components/schemas/Option'
       required:
@@ -1304,54 +1037,48 @@ components:
       - deliveryMethods
       - redemptionMethod
       - options
+      - timeZone
     Unit:
       type: object
-      x-examples:
-        example-1:
-          id: unit_c1709f42-297e-4f7e-bd6b-3e77d4622d8a
-          internalName: Adult
-          reference: null
-          type: ADULT
-          requiredContactFields: []
       examples:
-      - id: adult_697e3ce8-1860-4cbf-80ad-95857df1f640
+      - id: adult_697e3ce8
         internalName: Adult(s)
-        reference: LR1-01-new
+        reference: LR1-01
+        type: ADULT
         requiredContactFields:
         - firstName
+        - lastName
         restrictions:
-          accompaniedBy:
-          - adult_697e3ce8-1860-4cbf-80ad-95857df1f640
-          idRequired: true
-          maxAge: 17
+          minAge: 18
+          maxAge: 99
+          idRequired: false
+          minQuantity: 1
           maxQuantity: 7
-          minAge: 3
-          minQuantity: 2
           paxCount: 1
-        type: YOUTH
+          accompaniedBy: []
       properties:
         id:
           type: string
-          description: This MUST be a unique identifier within the scope of the option.
+          description: Unique unit identifier within the Option scope. (Max. 255 ASCII characters)
           examples:
-          - adult_697e3ce8-1860-4cbf-80ad-95857df1f640
+          - adult_697e3ce8
         internalName:
           type: string
           examples:
           - Adult(s)
-          description: This should be a name to help with identifying the unit. It should NOT be shown to the customer.
+          description: Supplier's label for this unit type. NOT for display to end customers.
         reference:
           type:
           - 'null'
           - string
-          description: This is an internal reference identifier that the Supplier wishes to use. It MAY be non-unique.
+          description: Optional supplier internal reference for the unit
           examples:
-          - LR1-01-new
+          - LR1-01
         type:
           $ref: '#/components/schemas/UnitType'
         requiredContactFields:
           type: array
-          description: This is the array of the contact information PER ticket that the supplier expects.
+          description: Per-ticket contact fields required at confirmation
           items:
             $ref: '#/components/schemas/ContactField'
         restrictions:
@@ -1365,62 +1092,54 @@ components:
       description: ''
     UnitRestrictions:
       type: object
-      x-examples:
-        example-1:
-          minAge: 0
-          maxAge: 100
-          idRequired: false
-          minQuantity: 1
-          maxQuantity: null
-          paxCount: 4
-          accompaniedBy: []
       description: unit restrictions
       examples:
-      - accompaniedBy:
-        - adult_697e3ce8-1860-4cbf-80ad-95857df1f640
-        idRequired: true
-        maxAge: 17
+      - minAge: 18
+        maxAge: 99
+        idRequired: false
+        minQuantity: 1
         maxQuantity: 7
-        minAge: 3
-        minQuantity: 2
         paxCount: 1
+        accompaniedBy: []
       title: UnitRestrictions
       properties:
         minAge:
           type: integer
           examples:
-          - 3
-          description: This is the minimum age this unit can be sold to
+          - 18
+          description: Minimum age for this unit type
         maxAge:
           type: integer
           examples:
-          - 17
-          description: This is the maximum age this unit can be sold to
+          - 99
+          description: Maximum age for this unit type
         idRequired:
           type: boolean
-          description: This is whether a form of identification will be required at redemption point (eg. student card)
+          description: Whether the traveler is required to present proof of identity at ticket redemption
+          examples:
+          - false
         minQuantity:
           type:
           - integer
           - 'null'
           examples:
-          - 2
-          description: This is if there is a minimum amount of units to be chosen for purchase (eg. 2)
+          - 1
+          description: Minimum number of this unit per booking
         maxQuantity:
           type:
           - 'null'
           - integer
           examples:
           - 7
-          description: This is if there is a maximum amount of units to be chosen for purchase (eg. 7)
+          description: Maximum number of this unit per booking
         paxCount:
           type: integer
-          description: This is the amount of people each unit counts as (eg. family == 4pax)
+          description: Number of people this unit counts as (e.g. family = 4)
           examples:
           - 1
         accompaniedBy:
           type: array
-          description: This is if the unit needs to be accompanied by another unit (eg. Infant with Adult)
+          description: Unit IDs that must be included in Bookings, together with this unit (e.g. infant with adult)
           items:
             type: string
             examples:
@@ -1439,14 +1158,28 @@ components:
       enum:
       - firstName
       - lastName
+      - fullName
       - emailAddress
       - phoneNumber
+      - postalCode
       - country
       - notes
       - locales
       examples:
       - firstName
-      description: ''
+      description: |-
+        A single contact field that a supplier may require before a Booking can be confirmed. Referenced by `Option.requiredContactFields` for the lead traveler and by `Unit.requiredContactFields` for individual ticket holders.
+
+        Possible values:
+        - `firstName`: The first name of the traveler.
+        - `lastName`: The last name of the traveler.
+        - `fullName`: The full name of the traveler. Used when first/last name separation is not required.
+        - `emailAddress`: The email address of the traveler.
+        - `phoneNumber`: The phone number of the traveler.
+        - `postalCode`: The postal code of the traveler's address.
+        - `country`: The country of the traveler.
+        - `notes`: Optional free-text notes from the traveler, such as special requests or accessibility requirements.
+        - `locales`: The traveler's preferred language(s) for the experience, expressed as BCP 47 locale codes (e.g. `en`, `fr`, `pt-PT`).
     UnitType:
       type: string
       title: UnitType
@@ -1463,125 +1196,167 @@ components:
       examples:
       - ADULT
       - YOUTH
-      description: This is the base unit type for this unit definition. A value of TRAVELLER MUST only be used in replacement of `ADULT`, `CHILD`, `INFANT`, `YOUTH`, `STUDENT`, or `SENIOR`.
+      description: |-
+        Base unit type category.
+
+        Possible values:
+        - `ADULT`: Standard adult ticket.
+        - `YOUTH`: Youth/teenager ticket.
+        - `CHILD`: Child ticket.
+        - `INFANT`: Infant/baby ticket.
+        - `FAMILY`: Family bundle ticket (see `paxCount` for equivalent adults).
+        - `SENIOR`: Senior/pensioner ticket.
+        - `STUDENT`: Student ticket (`idRequired` may apply).
+        - `MILITARY`: Military personnel ticket.
+        - `OTHER`: Any other unit type not covered by the above.
     OptionRestrictions:
       type: object
-      x-examples:
-        example-1:
-          minUnits: 0
-          maxUnits: 9
-      description: An object containing a fixed list of restrictions for booking the option.
+      description: Booking restrictions for the Option.
       examples:
-      - minUnits: null
-        maxUnits: 10
+      - minUnits: 1
+        maxUnits: 20
       properties:
         minUnits:
           type:
           - integer
           - 'null'
           examples:
-          - 0
-          description: The minimum number of tickets that can be purchased in a single booking (null = 0).
+          - 1
+          description: Minimum number of unique units (regardless of the units' quantities) that must be included in a Booking. A `null` value implies that there's no minimum.
         maxUnits:
           type:
           - integer
           - 'null'
           examples:
-          - 10
-          description: The maximum number of tickets that can be purchased in a single booking (null = unlimited).
+          - 20
+          description: Maximum number of units per Booking. A `null` value implies that there's no maximum.
       required:
       - minUnits
       - maxUnits
     Option:
       type: object
-      x-examples:
-        example-1:
-          id: DEFAULT
-          default: true
-          internalName: DEFAULT
-          reference: null
-          availabilityLocalStartTimes:
-          - 00:00
-          cancellationCutoff: 1 hour
-          cancellationCutoffAmount: 1
-          cancellationCutoffUnit: hour
-          requiredContactFields: []
       examples:
-      - availabilityLocalStartTimes:
-        - 09:00
+      - id: 2214b32d-ffa1-426c-b4d2-947dca724e50
+        default: true
+        internalName: Fast Track
+        reference: LEYE-FT
+        availabilityLocalStartTimes:
+        - '09:00'
+        - '14:00'
+        - '17:00'
         cancellationCutoff: 1 hour
         cancellationCutoffAmount: 1
         cancellationCutoffUnit: hour
-        default: true
-        id: DEFAULT
-        internalName: Private Morning Tour
-        reference: VIP-MORN
         requiredContactFields:
         - firstName
+        - lastName
         restrictions:
-          maxUnits: 10
-          minUnits: 'null'
+          minUnits: 1
+          maxUnits: 20
         units:
-        - id: adult_697e3ce8-1860-4cbf-80ad-95857df1f640
+        - id: adult_697e3ce8
           internalName: Adult(s)
-          reference: LR1-01-new
+          reference: LR1-01
+          type: ADULT
           requiredContactFields:
           - firstName
+          - lastName
           restrictions:
-            accompaniedBy:
-            - adult_697e3ce8-1860-4cbf-80ad-95857df1f640
-            idRequired: true
-            maxAge: 17
+            minAge: 18
+            maxAge: 99
+            idRequired: false
+            minQuantity: 1
             maxQuantity: 7
-            minAge: 3
-            minQuantity: 2
             paxCount: 1
+            accompaniedBy: []
+        - id: youth_f6446706
+          internalName: Youth(s)
+          reference: LR1-02
           type: YOUTH
+          requiredContactFields:
+          - firstName
+          - lastName
+          restrictions:
+            minAge: 3
+            maxAge: 17
+            idRequired: false
+            minQuantity: 0
+            maxQuantity: 7
+            paxCount: 1
+            accompaniedBy:
+            - adult_697e3ce8
       description: Product options are subdivisions of the original product that will affect price and / or duration. Within the OCTo spec, every product must contain an option.
       properties:
         id:
           type: string
           examples:
-          - DEFAULT
-          description: The id that identifies this option, it is only unique within the product.
+          - 2214b32d-ffa1-426c-b4d2-947dca724e50
+          description: Unique identifier for the Option within the Product. Used across Availability checks, Bookings, and other operations. MUST be unique within the respective Product's scope. (Max. 255 ASCII characters)
         default:
           type: boolean
-          description: '`TRUE` identifies the option as default, and should therefore be rendered and selected first'
-        internalName:
-          type: string
-          description: The name the supplier calls the option by.
+          description: Indicates whether the option is the default selection. Default option SHOULD be rendered and selected first in customer-facing interfaces.
           examples:
-          - Private Morning Tour
+          - false
+        internalName:
+          type:
+          - string
+          - 'null'
+          description: Internal name used by the Supplier to identify the Option. The customer-facing name is defined in `title` under the Content capability if the Supplier System supports that capability.
+          examples:
+          - Fast Track
         reference:
           type:
           - 'null'
           - string
-          description: An optional code this supplier might use to identify the product.
+          description: Internal reference code used by the Supplier to identify the Option.
           examples:
-          - VIP-MORN
+          - LEYE-FT
         availabilityLocalStartTimes:
-          type: array
-          description: This will be an array of all possible start times that can be returned during availability. For example an all day attraction may have a single value like `["00:00"]` whilst a tour with multiple departure times may have multiple:`["09:00", "14:00", "17:00"]`.
+          type:
+          - array
+          - 'null'
+          description: All possible start times for the Option, as returned during Availability checks (e.g., ["09:00", "14:00", "17:00"]).
           items:
             type: string
             default: 00:00
             examples:
             - 09:00
         cancellationCutoff:
-          type: string
+          type:
+          - string
+          - 'null'
           examples:
-          - 1 hour
-          description: This is how long before the tour the booking can still be cancelled.
+          - Final Sale. All tickets are non-refundable and non-transferable once purchased.
+          description: Human-readable description of the cancellation policy for the Option.
         cancellationCutoffAmount:
-          type: integer
+          type:
+          - integer
+          - 'null'
           examples:
           - 1
-          description: The numeric amount for the cutoff.
+          description: Numeric value of the cancellation cutoff period, relative to the start time or closing hour of the Product.
         cancellationCutoffUnit:
-          $ref: '#/components/schemas/DurationUnit'
+          oneOf:
+          - $ref: '#/components/schemas/DurationUnit'
+          - type: 'null'
         requiredContactFields:
           type: array
-          description: An array of the contact fields required to confirm a booking. These just apply to the lead traveller on the booking and not for every ticket.
+          description: |-
+            Contact fields required to confirm a Booking. Applies to the lead traveler only. Per-person required fields are defined separately on the Unit object.
+
+            Possible values:
+            - `firstName`: The first name of the lead traveler.
+            - `lastName`: The last name of the lead traveler.
+            - `fullName`: The full name of the lead traveler. Used when first/last name separation is not required.
+            - `emailAddress`: The email address of the lead traveler.
+            - `phoneNumber`: The phone number of the lead traveler.
+            - `postalCode`: The postal code of the lead traveler's address.
+            - `country`: The country of the lead traveler.
+            - `notes`: Optional free-text notes from the traveler, such as special requests or accessibility requirements.
+            - `locales`: The traveler's preferred language(s) for the experience, expressed as BCP 47 locale codes (e.g. `en`, `fr`, `pt-PT`).
+          examples:
+          - - firstName
+            - lastName
           items:
             $ref: '#/components/schemas/ContactField'
         restrictions:
@@ -1610,22 +1385,51 @@ components:
       - VOUCHER
       - TICKET
       description: |-
-        An array of delivery methods available for this booking. Possible values are:
-        `VOUCHER` The voucher object is populated which is a single ticket for the whole booking.
-        `TICKET` The ticket object is populated on each unit item which is a ticket for each individual person.
-        If `booking.deliveryMethods` contains both `TICKET` and `VOUCHER` then both those values will be set.
+        A single method by which tickets or vouchers are delivered for a Booking. Referenced by `Product.deliveryMethods` for the methods a Product supports, and by `Booking.deliveryMethods` for the methods applied to a given Booking.
+
+        Possible values:
+        - "VOUCHER": A single voucher is delivered for the entire Booking (e.g., all people in the Booking share one voucher). The `Booking.voucher` object is populated.
+        - "TICKET": A separate ticket is delivered per unit item (e.g., each person in the Booking receives an individual ticket). `UnitItem.ticket` is populated on every unit item.
+
+        For each method present in `Booking.deliveryMethods`, the corresponding object MUST be populated in the Booking response; the object for a method that is absent MUST be `null`. When `Booking.deliveryMethods` contains both values, both objects MUST be populated.
+
+        When a Product supports both methods, the Reseller MAY select the method that best fits their integration, or offer both options to the end customer.
       examples:
-      - VOUCHER
+      - TICKET
     DeliveryFormat:
       type: string
       title: DeliveryFormat
       enum:
-      - PDF_URL
       - QRCODE
+      - PDF_URL
+      - CODE128
+      - AZTEC
+      - PDF417
+      - PKPASS_URL
+      - GOOGLE_WALLET_URL
+      - DOTCODE
+      - DATAMATRIX
+      - HANXIN
+      - HTML_URL
+      - IMAGE_URL
       description: |-
-        The format for the delivery option. Possible values are:
-        `QRCODE` You should generate the QR Code yourself on a ticket.
-        `PDF_URL` Where you use the generated tickets as a PDF.
+        A single format in which a ticket or voucher can be delivered. Referenced by `Product.deliveryFormats` for the formats a Product supports, and by `Ticket.deliveryOptions[].deliveryFormat` for the format of a delivered ticket or voucher.
+
+        The payload itself is carried in `Ticket.deliveryOptions[].deliveryValue`, either as an encoded string or as a URL, depending on the format.
+
+        Possible values:
+        - "QRCODE": A two-dimensional matrix barcode conforming to ISO/IEC 18004, encoded as a string. The Client MUST render the QR code.
+        - "PDF_URL": A URL resolving to a downloadable PDF document containing ticket details. The Client MUST retrieve and present the PDF to the customer.
+        - "CODE128": A high-density linear barcode conforming to ISO/IEC 15417, encoded as a string. The Client MUST render the barcode.
+        - "AZTEC": A two-dimensional matrix barcode conforming to ISO/IEC 24778, encoded as a string. The Client MUST render the barcode.
+        - "PDF417": A stacked two-dimensional barcode conforming to ISO/IEC 15438, encoded as a string. The Client MUST render the barcode.
+        - "PKPASS_URL": A URL resolving to a PKPass file compatible with Apple Wallet. The Client MUST present the pass to the customer.
+        - "GOOGLE_WALLET_URL": A URL resolving to a Google Wallet pass. The Client MUST present the pass to the customer.
+        - "DOTCODE": A two-dimensional barcode optimized for high-speed inkjet printing, encoded as a string. The Client MUST render the barcode.
+        - "DATAMATRIX": A two-dimensional matrix barcode conforming to ISO/IEC 16022, encoded as a string. The Client MUST render the barcode.
+        - "HANXIN": A two-dimensional matrix barcode conforming to GB/T 27766 with native support for Chinese characters, encoded as a string. The Client MUST render the barcode.
+        - "HTML_URL": A URL resolving to an HTML page containing ticket details. The Client MUST retrieve and present the content to the customer.
+        - "IMAGE_URL": A URL resolving to an image file containing the ticket. The Client MUST retrieve and present the image to the customer.
       examples:
       - QRCODE
     AvailabilityType:
@@ -1635,11 +1439,13 @@ components:
       - START_TIME
       - OPENING_HOURS
       description: |-
-        What type of availability this product has, possible values are:
-        `START_TIME` if there are fixed departure times which you must pick one. Typical for day tours or activities.
-        `OPENING_HOURS` if you just select a date and can visit any time when the venue is open.
+        Specifies the type of Availability for the Product.
+
+        Possible values:
+        - "START_TIME": For Products with fixed departure times (e.g., a walking tour at set times during the day).
+        - "OPENING_HOURS": For Products where customers select a date and can visit anytime during operating hours (e.g., a museum general admission ticket valid at any time when the museum is open).
       examples:
-      - START_TIME
+      - OPENING_HOURS
     DurationUnit:
       type: string
       title: DurationUnit
@@ -1649,7 +1455,13 @@ components:
       - day
       examples:
       - hour
-      description: 'Time units used to determine duration. Three values are available: `hour`, `minute`, `day`.'
+      description: |-
+        Time unit for the cancellation cutoff period.
+
+        Possible values:
+        - "hour": Hours unit for cancellation cutoff duration.
+        - "minute": Minutes unit for cancellation cutoff duration.
+        - "day": Days unit for cancellation cutoff duration.
     RedemptionMethod:
       type: string
       title: RedemptionMethod
@@ -1658,51 +1470,45 @@ components:
       - PRINT
       - MANIFEST
       description: |-
-        How the voucher can be redeemed. Possible values are:
-        `MANIFEST` The guest name will be written down and they just need to show up
-        `DIGITAL` The tickets/voucher must be scanned but can be on mobile
-        `PRINT` The tickets/voucher must be printed and presented on arrival
+        Specifies the redemption method for the Product.
+
+        Possible values:
+        - "DIGITAL": The ticket MUST be scanned and MAY be presented on a mobile device.
+        - "PRINT": The ticket MUST be printed and presented physically upon arrival.
+        - "MANIFEST": The guest name is on a manifest. Ticket scanning is not required; the guest MUST present themselves at arrival.
       examples:
       - DIGITAL
     Supplier:
       type: object
-      x-examples:
-        example-1:
-          id: 697e3ce8-1860-4cbf-80ad-95857df1f640
-          name: Edin Explore
-          endpoint: https://api.ventrata.com/api-octo
-          contact:
-            website: null
-            email: support@ventrata.com
-            telephone: null
-            address: Marble Arch, London, W1H 7EJ, United Kingdom
       examples:
-      - id: 48b4d2e9-cd8b-4ac2-a5ee-4217bf2622c2
-        name: John Doe's company
-        endpoint: http://example.com
+      - id: 697e3ce8-1860-4cbf-80ad-95857df1f640
+        name: Merlin Entertainments
+        endpoint: https://trade.api.merlinentertainments.biz/b2b-trade/octo
         contact:
-          website: null
-          email: john.doe@email.com
-          telephone: null
-          address: null
+          website: https://www.merlinentertainments.biz
+          email: info@merlinentertainments.biz
+          telephone: '+441202666900'
+          address: Link House, 25 West St, Poole BH15 1LD, United Kingdom
       properties:
         id:
           type: string
           examples:
           - 697e3ce8-1860-4cbf-80ad-95857df1f640
-          description: Unique identifier used in the platform to represent the supplier.
+          description: A unique identifier for this Supplier. MUST NOT exceed 255 printable ASCII characters.
         name:
           type: string
-          description: Name the supplier uses to identify itself. Usually what the end customer will know the supplier as.
+          description: The human-readable name of this Supplier, used to identify it within the system.
           examples:
-          - Edin Explore
+          - Merlin Entertainments
         endpoint:
           type: string
           format: uri
-          description: This is the base URL that will be prepended to ALL other paths. The value SHOULD NOT contain a trailing `/`.
+          deprecated: true
+          description: '[DEPRECATED] The base URL prepended to all API request paths. MUST be a valid URI and MUST NOT include a trailing slash.'
           examples:
-          - https://api.my-booking-platform.com/v1
+          - https://trade.api.merlinentertainments.biz/b2b-trade/octo
         contact:
+          description: The contact details for this Supplier, including available communication methods and mailing address.
           type: object
           required:
           - website
@@ -1715,104 +1521,94 @@ components:
               - 'null'
               - string
               format: uri
-              description: This SHOULD be the website of the Supplier that is separate from the Booking Platform but MAY be a unique destination within the Booking Platform about the Supplier.
+              description: The official website URL of this Supplier. MUST be a valid URI and MUST NOT include a trailing slash.
               examples:
-              - https://acme-tours.co.fake
+              - https://www.merlinentertainments.biz
             email:
               type:
               - 'null'
               - string
               format: email
-              description: The email support contact for the Supplier.
+              description: The customer service email address for this Supplier.
               examples:
-              - info@edinexplore.com
+              - info@merlinentertainments.biz
             telephone:
               type:
               - 'null'
               - string
-              description: The phone support contact for the Supplier.
+              description: The customer service telephone number for this Supplier. MUST be formatted according to E.164.
               examples:
-              - +1 888-555-1212
+              - '+441202666900'
             address:
               type:
               - 'null'
               - string
-              description: The (snail) mail address support contact for the Supplier.
+              description: The full mailing address for this Supplier, provided as a single string. SHOULD include street, city, postal code, and country.
               examples:
-              - 123 Fake St. Springfield, USA
+              - Link House, 25 West St, Poole BH15 1LD, United Kingdom
       required:
       - id
       - name
-      - endpoint
       - contact
     Availability:
       type: object
-      x-examples:
-        example-1:
-          id: '2022-05-23T00:00:00+01:00'
-          localDateTimeStart: '2022-05-23T00:00:00+01:00'
-          localDateTimeEnd: '2022-05-24T00:00:00+01:00'
-          allDay: true
-          available: true
-          status: FREESALE
-          vacancies: null
-          capacity: null
-          maxUnits: 9
-          utcCutoffAt: '2022-05-22T23:00:00Z'
-          openingHours:
-          - from: 08:00
-            to: '18:30'
       examples:
-      - allDay: true
+      - id: '2026-02-28T00:00:00+00:00'
+        localDateTimeStart: '2026-02-28T00:00:00+00:00'
+        localDateTimeEnd: '2026-03-01T00:00:00+00:00'
+        allDay: true
         available: true
-        capacity: null
-        id: '2022-06-30T00:00:00+01:00'
-        localDateTimeEnd: '2022-07-01T00:00:00+01:00'
-        localDateTimeStart: '2022-06-30T00:00:00+01:00'
-        maxUnits: null
-        openingHours:
-        - from: 09:00
-          to: '17:00'
         status: FREESALE
-        utcCutoffAt: '2022-06-29T22:00:00Z'
         vacancies: null
-      - allDay: false
-        available: true
-        capacity: 10
-        id: '2022-06-30T12:00:00+01:00'
-        localDateTimeEnd: '2022-06-30T14:00:00+01:00'
-        localDateTimeStart: '2022-06-30T12:00:00+01:00'
+        capacity: null
         maxUnits: null
-        openingHours: []
+        utcCutoffAt: '2026-02-27T22:00:00Z'
+        openingHours:
+        - from: '09:00'
+          to: '17:00'
+      - id: FE32BA12
+        localDateTimeStart: '2026-02-28T09:00:00+00:00'
+        localDateTimeEnd: '2026-02-28T09:30:00+00:00'
+        allDay: false
+        available: true
         status: AVAILABLE
-        utcCutoffAt: '2022-06-30T10:00:00Z'
         vacancies: 10
+        capacity: 10
+        maxUnits: 10
+        utcCutoffAt: '2026-02-28T08:00:00Z'
+        openingHours: []
       title: ''
       description: Schema for the `/availability/calendar` endpoint. It's designed to be queried for large date ranges and the result is used to populate an availability calendar.
       properties:
         id:
           type: string
           examples:
+          - FE32BA12
           - '2022-05-23T00:00:00+01:00'
-          description: The availability id, you'll need this when booking. MUST be a unique identifier within the scope of an option.
+          description: Unique availability identifier. Used as availabilityId when booking. Unique within the context of the respective Product. (Max. 255 ASCII characters)
         localDateTimeStart:
           type: string
           examples:
-          - '2022-05-23T00:00:00+01:00'
-          description: The start time for this availability. This will be in the local time zone of the product. Must be an `ISO 8601` compliant date and time.
+          - '2022-06-30T12:00:00+01:00'
+          description: Local start datetime of this slot
           format: date-time
         localDateTimeEnd:
           type: string
           examples:
-          - '2022-05-24T00:00:00+01:00'
-          description: The end time for this availability. This will be in the local time zone of the product. Must be an `ISO 8601` compliant date and time.
+          - '2022-06-30T14:00:00+01:00'
+          description: Local end datetime of this slot
           format: date-time
         allDay:
           type: boolean
-          description: A boolean field indicating whether this is an all day availability and not a fixed departure time. If this value is true then there will be no other availability object on the same day.
+          description: If true, this is an all-day slot (not a fixed departure time). No other availability on same day.
+          examples:
+          - false
         available:
           type: boolean
-          description: Whether there is availability for this date / slot.
+          deprecated: true
+          description: '[DEPRECATED] Indicates whether at least one vacancy is available. This field is deprecated and SHOULD NOT be used. The `status` field SHOULD be used instead.'
+          examples:
+          - true
         status:
           $ref: '#/components/schemas/AvailabilityStatus'
         vacancies:
@@ -1823,20 +1619,21 @@ components:
           - 'null'
           examples:
           - 10
-          description: The total capacity on this day.
+          description: Indicates the total available capacity. A `null` value MAY be returned when capacity details cannot be reliably shared. This SHOULD NOT be done unless necessary.
         maxUnits:
           type:
           - integer
           - 'null'
           examples:
           - 10
-          description: Maximum number of units that can be sold within one booking on this day / slot.
+          description: Max units that can be in a single booking on this timeslot. A `null` value implies there's no explicit limit.
         utcCutoffAt:
           type: string
           examples:
-          - '2022-05-22T23:00:00Z'
-          description: The time by which the booking must be confirmed.
+          - '2022-06-30T10:00:00Z'
+          description: UTC time by which a booking must be confirmed
         openingHours:
+          description: Opening hours for this day (empty array for START_TIME products)
           type: array
           items:
             $ref: '#/components/schemas/OpeningHours'
@@ -1862,46 +1659,41 @@ components:
       - LIMITED
       - CLOSED
       description: |-
-        The status of that date. Possible values are:
-        `AVAILABLE` This availability is available for sale
-        `FREESALE` This availability has no capacity and is available.
-        `SOLD_OUT` There are no more spots available for this date / slot.
-        `LIMITED` This availability is available but has less than 50% capacity left.
-        `CLOSED` Availability is closed for this day / slot.
+        Indicates the availability status for the given date.
+
+        Possible values:
+        - "AVAILABLE": Slot is available with remaining capacity.
+        - "FREESALE": No capacity limit, always available. The `vacancies` and `capacity` fields do not convey a capacity constraint; `vacancies` MUST be returned as `null` (see `Vacancies`).
+        - "SOLD_OUT": No remaining capacity for this date/slot.
+        - "LIMITED": Available, but less than 50% of capacity remaining.
+        - "CLOSED": The venue/Product is closed on this date/slot.
       examples:
       - AVAILABLE
     AvailabilityCalendar:
       type: object
-      x-examples:
-        example-1:
-          localDate: '2022-05-12'
-          available: false
-          status: CLOSED
-          vacancies: 0
-          capacity: null
-          openingHours:
-          - from: 08:00
-            to: '18:30'
       examples:
-      - localDate: '2022-05-12'
+      - localDate: '2026-02-25'
         available: true
         status: AVAILABLE
         vacancies: 10
         capacity: 10
         openingHours:
-        - from: 08:00
-          to: '16:00'
+        - from: '09:00'
+          to: '17:00'
       description: Schema for the `/availability/calendar` endpoint. For querying general open slots per day on a large range of days versus availability per departure time.
       properties:
         localDate:
           type: string
           examples:
           - '2022-05-12'
-          description: A single date to query. Must be ISO 8601 compliant date.
+          description: The date in ISO 8601 format (YYYY-MM-DD)
           format: date
         available:
           type: boolean
-          description: Whether there is availability for this date / slot.
+          deprecated: true
+          description: '[DEPRECATED] Indicates whether at least one vacancy is available. This field is deprecated and SHOULD NOT be used. The `status` field SHOULD be used instead.'
+          examples:
+          - true
         status:
           $ref: '#/components/schemas/AvailabilityStatus'
         vacancies:
@@ -1912,7 +1704,7 @@ components:
           - 'null'
           examples:
           - 10
-          description: The total capacity on this day.
+          description: Indicates the total available capacity. A `null` value MAY be returned when capacity details cannot be reliably shared. This SHOULD NOT be done unless necessary.
         openingHours:
           type: array
           items:
@@ -1926,28 +1718,24 @@ components:
       - openingHours
     OpeningHours:
       type: object
-      x-examples:
-        example-1:
-          from: 08:00
-          to: '18:30'
       description: A list of opening hours that the product is open on this day.
       properties:
         from:
           type: string
           examples:
-          - 08:00
-          description: When this product opens (HH:MM)
+          - 09:00
+          description: Opening time
         to:
           type: string
           examples:
-          - '16:00'
-          description: When this product closes (HH:MM)
+          - '17:00'
+          description: Closing time
       required:
       - from
       - to
       examples:
-      - from: 08:00
-        to: '16:00'
+      - from: '09:00'
+        to: '17:00'
     BookingStatus:
       type: string
       title: BookingStatus
@@ -1962,57 +1750,72 @@ components:
       examples:
       - CONFIRMED
       description: |-
-        The status of the booking, possible values are:
-        `ON_HOLD` The booking is pending confirmation, this is the default value when you first create the booking.
-        `EXPIRED` If the booking is not confirmed before the expiration hold expires, it goes into an expired state.
-        `CONFIRMED` Once the confirmation call is made the booking is ready to be used.
-        `CANCELLED` If the booking is cancelled.
-        `PENDING` If the booking is pending outside availability confirmation.
-        `REDEEMED` If the booking is already redeemed.
+        Current Booking status.
+
+        Possible values:
+        - "ON_HOLD": The Booking is pending confirmation. This is the default value when the Booking is created.
+        - "CONFIRMED": The Booking has been confirmed and is ready to be used.
+        - "EXPIRED": The Booking is not confirmed before the hold expiration and enters an expired state.
+        - "CANCELLED": The Booking has been cancelled.
+        - "REDEEMED": The Booking has already been redeemed.
+        - "PENDING": The Booking is awaiting external confirmation from the Supplier (`instantConfirmation=false`).
+        - "REJECTED": The Booking was rejected by the Supplier.
     UnitItem:
       type: object
-      x-examples:
-        example-1:
-          uuid: 97525082-2498-4e61-b259-bc48e27a96ae
-          resellerReference: 102-256952-3-Adult-2
-          supplierReference: J9T7R6
-          unitId: unit_8080415c-890c-4b38-a5af-0934d73e94d3
       properties:
         uuid:
           type: string
           examples:
           - 3b1bc2ee-3155-4738-9471-f49842a07327
-          description: The id of the unit, this will be unique to the option.
+          description: Per-unit item identifier conforming to the UUID standard.
         resellerReference:
           type:
           - string
           - 'null'
           examples:
-          - 4ec08a62-892c-48c1-a608-dc946531a33b
-          description: A reference the reseller uses to identify the unit within all bookings.
+          - TICKET-001
+          description: Per-ticket reseller reference. Omitting this value MAY complicate cross-referencing between the Reseller and the Supplier.
         supplierReference:
           type:
           - string
           - 'null'
           examples:
-          - K9T7R5
-          description: A reference the supplier uses to identify the unit within all bookings.
+          - J9T7R6
+          description: Per-ticket supplier reference. Omitting this value MAY complicate cross-referencing between the Reseller and the Supplier.
         unitId:
+          description: Unit type ID (references the `Unit.id` field in the Option object)
           type: string
           examples:
-          - youth_f6446706-885a-437c-8461-efd6d7080910
+          - adult
         unit:
-          $ref: '#/components/schemas/Unit'
+          description: Embedded `Unit` definition.
+          allOf:
+          - $ref: '#/components/schemas/Unit'
         status:
-          $ref: '#/components/schemas/BookingStatus'
+          description: |-
+            Status of this individual ticket item.
+            - "ON_HOLD": The booking is pending confirmation. This is the default value when the booking is created.
+            - "CONFIRMED": The booking has been confirmed and is ready to be used.
+            - "EXPIRED": The booking is not confirmed before the hold expiration and enters an expired state.
+            - "CANCELLED": The booking has been cancelled.
+            - "REDEEMED": The booking has already been redeemed.
+            - "PENDING": The booking is awaiting external confirmation from the Supplier (`instantConfirmation: false`).
+            - "REJECTED": The booking was rejected by the Supplier.
+          allOf:
+          - $ref: '#/components/schemas/BookingStatus'
         utcRedeemedAt:
           type:
           - 'null'
           - string
-          description: The ISO8601 date in UTC indicating when the ticket was used at the attraction.
+          description: ISO 8601 UTC timestamp indicating when the Ticket/Voucher was redeemed. `null` value implies that redemption hasn't happened or the system does not have this information
+          examples:
+          - null
         contact:
-          $ref: '#/components/schemas/Contact'
+          description: Per-ticket contact details, to be populated in accordance with the requirements provided in `Unit.requiredContactFields`
+          allOf:
+          - $ref: '#/components/schemas/Contact'
         ticket:
+          description: Per-ticket delivery payload (if "TICKET" in `Booking`.`deliveryMethods`). A `null` value implies there are no individual tickets.
           oneOf:
           - $ref: '#/components/schemas/Ticket'
           - type: 'null'
@@ -2028,60 +1831,50 @@ components:
       description: ''
       examples:
       - uuid: 3b1bc2ee-3155-4738-9471-f49842a07327
-        resellerReference: 4ec08a62-892c-48c1-a608-dc946531a33b
-        supplierReference: K9T7R5
-        unitId: youth_f6446706-885a-437c-8461-efd6d7080910
+        resellerReference: TICKET-001
+        supplierReference: J9T7R6
+        unitId: adult_697e3ce8
         unit:
-          id: string
-          internalName: string
-          reference: null
+          id: adult_697e3ce8
+          internalName: Adult(s)
+          reference: LR1-01
           type: ADULT
           requiredContactFields:
           - firstName
+          - lastName
           restrictions:
             minAge: 18
             maxAge: 99
             idRequired: false
-            minQuantity: 0
-            maxQuantity: null
-            paxCount: 0
+            minQuantity: 1
+            maxQuantity: 7
+            paxCount: 1
             accompaniedBy: []
         status: CONFIRMED
         utcRedeemedAt: null
         contact:
-          fullName: John Doe
           firstName: John
           lastName: Doe
-          emailAddress: null
-          phoneNumber: null
           locales:
-          - en
-          postalCode: null
-          country: null
-          notes: null
+          - en-GB
         ticket:
           redemptionMethod: DIGITAL
           utcRedeemedAt: null
           deliveryOptions:
           - deliveryFormat: QRCODE
-            deliveryValue: string
+            deliveryValue: DIE382Q388455
+          - deliveryFormat: PDF_URL
+            deliveryValue: https://api.octomock.com/octo/pdf?booking=ec0ce0c2-03f0-4c64-bbc5-5e0f7d1e1c0a
     Ticket:
       type: object
-      x-examples:
-        example-1:
-          redemptionMethod: DIGITAL
-          utcRedeemedAt: null
-          deliveryOptions:
-          - deliveryFormat: QRCODE
-            deliveryValue: '!1|El3f0wUmcnrEmviMcR9qwqC9hvfrcWc6cZcRcrcR|yrirfZfqHPj40mvhpw2XzX|q7FF77QqFD7fDhr9'
-          - deliveryFormat: PDF_URL
-            deliveryValue: https://api.ventrata.com/octo/pdf?booking=36d2d844-121d-453c-b514-de027caaf27f&ticket=72419a19-c58c-46a0-b316-13509de43909
       examples:
       - redemptionMethod: DIGITAL
         utcRedeemedAt: null
         deliveryOptions:
         - deliveryFormat: QRCODE
-          deliveryValue: string
+          deliveryValue: DIE382Q388455
+        - deliveryFormat: PDF_URL
+          deliveryValue: https://api.octomock.com/octo/pdf?booking=ec0ce0c2-03f0-4c64-bbc5-5e0f7d1e1c0a
       properties:
         redemptionMethod:
           $ref: '#/components/schemas/RedemptionMethod'
@@ -2089,8 +1882,11 @@ components:
           type:
           - 'null'
           - string
-          description: The ISO8601 date in UTC indicating when the ticket was used at the attraction.
+          description: ISO 8601 UTC timestamp indicating when the Ticket/Voucher was redeemed. `null` value implies that redemption hasn't happened or the system does not have this information
+          examples:
+          - '2026-03-01T13:28:43Z'
         deliveryOptions:
+          description: Object containing available delivery options for the ticket or voucher. Each item defines a `deliveryFormat` and its corresponding `deliveryValue`.
           type: array
           items:
             type: object
@@ -2099,10 +1895,10 @@ components:
                 $ref: '#/components/schemas/DeliveryFormat'
               deliveryValue:
                 type: string
-                description: |
-                  The format for the delivery option. Possible values are:
-                  `QRCODE` You should generate the QR Code yourself on a ticket.
-                  `PDF_URL` Where you use the generated tickets as a PDF.
+                description: Ticket payload or URL, depending on the `deliveryFormat`.
+                examples:
+                - https://api.octomock.com/octo/pdf?booking=ec0ce0c2-03f0-4c64-bbc5-5e0f7d1e1c0a
+                - DIE382Q388455
             required:
             - deliveryFormat
             - deliveryValue
@@ -2113,28 +1909,17 @@ components:
       description: ''
     Contact:
       type: object
-      x-examples:
-        example-1:
-          fullName: null
-          firstName: null
-          lastName: null
-          emailAddress: null
-          phoneNumber: null
-          locales: []
-          postalCode: null
-          country: null
-          notes: null
       examples:
       - fullName: John Doe
         firstName: John
         lastName: Doe
-        emailAddress: johndoe@email.com
-        phoneNumber: null
+        emailAddress: john@example.com
+        phoneNumber: '+44 7777 777777'
         locales:
-        - en
-        postalCode: null
-        country: null
-        notes: null
+        - en-GB
+        postalCode: W1H 7EJ
+        country: GB
+        notes: 'Dietary: vegan'
       description: Contact details for the guests that will attend the tour/attraction. Contact schema can be applied to both the booking object (the main reservation) or the unit object (individual ticket holders - if the supplier requires this information)
       properties:
         fullName:
@@ -2149,11 +1934,11 @@ components:
           $ref: '#/components/schemas/PhoneNumber'
         locales:
           type: array
-          description: An array of locale values, equivalent to navigator.languages in a browser environment.
+          description: Locale preferences following BCP 47 (Best Current Practice) by the IETF community.
           items:
             type: string
             examples:
-            - en
+            - en-GB
         postalCode:
           $ref: '#/components/schemas/PostalCode'
         country:
@@ -2162,299 +1947,418 @@ components:
           type:
           - 'null'
           - string
-          description: Optional notes for the booking.
-    Booking:
-      type: object
-      x-examples:
-        example-1:
-          id: 36d2d844-121d-453c-b514-de027caaf27f
-          productId: 5379ce46-0620-42ce-b65c-70d6fc1c9ac2
-          resellerReference: 102-256952-3
-          status: CONFIRMED
-          supplierReference: 300SK9
-          testMode: false
-          utcConfirmedAt: '2021-10-27T23:28:45Z'
-          utcCreatedAt: '2021-10-27T23:28:43Z'
-          utcExpiresAt: null
-          utcRedeemedAt: null
-          utcUpdatedAt: '2021-10-27T23:28:45Z'
-          uuid: 3698539b-65c4-41e3-95b1-fa108fd024b2
-      examples: []
-      description: ''
-      title: ''
-      properties:
-        id:
-          type: string
+          description: |-
+            A general note related to the Contact that MAY be used to share information that is relevant to all parties but cannot be communicated through an existing capability or structured field.
+
+            This field is intended for exceptional or case-specific information only. Implementations SHOULD NOT use it as a substitute for existing capabilities, attributes, or standardized data models.
+
+            Information provided in this field MUST be considered visible to all relevant parties.
           examples:
-          - bbbb6227-54fc-4c32-9ed7-dc3eb99966ea
-          description: A unique ID / UUID generated by the supplier system to identify the booking.
-        uuid:
-          type: string
-          format: uuid
-          examples:
-          - 559aed3d-6d5b-4fe0-bfca-99f5e7218a56
-          description: A UUID you can set when generating the booking to use as an idempotency key.
-        testMode:
-          type: boolean
-          description: If `TRUE`, booking was created on test mode
-        resellerReference:
-          type:
-          - string
-          - 'null'
-          description: The reference set by the Reseller. A mandatory field for resellers to be set in the booking confirmation request.
-        supplierReference:
-          type:
-          - string
-          - 'null'
-          description: The Supplier's / booking platform reference.
-        status:
-          $ref: '#/components/schemas/BookingStatus'
-        utcCreatedAt:
-          type: string
-          examples:
-          - '2021-10-27T23:28:43Z'
-          description: An ISO8601 date time in UTC when the booking was created.
-        utcUpdatedAt:
-          type:
-          - string
-          - 'null'
-          examples:
-          - '2021-10-27T23:28:43Z'
-          description: An ISO8601 date time in UTC when the booking was updated.
-        utcExpiresAt:
-          type:
-          - string
-          - 'null'
-          description: An ISO8601 date time in UTC for when this booking is due to expire if the status is `ON_HOLD`.
-          examples:
-          - '2021-10-27T23:58:43Z'
-        utcRedeemedAt:
-          type:
-          - string
-          - 'null'
-          description: An ISO8601 date time in UTC when the booking was redeemed.
-        utcConfirmedAt:
-          type:
-          - string
-          - 'null'
-          examples:
-          - '2021-10-27T23:28:43Z'
-          description: An ISO8601 date time in UTC when the booking was confirmed.
-        productId:
-          type: string
-          examples:
-          - 6b903d44-dc24-4ca4-ae71-6bde6c4f4854
-          description: The product ID that identifies the product in the booking system to make this reservation.
-        product:
-          $ref: '#/components/schemas/Product'
-        optionId:
-          type: string
-          examples:
-          - DEFAULT
-          description: The product ID that identifies the product option in the booking system to make this reservation.
-        option:
-          $ref: '#/components/schemas/Option'
-        cancellable:
-          type: boolean
-          description: A boolean field indicating whether this booking can be cancelled.
-        cancellation:
-          $ref: '#/components/schemas/Cancellation'
-        freesale:
-          type: boolean
-          description: Whether the booking was made as freesale (without checking availability first).
-        availabilityId:
-          type: string
-          description: The availability id that was used in the request.
-        availability:
-          $ref: '#/components/schemas/BookedAvailability'
-        contact:
-          $ref: '#/components/schemas/Contact'
-        notes:
-          type:
-          - string
-          - 'null'
-          examples:
-          - Optional notes for the booking
-        deliveryMethods:
-          type: array
-          description: An array of delivery methods available for this booking.
-          items:
-            $ref: '#/components/schemas/DeliveryMethod'
-        voucher:
-          oneOf:
-          - $ref: '#/components/schemas/Ticket'
-          - type: 'null'
-        unitItems:
-          type: array
-          description: An array of unit items that will be included in the booking.
-          items:
-            $ref: '#/components/schemas/UnitItem'
+          - 'Dietary: vegan'
       required:
-      - id
-      - uuid
-      - testMode
-      - resellerReference
-      - supplierReference
-      - status
-      - utcCreatedAt
-      - utcUpdatedAt
-      - utcExpiresAt
-      - utcRedeemedAt
-      - utcConfirmedAt
-      - productId
-      - product
-      - optionId
-      - option
-      - cancellable
-      - cancellation
-      - freesale
-      - availabilityId
-      - availability
-      - contact
-      - notes
-      - deliveryMethods
-      - unitItems
+      - locales
     Cancellation:
       type:
       - 'null'
       - object
-      description: An object with information about why and when the booking was cancelled. This is `NULL` if the booking is not cancelled.
+      description: Cancellation information. A `null` value implies the Booking has not been cancelled.
       required:
       - refund
       - reason
       - utcCancelledAt
       properties:
         refund:
-          type: string
-          description: Whether the booking was refunded as part of the cancellation. Possible values are `FULL`, `PARTIAL` or `NONE`
+          $ref: '#/components/schemas/CancellationRefund'
         reason:
           type:
           - 'null'
           - string
-          description: A text value describing why the cancellation happened.
+          description: Free text describing the reason for the cancellation.
+          examples:
+          - Customer requested
         utcCancelledAt:
           type: string
           examples:
-          - '2021-10-27T23:38:43Z'
-          description: An ISO8601 date time in UTC indicating when the booking was cancelled.
-    BookingResponse:
+          - '2026-03-01T13:28:43Z'
+          description: ISO 8601 UTC timestamp indicating when the Booking was cancelled.
+    CancellationRefund:
+      type: string
+      title: CancellationRefund
+      enum:
+      - FULL
+      - PARTIAL
+      - NONE
+      examples:
+      - FULL
+      description: |-
+        Type of refund issued as a result of the cancellation request. Options available:
+        - "FULL": Indicates that a full refund is issued upon cancellation.
+        - "PARTIAL": Indicates that a partial refund is issued upon cancellation.
+        - "NONE": Indicates that no refund is issued upon cancellation.
+    Booking:
       type: object
-      x-examples:
-        example-1:
-          id: 36d2d844-121d-453c-b514-de027caaf27f
-          productId: 5379ce46-0620-42ce-b65c-70d6fc1c9ac2
-          resellerReference: 102-256952-3
+      examples:
+      - id: 187583938745-D
+        uuid: 559aed3d-6d5b-4fe0-bfca-99f5e7218a56
+        testMode: false
+        resellerReference: 102-256952-3
+        supplierReference: 300SK9
+        status: CONFIRMED
+        utcCreatedAt: '2026-02-17T23:28:43Z'
+        utcUpdatedAt: '2026-02-17T23:32:33Z'
+        utcExpiresAt: null
+        utcRedeemedAt: null
+        utcConfirmedAt: '2026-02-17T23:32:33Z'
+        productId: LEYE-6bde6c4f4854
+        product:
+          id: LEYE-6bde6c4f4854
+          internalName: London Eye Admission
+          reference: LEYE
+          locale: en-GB
+          timeZone: Europe/London
+          allowFreesale: false
+          instantConfirmation: true
+          instantDelivery: true
+          availabilityRequired: true
+          availabilityType: START_TIME
+          deliveryFormats:
+          - QRCODE
+          - PDF_URL
+          deliveryMethods:
+          - TICKET
+          redemptionMethod: DIGITAL
+          options:
+          - id: 2214b32d-ffa1-426c-b4d2-947dca724e50
+            default: true
+            internalName: Fast Track
+            reference: LEYE-FT
+            availabilityLocalStartTimes:
+            - '09:00'
+            - '14:00'
+            - '17:00'
+            cancellationCutoff: 1 hour
+            cancellationCutoffAmount: 1
+            cancellationCutoffUnit: hour
+            requiredContactFields:
+            - firstName
+            - lastName
+            restrictions:
+              minUnits: 1
+              maxUnits: 20
+            units:
+            - id: adult_697e3ce8
+              internalName: Adult(s)
+              reference: LR1-01
+              type: ADULT
+              requiredContactFields:
+              - firstName
+              - lastName
+              restrictions:
+                minAge: 18
+                maxAge: 99
+                idRequired: false
+                minQuantity: 1
+                maxQuantity: 7
+                paxCount: 1
+                accompaniedBy: []
+            - id: youth_f6446706
+              internalName: Youth(s)
+              reference: LR1-02
+              type: YOUTH
+              requiredContactFields:
+              - firstName
+              - lastName
+              restrictions:
+                minAge: 3
+                maxAge: 17
+                idRequired: false
+                minQuantity: 0
+                maxQuantity: 7
+                paxCount: 1
+                accompaniedBy:
+                - adult_697e3ce8
+        optionId: 2214b32d-ffa1-426c-b4d2-947dca724e50
+        option:
+          id: 2214b32d-ffa1-426c-b4d2-947dca724e50
+          default: true
+          internalName: Fast Track
+          reference: LEYE-FT
+          availabilityLocalStartTimes:
+          - '09:00'
+          - '14:00'
+          - '17:00'
+          cancellationCutoff: 1 hour
+          cancellationCutoffAmount: 1
+          cancellationCutoffUnit: hour
+          requiredContactFields:
+          - firstName
+          - lastName
+          restrictions:
+            minUnits: 1
+            maxUnits: 20
+          units:
+          - id: adult_697e3ce8
+            internalName: Adult(s)
+            reference: LR1-01
+            type: ADULT
+            requiredContactFields:
+            - firstName
+            - lastName
+            restrictions:
+              minAge: 18
+              maxAge: 99
+              idRequired: false
+              minQuantity: 1
+              maxQuantity: 7
+              paxCount: 1
+              accompaniedBy: []
+          - id: youth_f6446706
+            internalName: Youth(s)
+            reference: LR1-02
+            type: YOUTH
+            requiredContactFields:
+            - firstName
+            - lastName
+            restrictions:
+              minAge: 3
+              maxAge: 17
+              idRequired: false
+              minQuantity: 0
+              maxQuantity: 7
+              paxCount: 1
+              accompaniedBy:
+              - adult_697e3ce8
+        cancellable: true
+        cancellation: null
+        freesale: false
+        availabilityId: FE32BA12
+        availability:
+          id: FE32BA12
+          localDateTimeStart: '2026-02-28T09:00:00+00:00'
+          localDateTimeEnd: '2026-02-28T09:30:00+00:00'
+          allDay: false
+          openingHours: []
+        contact:
+          fullName: John Doe
+          firstName: John
+          lastName: Doe
+          emailAddress: john@example.com
+          phoneNumber: '+44 7777 777777'
+          locales:
+          - en-GB
+          postalCode: W1H 7EJ
+          country: GB
+          notes: 'Dietary: vegan'
+        notes: Wheelchair accessible tour please
+        deliveryMethods:
+        - TICKET
+        voucher: null
+        unitItems:
+        - uuid: 3b1bc2ee-3155-4738-9471-f49842a07327
+          resellerReference: TICKET-001
+          supplierReference: J9T7R6
+          unitId: adult_697e3ce8
+          unit:
+            id: adult_697e3ce8
+            internalName: Adult(s)
+            reference: LR1-01
+            type: ADULT
+            requiredContactFields:
+            - firstName
+            - lastName
+            restrictions:
+              minAge: 18
+              maxAge: 99
+              idRequired: false
+              minQuantity: 1
+              maxQuantity: 7
+              paxCount: 1
+              accompaniedBy: []
           status: CONFIRMED
-          supplierReference: 300SK9
-          testMode: false
-          utcConfirmedAt: '2021-10-27T23:28:45Z'
-          utcCreatedAt: '2021-10-27T23:28:43Z'
-          utcExpiresAt: null
           utcRedeemedAt: null
-          utcUpdatedAt: '2021-10-27T23:28:45Z'
-          uuid: 3698539b-65c4-41e3-95b1-fa108fd024b2
-      examples: []
+          contact:
+            firstName: John
+            lastName: Doe
+            locales:
+            - en-GB
+          ticket:
+            redemptionMethod: DIGITAL
+            utcRedeemedAt: null
+            deliveryOptions:
+            - deliveryFormat: QRCODE
+              deliveryValue: DIE382Q388455
+            - deliveryFormat: PDF_URL
+              deliveryValue: https://api.octomock.com/octo/pdf?booking=ec0ce0c2-03f0-4c64-bbc5-5e0f7d1e1c0a
+        - uuid: b0d4f2a1-7c58-4a19-9f3e-2c7d8e5a1b64
+          resellerReference: TICKET-002
+          supplierReference: J9T7R7
+          unitId: youth_f6446706
+          unit:
+            id: youth_f6446706
+            internalName: Youth(s)
+            reference: LR1-02
+            type: YOUTH
+            requiredContactFields:
+            - firstName
+            - lastName
+            restrictions:
+              minAge: 3
+              maxAge: 17
+              idRequired: false
+              minQuantity: 0
+              maxQuantity: 7
+              paxCount: 1
+              accompaniedBy:
+              - adult_697e3ce8
+          status: CONFIRMED
+          utcRedeemedAt: null
+          contact:
+            firstName: Jane
+            lastName: Doe
+            locales:
+            - en-GB
+          ticket:
+            redemptionMethod: DIGITAL
+            utcRedeemedAt: null
+            deliveryOptions:
+            - deliveryFormat: QRCODE
+              deliveryValue: DIE382Q388456
+            - deliveryFormat: PDF_URL
+              deliveryValue: https://api.octomock.com/octo/pdf?booking=ec0ce0c2-03f0-4c64-bbc5-5e0f7d1e1c0a
       description: ''
       title: ''
       properties:
         id:
           type: string
           examples:
-          - bbbb6227-54fc-4c32-9ed7-dc3eb99966ea
-          description: A unique ID / UUID generated by the supplier system to identify the booking.
+          - 187583938745-D
+          description: Unique identifier generated by the Supplier System for identifying the Booking. Unique within the context of the respective Supplier. (Max. 255 ASCII characters)
         uuid:
           type: string
           format: uuid
           examples:
           - 559aed3d-6d5b-4fe0-bfca-99f5e7218a56
-          description: A UUID you can set when generating the booking to use as an idempotency key.
+          description: UUID set by the Reseller when generating the Booking, used as an idempotency key.
         testMode:
           type: boolean
-          description: If `TRUE`, booking was created on test mode
+          deprecated: true
+          description: |-
+            [DEPRECATED] Indicates whether the Booking was made in test mode.
+            Deprecation advice: Use a test environment for test bookings.
+          examples:
+          - false
         resellerReference:
           type:
           - string
           - 'null'
-          description: The reference set by the Reseller. A mandatory field for resellers to be set in the booking confirmation request.
+          description: Reseller system-provided reference for the Booking. Value MAY be set by the Reseller in the Booking confirmation request. Omitting this value MAY complicate cross-referencing between the Reseller and the Supplier.
+          examples:
+          - 102-256952-3
         supplierReference:
           type:
           - string
           - 'null'
-          description: The Supplier's / booking platform reference.
+          description: Supplier system-provided reference for the Booking. Omitting this value MAY complicate cross-referencing between the Reseller and the Supplier.
+          examples:
+          - 300SK9
         status:
           $ref: '#/components/schemas/BookingStatus'
         utcCreatedAt:
           type: string
           examples:
-          - '2021-10-27T23:28:43Z'
-          description: An ISO8601 date time in UTC when the booking was created.
+          - '2026-02-17T23:28:43Z'
+          description: ISO 8601 UTC timestamp indicating when the Booking was created in the Supplier system.
         utcUpdatedAt:
           type:
           - string
           - 'null'
           examples:
           - '2021-10-27T23:28:43Z'
-          description: An ISO8601 date time in UTC when the booking was updated.
+          description: ISO 8601 UTC timestamp indicating when the Booking was last updated in the Supplier system. A `null` value implies the Booking was never updated.
         utcExpiresAt:
           type:
           - string
           - 'null'
-          description: An ISO8601 date time in UTC for when this booking is due to expire if the status is `ON_HOLD`.
+          description: ISO 8601 UTC timestamp indicating when the Booking expires if the status is `ON_HOLD`. SHOULD be set to `null` if the `Booking.status` is NOT `ON_HOLD`. All Bookings MUST have an expiration date/time.
           examples:
-          - '2021-10-27T23:58:43Z'
+          - '2026-02-17T23:58:43Z'
         utcRedeemedAt:
           type:
           - string
           - 'null'
-          description: An ISO8601 date time in UTC when the booking was redeemed.
+          description: ISO 8601 UTC timestamp indicating when the Booking was redeemed. A `null` value implies that redemption hasn't happened or the system does not have this information
+          examples:
+          - '2026-02-28T09:05:13Z'
         utcConfirmedAt:
           type:
           - string
           - 'null'
           examples:
-          - '2021-10-27T23:28:43Z'
-          description: An ISO8601 date time in UTC when the booking was confirmed.
+          - '2026-02-17T23:32:33Z'
+          description: ISO 8601 UTC timestamp indicating when the Booking was confirmed. A Booking with `status` = "CANCELLED" should continue to have its `utcConfirmedAt` value set.
         productId:
           type: string
           examples:
-          - 6b903d44-dc24-4ca4-ae71-6bde6c4f4854
-          description: The product ID that identifies the product in the booking system to make this reservation.
+          - LEYE-6bde6c4f4854
+          description: Identifier of the booked product.
         product:
-          $ref: '#/components/schemas/Product'
+          description: Embedded Product object at the time of booking.
+          allOf:
+          - $ref: '#/components/schemas/Product'
         optionId:
           type: string
           examples:
           - DEFAULT
-          description: The product ID that identifies the product option in the booking system to make this reservation.
+          description: Identifier of the Product's Option for the Booking.
         option:
-          $ref: '#/components/schemas/Option'
+          description: Embedded `option` object at the time of booking.
+          allOf:
+          - $ref: '#/components/schemas/Option'
         cancellable:
           type: boolean
-          description: A boolean field indicating whether this booking can be cancelled.
+          description: Indicates whether the Booking can currently be cancelled while issuing a full refund. A `true` value indicates that no cancellation blocking reasons were encountered by the Supplier System and the request for cancellation SHOULD be accepted at this particular point in time.
+          examples:
+          - true
         cancellation:
           $ref: '#/components/schemas/Cancellation'
         freesale:
           type: boolean
-          description: Whether the booking was made as freesale (without checking availability first).
+          deprecated: true
+          description: |-
+            [DEPRECATED] Indicates whether the Booking was made without an availability check.
+            Deprecation advice: Rely on the `availabilityRequired` field instead.
+          examples:
+          - false
         availabilityId:
-          type: string
-          description: The availability id that was used in the request.
+          type:
+          - string
+          - 'null'
+          description: |-
+            `availabilityId` used when creating the Booking.
+            MAY be `null` if the Product has `availabilityRequired` set to `false`.
+          examples:
+          - FE32BA12
+          - '2022-05-23T00:00:00+01:00'
         availability:
           $ref: '#/components/schemas/BookedAvailability'
         contact:
-          $ref: '#/components/schemas/Contact'
+          description: Lead traveller's contact details
+          allOf:
+          - $ref: '#/components/schemas/Contact'
         notes:
+          description: Booking-level notes, freely provided by or on behalf of the lead traveller.
           type:
           - string
           - 'null'
           examples:
-          - Optional notes for the booking
+          - Wheelchair accessible tour please
         deliveryMethods:
           type: array
-          description: An array of delivery methods available for this booking.
+          description: The delivery methods applied to this Booking. Each value MUST be a `DeliveryMethod`, and determines which of `Booking.voucher` and `UnitItem.ticket` are populated.
           items:
             $ref: '#/components/schemas/DeliveryMethod'
         voucher:
+          description: Single whole-Booking voucher (if `VOUCHER` is present in `deliveryMethods`)
           oneOf:
           - $ref: '#/components/schemas/Ticket'
           - type: 'null'
@@ -2463,8 +2367,6 @@ components:
       required:
       - id
       - uuid
-      - testMode
-      - resellerReference
       - supplierReference
       - status
       - utcCreatedAt
@@ -2485,15 +2387,15 @@ components:
       - notes
       - deliveryMethods
       - unitItems
+      - voucher
     BookingUnitItems:
       type: array
-      description: An array of unit items that will be included in the booking.
+      description: Individual ticket items in the Booking (if `TICKET` is present in `deliveryMethods`)
       items:
         $ref: '#/components/schemas/UnitItem'
     BookedAvailability:
       type: object
-      description: |
-        The availability object that was booked.
+      description: Snapshot of Availability object at time of Booking
       required:
       - id
       - localDateTimeStart
@@ -2527,87 +2429,87 @@ components:
   examples:
     AvailabilityOpeningHours:
       value:
-      - allDay: true
+      - id: '2026-02-28T00:00:00+00:00'
+        localDateTimeStart: '2026-02-28T00:00:00+00:00'
+        localDateTimeEnd: '2026-03-01T00:00:00+00:00'
+        allDay: true
         available: true
-        capacity: null
-        id: '2022-06-30T00:00:00+01:00'
-        localDateTimeEnd: '2022-07-01T00:00:00+01:00'
-        localDateTimeStart: '2022-06-30T00:00:00+01:00'
-        maxUnits: null
-        openingHours:
-        - from: 09:00
-          to: '17:00'
         status: FREESALE
-        utcCutoffAt: '2022-06-29T22:00:00Z'
         vacancies: null
+        capacity: null
+        maxUnits: null
+        utcCutoffAt: '2026-02-27T22:00:00Z'
+        openingHours:
+        - from: '09:00'
+          to: '17:00'
     AvailabilityStartTimes:
       value:
-      - allDay: false
-        available: true
-        capacity: 10
-        id: '2022-06-30T12:00:00+01:00'
-        localDateTimeEnd: '2022-06-30T14:00:00+01:00'
-        localDateTimeStart: '2022-06-30T12:00:00+01:00'
-        maxUnits: null
-        openingHours: []
-        status: AVAILABLE
-        utcCutoffAt: '2022-06-30T10:00:00Z'
-        vacancies: 10
-      - id: '2022-06-30T14:00:00+01:00'
-        localDateTimeStart: '2022-06-30T14:00:00+01:00'
-        localDateTimeEnd: '2022-06-30T16:00:00+01:00'
+      - id: FE32BA12
+        localDateTimeStart: '2026-02-28T09:00:00+00:00'
+        localDateTimeEnd: '2026-02-28T09:30:00+00:00'
         allDay: false
         available: true
         status: AVAILABLE
         vacancies: 10
         capacity: 10
-        maxUnits: null
-        utcCutoffAt: '2022-06-30T12:00:00Z'
+        maxUnits: 10
+        utcCutoffAt: '2026-02-28T08:00:00Z'
+        openingHours: []
+      - id: 8A2D41CE
+        localDateTimeStart: '2026-02-28T14:00:00+00:00'
+        localDateTimeEnd: '2026-02-28T14:30:00+00:00'
+        allDay: false
+        available: true
+        status: LIMITED
+        vacancies: 3
+        capacity: 10
+        maxUnits: 10
+        utcCutoffAt: '2026-02-28T13:00:00Z'
         openingHours: []
     AvailabilityCalendarOpeningHours:
       value:
-      - localDate: '2022-06-14'
+      - localDate: '2026-02-26'
         available: true
         status: FREESALE
         vacancies: null
         capacity: null
         openingHours:
-        - from: 09:00
+        - from: '09:00'
           to: '17:00'
-      - localDate: '2022-06-15'
+      - localDate: '2026-02-27'
         available: true
         status: FREESALE
         vacancies: null
         capacity: null
         openingHours:
-        - from: 09:00
+        - from: '09:00'
           to: '17:00'
-      - localDate: '2022-06-16'
+      - localDate: '2026-02-28'
         available: true
         status: FREESALE
         vacancies: null
         capacity: null
         openingHours:
-        - from: 09:00
+        - from: '09:00'
           to: '17:00'
     AvailabilityCalendarStartTimes:
       value:
-      - localDate: '2022-06-14'
+      - localDate: '2026-02-26'
         available: true
         status: AVAILABLE
         vacancies: 20
         capacity: 20
         openingHours: []
-      - localDate: '2022-06-15'
+      - localDate: '2026-02-27'
         available: true
         status: AVAILABLE
         vacancies: 10
         capacity: 10
         openingHours: []
-      - localDate: '2022-06-16'
+      - localDate: '2026-02-28'
         available: true
-        status: AVAILABLE
-        vacancies: 10
+        status: LIMITED
+        vacancies: 3
         capacity: 10
         openingHours: []
     ErrorInvalidProductID:
@@ -2653,635 +2555,776 @@ components:
         uuid: bbbb6227-54fc-4c32-9ed7-dc3eb99966ea
     BookingOnHold:
       value:
-        id: 602a9fdf-5c79-4984-9474-7e14da9b6027
-        uuid: a88b4b8d-9c3b-4a09-ba27-323b43af57e4
-        testMode: true
+        id: 187583938745-D
+        uuid: 559aed3d-6d5b-4fe0-bfca-99f5e7218a56
+        testMode: false
         resellerReference: null
-        supplierReference: XOPSUT
+        supplierReference: 300SK9
         status: ON_HOLD
-        utcCreatedAt: '2022-05-25T10:34:22Z'
-        utcUpdatedAt: '2022-05-25T10:34:22Z'
-        utcExpiresAt: '2022-05-25T11:04:22Z'
+        utcCreatedAt: '2026-02-17T23:28:43Z'
+        utcUpdatedAt: '2026-02-17T23:28:43Z'
+        utcExpiresAt: '2026-02-17T23:58:43Z'
         utcRedeemedAt: null
         utcConfirmedAt: null
-        productId: '1'
+        productId: LEYE-6bde6c4f4854
         product:
+          id: LEYE-6bde6c4f4854
+          internalName: London Eye Admission
+          reference: LEYE
+          locale: en-GB
+          timeZone: Europe/London
           allowFreesale: false
-          availabilityRequired: true
-          availabilityType: OPENING_HOURS
-          deliveryFormats:
-          - PDF_URL
-          - QRCODE
-          deliveryMethods:
-          - TICKET
-          - VOUCHER
-          id: '1'
           instantConfirmation: true
           instantDelivery: true
-          internalName: PPU | OH
-          locale: en
-          options:
-          - availabilityLocalStartTimes:
-            - 00:00
-            cancellationCutoff: 0 hours
-            cancellationCutoffAmount: 0
-            cancellationCutoffUnit: hour
-            default: true
-            id: DEFAULT
-            internalName: DEFAULT
-            reference: null
-            requiredContactFields: []
-            restrictions:
-              maxUnits: null
-              minUnits: 0
-            units:
-            - id: adult
-              internalName: adult
-              reference: adult
-              requiredContactFields: []
-              restrictions:
-                accompaniedBy: []
-                idRequired: false
-                maxAge: 100
-                maxQuantity: null
-                minAge: 18
-                minQuantity: null
-                paxCount: 1
-              type: ADULT
+          availabilityRequired: true
+          availabilityType: START_TIME
+          deliveryFormats:
+          - QRCODE
+          - PDF_URL
+          deliveryMethods:
+          - TICKET
           redemptionMethod: DIGITAL
-          reference: null
-          timeZone: Europe/London
-        optionId: DEFAULT
-        option:
-          availabilityLocalStartTimes:
-          - 00:00
-          cancellationCutoff: 0 hours
-          cancellationCutoffAmount: 0
-          cancellationCutoffUnit: hour
-          default: true
-          id: DEFAULT
-          internalName: DEFAULT
-          reference: null
-          requiredContactFields: []
-          restrictions:
-            maxUnits: null
-            minUnits: 0
-          units:
-          - id: adult
-            internalName: adult
-            reference: adult
-            requiredContactFields: []
+          options:
+          - id: 2214b32d-ffa1-426c-b4d2-947dca724e50
+            default: true
+            internalName: Fast Track
+            reference: LEYE-FT
+            availabilityLocalStartTimes:
+            - '09:00'
+            - '14:00'
+            - '17:00'
+            cancellationCutoff: 1 hour
+            cancellationCutoffAmount: 1
+            cancellationCutoffUnit: hour
+            requiredContactFields:
+            - firstName
+            - lastName
             restrictions:
-              accompaniedBy: []
-              idRequired: false
-              maxAge: 100
-              maxQuantity: null
-              minAge: 18
-              minQuantity: null
-              paxCount: 1
+              minUnits: 1
+              maxUnits: 20
+            units:
+            - id: adult_697e3ce8
+              internalName: Adult(s)
+              reference: LR1-01
+              type: ADULT
+              requiredContactFields:
+              - firstName
+              - lastName
+              restrictions:
+                minAge: 18
+                maxAge: 99
+                idRequired: false
+                minQuantity: 1
+                maxQuantity: 7
+                paxCount: 1
+                accompaniedBy: []
+            - id: youth_f6446706
+              internalName: Youth(s)
+              reference: LR1-02
+              type: YOUTH
+              requiredContactFields:
+              - firstName
+              - lastName
+              restrictions:
+                minAge: 3
+                maxAge: 17
+                idRequired: false
+                minQuantity: 0
+                maxQuantity: 7
+                paxCount: 1
+                accompaniedBy:
+                - adult_697e3ce8
+        optionId: 2214b32d-ffa1-426c-b4d2-947dca724e50
+        option:
+          id: 2214b32d-ffa1-426c-b4d2-947dca724e50
+          default: true
+          internalName: Fast Track
+          reference: LEYE-FT
+          availabilityLocalStartTimes:
+          - '09:00'
+          - '14:00'
+          - '17:00'
+          cancellationCutoff: 1 hour
+          cancellationCutoffAmount: 1
+          cancellationCutoffUnit: hour
+          requiredContactFields:
+          - firstName
+          - lastName
+          restrictions:
+            minUnits: 1
+            maxUnits: 20
+          units:
+          - id: adult_697e3ce8
+            internalName: Adult(s)
+            reference: LR1-01
             type: ADULT
+            requiredContactFields:
+            - firstName
+            - lastName
+            restrictions:
+              minAge: 18
+              maxAge: 99
+              idRequired: false
+              minQuantity: 1
+              maxQuantity: 7
+              paxCount: 1
+              accompaniedBy: []
+          - id: youth_f6446706
+            internalName: Youth(s)
+            reference: LR1-02
+            type: YOUTH
+            requiredContactFields:
+            - firstName
+            - lastName
+            restrictions:
+              minAge: 3
+              maxAge: 17
+              idRequired: false
+              minQuantity: 0
+              maxQuantity: 7
+              paxCount: 1
+              accompaniedBy:
+              - adult_697e3ce8
         cancellable: true
         cancellation: null
         freesale: false
-        availabilityId: '2022-04-30T00:00:00+01:00'
+        availabilityId: FE32BA12
         availability:
-          allDay: true
-          id: '2022-04-30T00:00:00+01:00'
-          localDateTimeEnd: '2022-05-01T00:00:00+01:00'
-          localDateTimeStart: '2022-04-30T00:00:00+01:00'
-          openingHours:
-          - from: 09:00
-            to: '17:00'
+          id: FE32BA12
+          localDateTimeStart: '2026-02-28T09:00:00+00:00'
+          localDateTimeEnd: '2026-02-28T09:30:00+00:00'
+          allDay: false
+          openingHours: []
         contact:
-          country: null
-          emailAddress: null
-          firstName: null
           fullName: null
+          firstName: null
           lastName: null
-          locales: []
-          notes: null
+          emailAddress: null
           phoneNumber: null
+          locales: []
+          postalCode: null
+          country: null
+          notes: null
         notes: null
         deliveryMethods:
         - TICKET
-        - VOUCHER
-        voucher:
-          redemptionMethod: DIGITAL
-          utcRedeemedAt: null
-          deliveryOptions: []
+        voucher: null
         unitItems:
-        - uuid: 6cbd2582-1345-4d8d-8223-ad004beebc1a
+        - uuid: 3b1bc2ee-3155-4738-9471-f49842a07327
           resellerReference: null
-          supplierReference: CBIYWQ
+          supplierReference: J9T7R6
+          unitId: adult_697e3ce8
           unit:
-            id: adult
-            internalName: adult
-            reference: adult
-            requiredContactFields: []
-            restrictions:
-              accompaniedBy: []
-              idRequired: false
-              maxAge: 100
-              maxQuantity: null
-              minAge: 18
-              minQuantity: null
-              paxCount: 1
+            id: adult_697e3ce8
+            internalName: Adult(s)
+            reference: LR1-01
             type: ADULT
-          unitId: adult
+            requiredContactFields:
+            - firstName
+            - lastName
+            restrictions:
+              minAge: 18
+              maxAge: 99
+              idRequired: false
+              minQuantity: 1
+              maxQuantity: 7
+              paxCount: 1
+              accompaniedBy: []
           status: ON_HOLD
           utcRedeemedAt: null
           contact:
-            country: null
-            emailAddress: null
-            firstName: null
             fullName: null
+            firstName: null
             lastName: null
-            locales: []
-            notes: null
+            emailAddress: null
             phoneNumber: null
-          ticket:
-            redemptionMethod: DIGITAL
-            utcRedeemedAt: null
-            deliveryOptions: []
+            locales: []
+            postalCode: null
+            country: null
+            notes: null
+          ticket: null
     BookingConfirmed:
       value:
-        id: 3ac5450f-8511-4386-9feb-17ce4f9e1f86
-        uuid: ec0ce0c2-03f0-4c64-bbc5-5e0f7d1e1c0a
-        testMode: true
-        resellerReference: null
-        supplierReference: ALG6RQ
+        id: 187583938745-D
+        uuid: 559aed3d-6d5b-4fe0-bfca-99f5e7218a56
+        testMode: false
+        resellerReference: 102-256952-3
+        supplierReference: 300SK9
         status: CONFIRMED
-        utcCreatedAt: '2022-05-25T11:03:22Z'
-        utcUpdatedAt: '2022-05-25T11:03:31Z'
+        utcCreatedAt: '2026-02-17T23:28:43Z'
+        utcUpdatedAt: '2026-02-17T23:32:33Z'
         utcExpiresAt: null
         utcRedeemedAt: null
-        utcConfirmedAt: '2022-05-25T11:03:31Z'
-        productId: '1'
+        utcConfirmedAt: '2026-02-17T23:32:33Z'
+        productId: LEYE-6bde6c4f4854
         product:
+          id: LEYE-6bde6c4f4854
+          internalName: London Eye Admission
+          reference: LEYE
+          locale: en-GB
+          timeZone: Europe/London
           allowFreesale: false
-          availabilityRequired: true
-          availabilityType: OPENING_HOURS
-          deliveryFormats:
-          - PDF_URL
-          - QRCODE
-          deliveryMethods:
-          - TICKET
-          - VOUCHER
-          id: '1'
           instantConfirmation: true
           instantDelivery: true
-          internalName: PPU | OH
-          locale: en
-          options:
-          - availabilityLocalStartTimes:
-            - 00:00
-            cancellationCutoff: 0 hours
-            cancellationCutoffAmount: 0
-            cancellationCutoffUnit: hour
-            default: true
-            id: DEFAULT
-            internalName: DEFAULT
-            reference: null
-            requiredContactFields: []
-            restrictions:
-              maxUnits: null
-              minUnits: 0
-            units:
-            - id: adult
-              internalName: adult
-              reference: adult
-              requiredContactFields: []
-              restrictions:
-                accompaniedBy: []
-                idRequired: false
-                maxAge: 100
-                maxQuantity: null
-                minAge: 18
-                minQuantity: null
-                paxCount: 1
-              type: ADULT
+          availabilityRequired: true
+          availabilityType: START_TIME
+          deliveryFormats:
+          - QRCODE
+          - PDF_URL
+          deliveryMethods:
+          - TICKET
           redemptionMethod: DIGITAL
-          reference: null
-          timeZone: Europe/London
-        optionId: DEFAULT
-        option:
-          availabilityLocalStartTimes:
-          - 00:00
-          cancellationCutoff: 0 hours
-          cancellationCutoffAmount: 0
-          cancellationCutoffUnit: hour
-          default: true
-          id: DEFAULT
-          internalName: DEFAULT
-          reference: null
-          requiredContactFields: []
-          restrictions:
-            maxUnits: null
-            minUnits: 0
-          units:
-          - id: adult
-            internalName: adult
-            reference: adult
-            requiredContactFields: []
+          options:
+          - id: 2214b32d-ffa1-426c-b4d2-947dca724e50
+            default: true
+            internalName: Fast Track
+            reference: LEYE-FT
+            availabilityLocalStartTimes:
+            - '09:00'
+            - '14:00'
+            - '17:00'
+            cancellationCutoff: 1 hour
+            cancellationCutoffAmount: 1
+            cancellationCutoffUnit: hour
+            requiredContactFields:
+            - firstName
+            - lastName
             restrictions:
-              accompaniedBy: []
-              idRequired: false
-              maxAge: 100
-              maxQuantity: null
-              minAge: 18
-              minQuantity: null
-              paxCount: 1
+              minUnits: 1
+              maxUnits: 20
+            units:
+            - id: adult_697e3ce8
+              internalName: Adult(s)
+              reference: LR1-01
+              type: ADULT
+              requiredContactFields:
+              - firstName
+              - lastName
+              restrictions:
+                minAge: 18
+                maxAge: 99
+                idRequired: false
+                minQuantity: 1
+                maxQuantity: 7
+                paxCount: 1
+                accompaniedBy: []
+            - id: youth_f6446706
+              internalName: Youth(s)
+              reference: LR1-02
+              type: YOUTH
+              requiredContactFields:
+              - firstName
+              - lastName
+              restrictions:
+                minAge: 3
+                maxAge: 17
+                idRequired: false
+                minQuantity: 0
+                maxQuantity: 7
+                paxCount: 1
+                accompaniedBy:
+                - adult_697e3ce8
+        optionId: 2214b32d-ffa1-426c-b4d2-947dca724e50
+        option:
+          id: 2214b32d-ffa1-426c-b4d2-947dca724e50
+          default: true
+          internalName: Fast Track
+          reference: LEYE-FT
+          availabilityLocalStartTimes:
+          - '09:00'
+          - '14:00'
+          - '17:00'
+          cancellationCutoff: 1 hour
+          cancellationCutoffAmount: 1
+          cancellationCutoffUnit: hour
+          requiredContactFields:
+          - firstName
+          - lastName
+          restrictions:
+            minUnits: 1
+            maxUnits: 20
+          units:
+          - id: adult_697e3ce8
+            internalName: Adult(s)
+            reference: LR1-01
             type: ADULT
+            requiredContactFields:
+            - firstName
+            - lastName
+            restrictions:
+              minAge: 18
+              maxAge: 99
+              idRequired: false
+              minQuantity: 1
+              maxQuantity: 7
+              paxCount: 1
+              accompaniedBy: []
+          - id: youth_f6446706
+            internalName: Youth(s)
+            reference: LR1-02
+            type: YOUTH
+            requiredContactFields:
+            - firstName
+            - lastName
+            restrictions:
+              minAge: 3
+              maxAge: 17
+              idRequired: false
+              minQuantity: 0
+              maxQuantity: 7
+              paxCount: 1
+              accompaniedBy:
+              - adult_697e3ce8
         cancellable: true
         cancellation: null
         freesale: false
-        availabilityId: '2022-04-30T00:00:00+01:00'
+        availabilityId: FE32BA12
         availability:
-          allDay: true
-          id: '2022-04-30T00:00:00+01:00'
-          localDateTimeEnd: '2022-05-01T00:00:00+01:00'
-          localDateTimeStart: '2022-04-30T00:00:00+01:00'
-          openingHours:
-          - from: 09:00
-            to: '17:00'
+          id: FE32BA12
+          localDateTimeStart: '2026-02-28T09:00:00+00:00'
+          localDateTimeEnd: '2026-02-28T09:30:00+00:00'
+          allDay: false
+          openingHours: []
         contact:
           fullName: John Doe
           firstName: John
           lastName: Doe
-          emailAddress: johndoe@email.com
-          phoneNumber: null
-          locales: []
-          country: null
-          notes: null
-        notes: null
+          emailAddress: john@example.com
+          phoneNumber: '+44 7777 777777'
+          locales:
+          - en-GB
+          postalCode: W1H 7EJ
+          country: GB
+          notes: 'Dietary: vegan'
+        notes: Wheelchair accessible tour please
         deliveryMethods:
         - TICKET
-        - VOUCHER
-        voucher:
-          redemptionMethod: DIGITAL
-          utcRedeemedAt: null
-          deliveryOptions:
-          - deliveryFormat: PDF_URL
-            deliveryValue: https://api.octomock.com/octo/pdf?booking=ec0ce0c2-03f0-4c64-bbc5-5e0f7d1e1c0a
-          - deliveryFormat: QRCODE
-            deliveryValue: ALG6RQ
+        voucher: null
         unitItems:
-        - uuid: 25ec5429-d563-45f9-ba5b-85b03edbf65e
-          resellerReference: null
-          supplierReference: EO6Q0P
+        - uuid: 3b1bc2ee-3155-4738-9471-f49842a07327
+          resellerReference: 102-256952-3
+          supplierReference: J9T7R6
+          unitId: adult_697e3ce8
           unit:
-            id: adult
-            internalName: adult
-            reference: adult
-            requiredContactFields: []
-            restrictions:
-              accompaniedBy: []
-              idRequired: false
-              maxAge: 100
-              maxQuantity: null
-              minAge: 18
-              minQuantity: null
-              paxCount: 1
+            id: adult_697e3ce8
+            internalName: Adult(s)
+            reference: LR1-01
             type: ADULT
-          unitId: adult
-          status: ON_HOLD
+            requiredContactFields:
+            - firstName
+            - lastName
+            restrictions:
+              minAge: 18
+              maxAge: 99
+              idRequired: false
+              minQuantity: 1
+              maxQuantity: 7
+              paxCount: 1
+              accompaniedBy: []
+          status: CONFIRMED
           utcRedeemedAt: null
           contact:
-            country: null
-            emailAddress: null
-            firstName: null
-            fullName: null
-            lastName: null
-            locales: []
-            notes: null
-            phoneNumber: null
+            firstName: John
+            lastName: Doe
+            locales:
+            - en-GB
           ticket:
             redemptionMethod: DIGITAL
             utcRedeemedAt: null
             deliveryOptions:
-            - deliveryFormat: PDF_URL
-              deliveryValue: https://api.octomock.com/octo/pdf?booking=ec0ce0c2-03f0-4c64-bbc5-5e0f7d1e1c0a&ticket=25ec5429-d563-45f9-ba5b-85b03edbf65e
             - deliveryFormat: QRCODE
-              deliveryValue: EO6Q0P
+              deliveryValue: DIE382Q388455
+            - deliveryFormat: PDF_URL
+              deliveryValue: https://api.octomock.com/octo/pdf?booking=ec0ce0c2-03f0-4c64-bbc5-5e0f7d1e1c0a
     BookingCancelled:
       value:
-        id: 3ac5450f-8511-4386-9feb-17ce4f9e1f86
-        uuid: ec0ce0c2-03f0-4c64-bbc5-5e0f7d1e1c0a
-        testMode: true
-        resellerReference: null
-        supplierReference: ALG6RQ
+        id: 187583938745-D
+        uuid: 559aed3d-6d5b-4fe0-bfca-99f5e7218a56
+        testMode: false
+        resellerReference: 102-256952-3
+        supplierReference: 300SK9
         status: CANCELLED
-        utcCreatedAt: '2022-05-25T11:03:22Z'
-        utcUpdatedAt: '2022-05-25T11:06:24Z'
+        utcCreatedAt: '2026-02-17T23:28:43Z'
+        utcUpdatedAt: '2026-02-20T08:15:00Z'
         utcExpiresAt: null
         utcRedeemedAt: null
-        utcConfirmedAt: null
-        productId: '1'
+        utcConfirmedAt: '2026-02-17T23:32:33Z'
+        productId: LEYE-6bde6c4f4854
         product:
+          id: LEYE-6bde6c4f4854
+          internalName: London Eye Admission
+          reference: LEYE
+          locale: en-GB
+          timeZone: Europe/London
           allowFreesale: false
-          availabilityRequired: true
-          availabilityType: OPENING_HOURS
-          deliveryFormats:
-          - PDF_URL
-          - QRCODE
-          deliveryMethods:
-          - TICKET
-          - VOUCHER
-          id: '1'
           instantConfirmation: true
           instantDelivery: true
-          internalName: PPU | OH
-          locale: en
-          options:
-          - availabilityLocalStartTimes:
-            - 00:00
-            cancellationCutoff: 0 hours
-            cancellationCutoffAmount: 0
-            cancellationCutoffUnit: hour
-            default: true
-            id: DEFAULT
-            internalName: DEFAULT
-            reference: null
-            requiredContactFields: []
-            restrictions:
-              maxUnits: null
-              minUnits: 0
-            units:
-            - id: adult
-              internalName: adult
-              reference: adult
-              requiredContactFields: []
-              restrictions:
-                accompaniedBy: []
-                idRequired: false
-                maxAge: 100
-                maxQuantity: null
-                minAge: 18
-                minQuantity: null
-                paxCount: 1
-              type: ADULT
+          availabilityRequired: true
+          availabilityType: START_TIME
+          deliveryFormats:
+          - QRCODE
+          - PDF_URL
+          deliveryMethods:
+          - TICKET
           redemptionMethod: DIGITAL
-          reference: null
-          timeZone: Europe/London
-        optionId: DEFAULT
-        option:
-          availabilityLocalStartTimes:
-          - 00:00
-          cancellationCutoff: 0 hours
-          cancellationCutoffAmount: 0
-          cancellationCutoffUnit: hour
-          default: true
-          id: DEFAULT
-          internalName: DEFAULT
-          reference: null
-          requiredContactFields: []
-          restrictions:
-            maxUnits: null
-            minUnits: 0
-          units:
-          - id: adult
-            internalName: adult
-            reference: adult
-            requiredContactFields: []
+          options:
+          - id: 2214b32d-ffa1-426c-b4d2-947dca724e50
+            default: true
+            internalName: Fast Track
+            reference: LEYE-FT
+            availabilityLocalStartTimes:
+            - '09:00'
+            - '14:00'
+            - '17:00'
+            cancellationCutoff: 1 hour
+            cancellationCutoffAmount: 1
+            cancellationCutoffUnit: hour
+            requiredContactFields:
+            - firstName
+            - lastName
             restrictions:
-              accompaniedBy: []
-              idRequired: false
-              maxAge: 100
-              maxQuantity: null
-              minAge: 18
-              minQuantity: null
-              paxCount: 1
+              minUnits: 1
+              maxUnits: 20
+            units:
+            - id: adult_697e3ce8
+              internalName: Adult(s)
+              reference: LR1-01
+              type: ADULT
+              requiredContactFields:
+              - firstName
+              - lastName
+              restrictions:
+                minAge: 18
+                maxAge: 99
+                idRequired: false
+                minQuantity: 1
+                maxQuantity: 7
+                paxCount: 1
+                accompaniedBy: []
+            - id: youth_f6446706
+              internalName: Youth(s)
+              reference: LR1-02
+              type: YOUTH
+              requiredContactFields:
+              - firstName
+              - lastName
+              restrictions:
+                minAge: 3
+                maxAge: 17
+                idRequired: false
+                minQuantity: 0
+                maxQuantity: 7
+                paxCount: 1
+                accompaniedBy:
+                - adult_697e3ce8
+        optionId: 2214b32d-ffa1-426c-b4d2-947dca724e50
+        option:
+          id: 2214b32d-ffa1-426c-b4d2-947dca724e50
+          default: true
+          internalName: Fast Track
+          reference: LEYE-FT
+          availabilityLocalStartTimes:
+          - '09:00'
+          - '14:00'
+          - '17:00'
+          cancellationCutoff: 1 hour
+          cancellationCutoffAmount: 1
+          cancellationCutoffUnit: hour
+          requiredContactFields:
+          - firstName
+          - lastName
+          restrictions:
+            minUnits: 1
+            maxUnits: 20
+          units:
+          - id: adult_697e3ce8
+            internalName: Adult(s)
+            reference: LR1-01
             type: ADULT
+            requiredContactFields:
+            - firstName
+            - lastName
+            restrictions:
+              minAge: 18
+              maxAge: 99
+              idRequired: false
+              minQuantity: 1
+              maxQuantity: 7
+              paxCount: 1
+              accompaniedBy: []
+          - id: youth_f6446706
+            internalName: Youth(s)
+            reference: LR1-02
+            type: YOUTH
+            requiredContactFields:
+            - firstName
+            - lastName
+            restrictions:
+              minAge: 3
+              maxAge: 17
+              idRequired: false
+              minQuantity: 0
+              maxQuantity: 7
+              paxCount: 1
+              accompaniedBy:
+              - adult_697e3ce8
         cancellable: false
         cancellation:
           refund: FULL
-          reason: 'this product sucks '
-          utcCancelledAt: '2022-05-25T11:06:24Z'
+          reason: Customer requested
+          utcCancelledAt: '2026-02-20T08:15:00Z'
         freesale: false
-        availabilityId: '2022-04-30T00:00:00+01:00'
+        availabilityId: FE32BA12
         availability:
-          allDay: true
-          id: '2022-04-30T00:00:00+01:00'
-          localDateTimeEnd: '2022-05-01T00:00:00+01:00'
-          localDateTimeStart: '2022-04-30T00:00:00+01:00'
-          openingHours:
-          - from: 09:00
-            to: '17:00'
+          id: FE32BA12
+          localDateTimeStart: '2026-02-28T09:00:00+00:00'
+          localDateTimeEnd: '2026-02-28T09:30:00+00:00'
+          allDay: false
+          openingHours: []
         contact:
-          country: null
-          emailAddress: null
-          firstName: null
-          fullName: null
-          lastName: null
-          locales: []
-          notes: null
-          phoneNumber: null
-        notes: null
+          fullName: John Doe
+          firstName: John
+          lastName: Doe
+          emailAddress: john@example.com
+          phoneNumber: '+44 7777 777777'
+          locales:
+          - en-GB
+          postalCode: W1H 7EJ
+          country: GB
+          notes: 'Dietary: vegan'
+        notes: Wheelchair accessible tour please
         deliveryMethods:
         - TICKET
-        - VOUCHER
-        voucher:
-          redemptionMethod: DIGITAL
+        voucher: null
+        unitItems:
+        - uuid: 3b1bc2ee-3155-4738-9471-f49842a07327
+          resellerReference: 102-256952-3
+          supplierReference: J9T7R6
+          unitId: adult_697e3ce8
+          unit:
+            id: adult_697e3ce8
+            internalName: Adult(s)
+            reference: LR1-01
+            type: ADULT
+            requiredContactFields:
+            - firstName
+            - lastName
+            restrictions:
+              minAge: 18
+              maxAge: 99
+              idRequired: false
+              minQuantity: 1
+              maxQuantity: 7
+              paxCount: 1
+              accompaniedBy: []
+          status: CANCELLED
           utcRedeemedAt: null
-          deliveryOptions: []
-        unitItems: []
+          contact:
+            firstName: John
+            lastName: Doe
+            locales:
+            - en-GB
+          ticket:
+            redemptionMethod: DIGITAL
+            utcRedeemedAt: null
+            deliveryOptions:
+            - deliveryFormat: QRCODE
+              deliveryValue: DIE382Q388455
+            - deliveryFormat: PDF_URL
+              deliveryValue: https://api.octomock.com/octo/pdf?booking=ec0ce0c2-03f0-4c64-bbc5-5e0f7d1e1c0a
     BookingUpdated:
       value:
-        id: 3ef65048-5ffe-474f-8a5c-fb35a9faa6ed
-        uuid: 814d2566-2c71-4e6a-aaa9-59b9bf26cc0d
-        testMode: true
-        resellerReference: null
-        supplierReference: RNSRSM
+        id: 187583938745-D
+        uuid: 559aed3d-6d5b-4fe0-bfca-99f5e7218a56
+        testMode: false
+        resellerReference: 102-256952-3
+        supplierReference: 300SK9
         status: CONFIRMED
-        utcCreatedAt: '2022-05-25T11:07:05Z'
-        utcUpdatedAt: '2022-05-25T11:09:32Z'
+        utcCreatedAt: '2026-02-17T23:28:43Z'
+        utcUpdatedAt: '2026-02-18T10:12:05Z'
         utcExpiresAt: null
         utcRedeemedAt: null
-        utcConfirmedAt: '2022-05-25T11:09:32Z'
-        productId: '1'
+        utcConfirmedAt: '2026-02-17T23:32:33Z'
+        productId: LEYE-6bde6c4f4854
         product:
+          id: LEYE-6bde6c4f4854
+          internalName: London Eye Admission
+          reference: LEYE
+          locale: en-GB
+          timeZone: Europe/London
           allowFreesale: false
-          availabilityRequired: true
-          availabilityType: OPENING_HOURS
-          deliveryFormats:
-          - PDF_URL
-          - QRCODE
-          deliveryMethods:
-          - TICKET
-          - VOUCHER
-          id: '1'
           instantConfirmation: true
           instantDelivery: true
-          internalName: PPU | OH
-          locale: en
-          options:
-          - availabilityLocalStartTimes:
-            - 00:00
-            cancellationCutoff: 0 hours
-            cancellationCutoffAmount: 0
-            cancellationCutoffUnit: hour
-            default: true
-            id: DEFAULT
-            internalName: DEFAULT
-            reference: null
-            requiredContactFields: []
-            restrictions:
-              maxUnits: null
-              minUnits: 0
-            units:
-            - id: adult
-              internalName: adult
-              reference: adult
-              requiredContactFields: []
-              restrictions:
-                accompaniedBy: []
-                idRequired: false
-                maxAge: 100
-                maxQuantity: null
-                minAge: 18
-                minQuantity: null
-                paxCount: 1
-              type: ADULT
+          availabilityRequired: true
+          availabilityType: START_TIME
+          deliveryFormats:
+          - QRCODE
+          - PDF_URL
+          deliveryMethods:
+          - TICKET
           redemptionMethod: DIGITAL
-          reference: null
-          timeZone: Europe/London
-        optionId: DEFAULT
-        option:
-          availabilityLocalStartTimes:
-          - 00:00
-          cancellationCutoff: 0 hours
-          cancellationCutoffAmount: 0
-          cancellationCutoffUnit: hour
-          default: true
-          id: DEFAULT
-          internalName: DEFAULT
-          reference: null
-          requiredContactFields: []
-          restrictions:
-            maxUnits: null
-            minUnits: 0
-          units:
-          - id: adult
-            internalName: adult
-            reference: adult
-            requiredContactFields: []
+          options:
+          - id: 2214b32d-ffa1-426c-b4d2-947dca724e50
+            default: true
+            internalName: Fast Track
+            reference: LEYE-FT
+            availabilityLocalStartTimes:
+            - '09:00'
+            - '14:00'
+            - '17:00'
+            cancellationCutoff: 1 hour
+            cancellationCutoffAmount: 1
+            cancellationCutoffUnit: hour
+            requiredContactFields:
+            - firstName
+            - lastName
             restrictions:
-              accompaniedBy: []
-              idRequired: false
-              maxAge: 100
-              maxQuantity: null
-              minAge: 18
-              minQuantity: null
-              paxCount: 1
+              minUnits: 1
+              maxUnits: 20
+            units:
+            - id: adult_697e3ce8
+              internalName: Adult(s)
+              reference: LR1-01
+              type: ADULT
+              requiredContactFields:
+              - firstName
+              - lastName
+              restrictions:
+                minAge: 18
+                maxAge: 99
+                idRequired: false
+                minQuantity: 1
+                maxQuantity: 7
+                paxCount: 1
+                accompaniedBy: []
+            - id: youth_f6446706
+              internalName: Youth(s)
+              reference: LR1-02
+              type: YOUTH
+              requiredContactFields:
+              - firstName
+              - lastName
+              restrictions:
+                minAge: 3
+                maxAge: 17
+                idRequired: false
+                minQuantity: 0
+                maxQuantity: 7
+                paxCount: 1
+                accompaniedBy:
+                - adult_697e3ce8
+        optionId: 2214b32d-ffa1-426c-b4d2-947dca724e50
+        option:
+          id: 2214b32d-ffa1-426c-b4d2-947dca724e50
+          default: true
+          internalName: Fast Track
+          reference: LEYE-FT
+          availabilityLocalStartTimes:
+          - '09:00'
+          - '14:00'
+          - '17:00'
+          cancellationCutoff: 1 hour
+          cancellationCutoffAmount: 1
+          cancellationCutoffUnit: hour
+          requiredContactFields:
+          - firstName
+          - lastName
+          restrictions:
+            minUnits: 1
+            maxUnits: 20
+          units:
+          - id: adult_697e3ce8
+            internalName: Adult(s)
+            reference: LR1-01
             type: ADULT
+            requiredContactFields:
+            - firstName
+            - lastName
+            restrictions:
+              minAge: 18
+              maxAge: 99
+              idRequired: false
+              minQuantity: 1
+              maxQuantity: 7
+              paxCount: 1
+              accompaniedBy: []
+          - id: youth_f6446706
+            internalName: Youth(s)
+            reference: LR1-02
+            type: YOUTH
+            requiredContactFields:
+            - firstName
+            - lastName
+            restrictions:
+              minAge: 3
+              maxAge: 17
+              idRequired: false
+              minQuantity: 0
+              maxQuantity: 7
+              paxCount: 1
+              accompaniedBy:
+              - adult_697e3ce8
         cancellable: true
         cancellation: null
         freesale: false
-        availabilityId: '2022-04-30T00:00:00+01:00'
+        availabilityId: FE32BA12
         availability:
-          allDay: true
-          id: '2022-04-30T00:00:00+01:00'
-          localDateTimeEnd: '2022-05-01T00:00:00+01:00'
-          localDateTimeStart: '2022-04-30T00:00:00+01:00'
-          openingHours:
-          - from: 09:00
-            to: '17:00'
+          id: FE32BA12
+          localDateTimeStart: '2026-02-28T09:00:00+00:00'
+          localDateTimeEnd: '2026-02-28T09:30:00+00:00'
+          allDay: false
+          openingHours: []
         contact:
-          fullName: test
-          firstName: null
-          lastName: null
-          emailAddress: test@test.test
-          phoneNumber: null
-          locales: []
-          country: null
-          notes: null
-        notes: null
+          fullName: John Doe
+          firstName: John
+          lastName: Doe
+          emailAddress: john@example.com
+          phoneNumber: '+44 7777 777777'
+          locales:
+          - en-GB
+          postalCode: W1H 7EJ
+          country: GB
+          notes: 'Dietary: vegan'
+        notes: Wheelchair accessible tour please. Guest now requires step-free access.
         deliveryMethods:
         - TICKET
-        - VOUCHER
-        voucher:
-          deliveryOptions:
-          - deliveryFormat: PDF_URL
-            deliveryValue: https://api.octomock.com/octo/pdf?booking=814d2566-2c71-4e6a-aaa9-59b9bf26cc0d
-          - deliveryFormat: QRCODE
-            deliveryValue: RNSRSM
-          redemptionMethod: DIGITAL
-          utcRedeemedAt: null
+        voucher: null
         unitItems:
-        - contact:
-            country: null
-            emailAddress: null
-            firstName: null
-            fullName: null
-            lastName: null
-            locales: []
-            notes: null
-            phoneNumber: null
-          resellerReference: null
-          status: ON_HOLD
-          supplierReference: 1LTYVC
+        - uuid: 3b1bc2ee-3155-4738-9471-f49842a07327
+          resellerReference: 102-256952-3
+          supplierReference: J9T7R6
+          unitId: adult_697e3ce8
+          unit:
+            id: adult_697e3ce8
+            internalName: Adult(s)
+            reference: LR1-01
+            type: ADULT
+            requiredContactFields:
+            - firstName
+            - lastName
+            restrictions:
+              minAge: 18
+              maxAge: 99
+              idRequired: false
+              minQuantity: 1
+              maxQuantity: 7
+              paxCount: 1
+              accompaniedBy: []
+          status: CONFIRMED
+          utcRedeemedAt: null
+          contact:
+            firstName: John
+            lastName: Doe
+            locales:
+            - en-GB
           ticket:
-            deliveryOptions:
-            - deliveryFormat: PDF_URL
-              deliveryValue: https://api.octomock.com/octo/pdf?booking=814d2566-2c71-4e6a-aaa9-59b9bf26cc0d&ticket=a204e6de-7909-4bf2-b7a8-2884189534bc
-            - deliveryFormat: QRCODE
-              deliveryValue: 1LTYVC
             redemptionMethod: DIGITAL
             utcRedeemedAt: null
-          unit:
-            id: adult
-            internalName: adult
-            reference: adult
-            requiredContactFields: []
-            restrictions:
-              accompaniedBy: []
-              idRequired: false
-              maxAge: 100
-              maxQuantity: null
-              minAge: 18
-              minQuantity: null
-              paxCount: 1
-            type: ADULT
-          unitId: adult
-          utcRedeemedAt: null
-          uuid: a204e6de-7909-4bf2-b7a8-2884189534bc
-        - contact:
-            country: null
-            emailAddress: null
-            firstName: null
-            fullName: null
-            lastName: null
-            locales: []
-            notes: null
-            phoneNumber: null
-          resellerReference: null
-          status: ON_HOLD
-          supplierReference: A89VR8
-          ticket:
             deliveryOptions:
-            - deliveryFormat: PDF_URL
-              deliveryValue: https://api.octomock.com/octo/pdf?booking=814d2566-2c71-4e6a-aaa9-59b9bf26cc0d&ticket=9116e598-6713-4cb5-8ba4-e5b839f7a5d5
             - deliveryFormat: QRCODE
-              deliveryValue: A89VR8
-            redemptionMethod: DIGITAL
-            utcRedeemedAt: null
-          unit:
-            id: adult
-            internalName: adult
-            reference: adult
-            requiredContactFields: []
-            restrictions:
-              accompaniedBy: []
-              idRequired: false
-              maxAge: 100
-              maxQuantity: null
-              minAge: 18
-              minQuantity: null
-              paxCount: 1
-            type: ADULT
-          unitId: adult
-          utcRedeemedAt: null
-          uuid: 9116e598-6713-4cb5-8ba4-e5b839f7a5d5
+              deliveryValue: DIE382Q388455
+            - deliveryFormat: PDF_URL
+              deliveryValue: https://api.octomock.com/octo/pdf?booking=ec0ce0c2-03f0-4c64-bbc5-5e0f7d1e1c0a
   responses:
     GetSupplierError:
       description: Example response
@@ -3360,11 +3403,6 @@ components:
         application/json:
           schema:
             type: object
-            x-examples:
-              example-1:
-                error: INVALID_PRODUCT_ID
-                errorMessage: The productId was missing or invalid
-                productId: 7c3eb026-3d36-4981-9c56-28d8a52a54dd
             additionalProperties: false
             properties:
               error:
@@ -3393,11 +3431,6 @@ components:
         application/json:
           schema:
             type: object
-            x-examples:
-              example-1:
-                error: INVALID_PRODUCT_ID
-                errorMessage: The productId was missing or invalid
-                productId: 7c3eb026-3d36-4981-9c56-28d8a52a54dd
             additionalProperties: false
             properties:
               error:
@@ -3434,10 +3467,6 @@ components:
         application/json:
           schema:
             type: object
-            x-examples:
-              example-1:
-                error: BAD_REQUEST
-                errorMessage: either localDate, localDateStart/localDateEnd or availabilityIds is required
             additionalProperties: false
             properties:
               error:
@@ -3458,11 +3487,6 @@ components:
         application/json:
           schema:
             type: object
-            x-examples:
-              example-1:
-                error: INVALID_PRODUCT_ID
-                errorMessage: The productId was missing or invalid
-                uuid: string
             additionalProperties: false
             properties:
               error:
@@ -3605,28 +3629,32 @@ components:
             properties:
               resellerReference:
                 type: string
-                description: Your reference for this booking. Also known as a Voucher Number.
+                description: Updated Reseller reference associated with the Booking.
                 examples:
-                - ec08a62-892c-48c1-a608-dc946531a33b
+                - 102-256952-3
               productId:
                 type: string
-                description: The product ID.
+                description: Updated identifier of the Product for the Booking.
                 examples:
                 - 6b903d44-dc24-4ca4-ae71-6bde6c4f4854
               optionId:
                 type: string
-                description: The option id.
+                description: Updated identifier of the Option for the Booking.
                 examples:
                 - DEFAULT
               availabilityId:
                 type: string
-                description: The availability ID for the selected timeslot.
+                description: Updated identifier of the Availability (ISO 8601 datetime) for the Booking.
+                examples:
+                - '2026-06-30T12:00:00+01:00'
               expirationMinutes:
                 type: string
                 description: How many minutes to reserve the availability, otherwise defaults to the supplier default amount.
               notes:
                 type: string
-                description: Optional notes for the booking.
+                description: Updated notes associated with the Booking.
+                examples:
+                - 'Dietary: vegan'
               emailReceipt:
                 type: boolean
                 description: Whether you want OCTO Cloud to email the guest a copy of their receipt and tickets. (defaults to false).
@@ -3641,7 +3669,12 @@ components:
                       description: A unique UUID to identify the unit item.
                     unitId:
                       type: string
-                      description: The unit item unit ID.
+                      description: |-
+                        Identifier of the Unit type to be booked.
+
+                        All unit items MUST be provided in the request to retain them.
+                      examples:
+                      - adult
                     resellerReference:
                       $ref: '#/components/schemas/UnitResellerReference'
                     contact:
@@ -3656,31 +3689,6 @@ components:
         application/json:
           schema:
             type: object
-            x-examples:
-              example-1:
-                resellerReference: string
-                productId: string
-                optionId: string
-                availabilityId: string
-                expirationMinutes: string
-                freesale: true
-                redeemed: true
-                notes: string
-                emailReceipt: true
-                unitItems:
-                - uuid: string
-                  unitId: string
-                  resellerReference: string
-                contact:
-                  fullName: string
-                  firstName: string
-                  lastName: string
-                  emailAddress: string
-                  phoneNumber: string
-                  country: string
-                  notes: string
-                  locales:
-                  - string
             properties:
               uuid:
                 type: string
@@ -3693,6 +3701,18 @@ components:
                 format: uuid
                 examples:
                 - 559aed3d-6d5b-4fe0-bfca-99f5e7218a56
+              testMode:
+                type: boolean
+                deprecated: true
+                default: false
+                description: |-
+                  [DEPRECATED] Indicates that the Booking is a test Booking and MUST NOT be fulfilled as a real sale by the Supplier.
+
+                  If provided, the Supplier MUST return the same value in the `testMode` field of the Booking and MUST preserve it for the lifetime of the Booking, including on confirmation.
+
+                  Deprecation advice: Use a test environment for test bookings.
+                examples:
+                - false
               productId:
                 type: string
                 description: Identifier of the Product to be booked.
@@ -3775,14 +3795,23 @@ components:
             properties:
               emailReceipt:
                 type: boolean
-                description: Whether you want OCTO Cloud to email the guest a copy of their receipt and tickets. (defaults to false)
+                description: |-
+                  Indicates whether the ticket receipt is sent to the guest by email.
+
+                  If not provided, the default value MUST be `false`.
+                examples:
+                - false
               resellerReference:
                 type: string
-                description: Your reference for this booking. Also known as a Voucher Number.
+                description: |-
+                  Reseller reference associated with the Booking.
+
+                  This field MUST be provided when required by the Reseller configuration.
                 examples:
-                - 4ec08a62-892c-48c1-a608-dc946531a33b
+                - 102-256952-3
               contact:
-                $ref: '#/components/schemas/BookingHolderContact'
+                allOf:
+                - $ref: '#/components/schemas/BookingHolderContact'
                 description: Contact details for the main guest who will attend the tour/attraction. Contact schema can be applied to both the booking object (the main reservation) or the unit object (individual ticket holders - if the supplier requires this information).
               unitItems:
                 type: array
@@ -3792,14 +3821,31 @@ components:
                   properties:
                     uuid:
                       type: string
-                      description: A unique UUID to identify the unit, same as the booking uuid except per unit.
+                      description: |-
+                        Unique idempotency key for the unit item.
+
+                        If the same value is reused, the Supplier MUST treat the request as idempotent for this unit item.
+                      examples:
+                      - 3b1bc2ee-3155-4738-9471-f49842a07327
                     unitId:
                       type: string
-                      description: The unit item unit ID.
+                      description: |-
+                        Identifier of the Unit type to be confirmed.
+
+                        All unit items MUST be provided.
+
+                        Providing this field MUST replace all existing unit items in the Booking.
+                      examples:
+                      - adult123
                     resellerReference:
-                      $ref: '#/components/schemas/UnitResellerReference'
+                      allOf:
+                      - $ref: '#/components/schemas/UnitResellerReference'
+                      description: Reseller reference associated with the individual unit item.
+                      examples:
+                      - TICKET-001
                     contact:
-                      $ref: '#/components/schemas/TicketHolderContact'
+                      allOf:
+                      - $ref: '#/components/schemas/TicketHolderContact'
                       description: Contact details for the main guest who will attend the tour/attraction. Contact schema can be applied to both the booking object (the main reservation) or the unit object (individual ticket holders - if the supplier requires this information).
                   required:
                   - unitId
