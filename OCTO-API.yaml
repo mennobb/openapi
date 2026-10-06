@@ -28,6 +28,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Supplier'
+        '400':
+          $ref: '#/components/responses/GetSupplierError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
       description: |-
         Returns the Supplier associated with the API Key (Bearer Token), including its details.
 
@@ -47,6 +55,12 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Product'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
       description: |-
         Returns all Products offered by the Supplier.
   /products/{id}:
@@ -71,6 +85,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Product'
+        '400':
+          $ref: '#/components/responses/GetProductError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
       description: |-
         Returns the Product for the specified Product ID.
   /availability/calendar:
@@ -95,6 +117,12 @@ paths:
                   $ref: '#/components/examples/AvailabilityCalendarOpeningHours'
         '400':
           $ref: '#/components/responses/AvailabilityCalendarError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
       requestBody:
         content:
           application/json:
@@ -113,11 +141,13 @@ paths:
                   description: Identifier of the Option being queried.
                 localDateStart:
                   type: string
+                  format: date
                   examples:
                   - '2026-06-15'
                   description: Start date of range (YYYY-MM-DD).
                 localDateEnd:
                   type: string
+                  format: date
                   examples:
                   - '2026-06-18'
                   description: End date of range (YYYY-MM-DD).
@@ -192,6 +222,12 @@ paths:
                   $ref: '#/components/examples/AvailabilityStartTimes'
         '400':
           $ref: '#/components/responses/AvailabilityCheckError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
       requestBody:
         content:
           application/json:
@@ -276,7 +312,7 @@ paths:
       description: |-
         Returns granular Availability details for the specified Product and Option. Returns individual Availability objects that each cover a specific timeslot/departure time or simply a single object per day, depending on the Product's configuration.  Provides the availability ID required to Create Booking.
 
-        One of the following parameter combinations MUST be provided, or a logical comnbination thereof: `localDate`; `localDateStart` and `localDateEnd`; or `availabilityIds`.
+        One of the following parameter combinations MUST be provided, or a logical combination thereof: `localDate`; `localDateStart` and `localDateEnd`; or `availabilityIds`.
   /bookings:
     post:
       summary: Create Booking
@@ -295,6 +331,12 @@ paths:
                   $ref: '#/components/examples/BookingOnHold'
         '400':
           $ref: '#/components/responses/BookingCreateError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
       parameters:
       - $ref: '#/components/parameters/ContentType'
       requestBody:
@@ -555,6 +597,12 @@ paths:
                           deliveryValue: https://api.acme-attractions.com/octo/tickets/BOOK-CONFIRMED-001.pdf
         '400':
           $ref: '#/components/responses/BookingListError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
       parameters:
       - schema:
           type: string
@@ -572,6 +620,7 @@ paths:
         description: Supplier reference associated with the Booking.
       - schema:
           type: string
+          format: date
           examples:
           - '2026-06-15'
         in: query
@@ -582,6 +631,7 @@ paths:
           Filters Bookings for a specific date.
       - schema:
           type: string
+          format: date
           examples:
           - '2026-06-15'
         in: query
@@ -592,6 +642,7 @@ paths:
           MUST be used together with localDateEnd.
       - schema:
           type: string
+          format: date
           examples:
           - '2026-06-18'
         in: query
@@ -640,6 +691,12 @@ paths:
                   $ref: '#/components/examples/BookingConfirmed'
         '400':
           $ref: '#/components/responses/BookingConfirmError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
       description: |-
         Triggers Booking Confirmation, signaling that the Reseller has committed to the purchase. This prompts the Supplier System to persist the Booking and provide the Reseller System with the required ticket(s).
       parameters:
@@ -649,6 +706,7 @@ paths:
     parameters:
     - schema:
         type: string
+        format: uuid
         examples:
         - 559aed3d-6d5b-4fe0-bfca-99f5e7218a56
       name: uuid
@@ -673,6 +731,12 @@ paths:
                   $ref: '#/components/examples/BookingCancelled'
         '400':
           $ref: '#/components/responses/BookingCancelError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
       description: |-
         Cancels a Booking. A Booking MAY only be cancelled if `booking.cancellable` is `true` and the request is within the cancellation cut-off window.
       requestBody:
@@ -688,6 +752,7 @@ paths:
     parameters:
     - schema:
         type: string
+        format: uuid
         examples:
         - 559aed3d-6d5b-4fe0-bfca-99f5e7218a56
       name: uuid
@@ -711,12 +776,19 @@ paths:
                   $ref: '#/components/examples/BookingConfirmed'
         '400':
           $ref: '#/components/responses/BookingGetError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
       operationId: getBooking
       description: |-
         Returns an existing Booking identified by `uuid`.
       parameters:
       - schema:
           type: string
+          format: uuid
           examples:
           - 559aed3d-6d5b-4fe0-bfca-99f5e7218a56
         name: uuid
@@ -740,6 +812,12 @@ paths:
                   $ref: '#/components/examples/BookingUpdated'
         '400':
           $ref: '#/components/responses/BookingConfirmError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
       requestBody:
         $ref: '#/components/requestBodies/BookingUpdate'
       parameters:
@@ -752,6 +830,7 @@ paths:
         description: Required field on all PATCH requests
       - schema:
           type: string
+          format: uuid
           examples:
           - 559aed3d-6d5b-4fe0-bfca-99f5e7218a56
         name: uuid
@@ -766,6 +845,7 @@ paths:
     parameters:
     - schema:
         type: string
+        format: uuid
         examples:
         - 559aed3d-6d5b-4fe0-bfca-99f5e7218a56
       name: uuid
@@ -789,6 +869,12 @@ paths:
                   $ref: '#/components/examples/BookingOnHold'
         '400':
           $ref: '#/components/responses/BookingExtendError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
       requestBody:
         $ref: '#/components/requestBodies/ExtendReservation'
       parameters:
@@ -1036,8 +1122,6 @@ components:
             Indicates whether Availability MUST be checked before creating a Booking.
             If `true`, the Reseller MUST retrieve Availability using the /availability endpoint and provide a valid availabilityId when creating a Booking.
             If `false`, a Booking MAY be created without retrieving Availability in advance.
-
-            Indicates whether an `availabilityId` is required to create a Booking. When false, open-dated Bookings can be created without specifying a travel date.
           examples:
           - true
         availabilityType:
@@ -1907,13 +1991,13 @@ components:
         status:
           description: |-
             Status of this individual ticket item.
-            - "ON_HOLD": The booking is pending confirmation. This is the default value when the booking is created.
-            - "CONFIRMED": The booking has been confirmed and is ready to be used.
-            - "EXPIRED": The booking is not confirmed before the hold expiration and enters an expired state.
-            - "CANCELLED": The booking has been cancelled.
-            - "REDEEMED": The booking has already been redeemed.
-            - "PENDING": The booking is awaiting external confirmation from the Supplier (`instantConfirmation: false`).
-            - "REJECTED": The booking was rejected by the Supplier.
+            - "ON_HOLD": The Booking is pending confirmation. This is the default value when the Booking is created.
+            - "CONFIRMED": The Booking has been confirmed and is ready to be used.
+            - "EXPIRED": The Booking is not confirmed before the hold expiration and enters an expired state.
+            - "CANCELLED": The Booking has been cancelled.
+            - "REDEEMED": The Booking has already been redeemed.
+            - "PENDING": The Booking is awaiting external confirmation from the Supplier (`instantConfirmation: false`).
+            - "REJECTED": The Booking was rejected by the Supplier.
           allOf:
           - $ref: '#/components/schemas/BookingStatus'
         utcRedeemedAt:
@@ -2394,7 +2478,7 @@ components:
           type:
           - string
           - 'null'
-          description: ISO 8601 UTC timestamp indicating when the Booking expires if the status is `ON_HOLD`. SHOULD be set to `null` if the `Booking.status` is NOT `ON_HOLD`. All Bookings MUST have an expiration date/time.
+          description: ISO 8601 UTC timestamp indicating when the Booking expires if the status is `ON_HOLD`. SHOULD be set to `null` if the `Booking.status` is NOT `ON_HOLD`. A Booking with status `ON_HOLD` MUST have an expiration date/time.
           examples:
           - '2026-06-15T09:00:00Z'
         utcRedeemedAt:
@@ -2540,6 +2624,28 @@ components:
           description: The opening hours from the original availability object.
           items:
             $ref: '#/components/schemas/OpeningHours'
+    Error:
+      type: object
+      title: Error
+      additionalProperties: false
+      required:
+      - error
+      - errorMessage
+      properties:
+        error:
+          type: string
+          description: Machine-readable error code identifying the failure. Clients SHOULD branch on this value rather than on `errorMessage`.
+          examples:
+          - UNAUTHORIZED
+        errorMessage:
+          type: string
+          description: Human-readable description of the failure, intended for logs and developers rather than end users. Clients MUST NOT parse this value.
+          examples:
+          - You didn't send the API Key in the Authorization header to an endpoint that requires authentication
+      description: |-
+        The standard error body returned by every error response in this specification.
+
+        Error responses for operations that take an identifier MAY add that identifier as a further property, for example `productId` on `GET /products/{id}`, so that the Client can tell which value was rejected. Those responses declare the shape inline rather than referencing this schema, because they extend it.
   examples:
     AvailabilityOpeningHours:
       value:
@@ -2674,6 +2780,10 @@ components:
         error: INVALID_AVAILABILITY_ID
         errorMessage: The availabilityId was missing or invalid
         availabilityId: AVAIL-UNKNOWN-001
+    ErrorUnauthorized:
+      value:
+        error: UNAUTHORIZED
+        errorMessage: You didn't send the API Key in the Authorization header to an endpoint that requires authentication
     ErrorForbidden:
       value:
         error: FORBIDDEN
@@ -2686,10 +2796,6 @@ components:
       value:
         error: UNPROCESSABLE_ENTITY
         errorMessage: The request body is technically correct but cannot be processed for other reasons. e.g. you tried to cancel a booking after the cancellation cutoff had elapsed
-    ErrorUnauthorized:
-      value:
-        error: UNAUTHORIZED
-        errorMessage: You didn't send the API Key in the Authorization header to an endpoint that requires authentication
     ErrorInvalidBookingUUID:
       value:
         error: INVALID_BOOKING_UUID
@@ -3613,28 +3719,46 @@ components:
             - deliveryFormat: PDF_URL
               deliveryValue: https://api.acme-attractions.com/octo/tickets/BOOK-CONFIRMED-001.pdf
   responses:
-    GetSupplierError:
-      description: Example response
+    Unauthorized:
+      description: Unauthorized. The request did not include a valid API Key in the Authorization header.
       content:
         application/json:
           schema:
-            type: object
-            additionalProperties: false
-            properties:
-              error:
-                type: string
-              errorMessage:
-                type: string
-            required:
-            - error
-            - errorMessage
+            $ref: '#/components/schemas/Error'
+          examples:
+            UNAUTHORIZED:
+              $ref: '#/components/examples/ErrorUnauthorized'
+    Forbidden:
+      description: Forbidden. The API Key was recognised but is not permitted to perform this request, or has been revoked.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            FORBIDDEN:
+              $ref: '#/components/examples/ErrorForbidden'
+    InternalServerError:
+      description: Internal Server Error. The Supplier System encountered an unrecoverable error. The Reseller MAY retry the request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            INTERNAL_SERVER_ERROR:
+              $ref: '#/components/examples/ErrorInternalServerError'
+    GetSupplierError:
+      description: Bad Request. The request could not be processed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
           examples:
             Bad Request:
               value:
                 error: BAD_REQUEST
                 errorMessage: invalid supplier id
     GetProductError:
-      description: Example response
+      description: Bad Request. The `productId` was missing or invalid.
       content:
         application/json:
           schema:
@@ -3653,11 +3777,14 @@ components:
                 type: string
                 examples:
                 - PROD-UNKNOWN-001
+            required:
+            - error
+            - errorMessage
           examples:
             Invalid Product ID:
               $ref: '#/components/examples/ErrorInvalidProductID'
     AvailabilityCheckError:
-      description: Example response
+      description: Bad Request. The Availability request was rejected, for example an unknown `productId` or `optionId`.
       content:
         application/json:
           schema:
@@ -3685,7 +3812,7 @@ components:
                 error: BAD_REQUEST
                 errorMessage: either localDate, localDateStart/localDateEnd or availabilityIds is required
     AvailabilityCalendarError:
-      description: Example response
+      description: Bad Request. The Availability Calendar request was rejected, for example an unknown `productId` or `optionId`.
       content:
         application/json:
           schema:
@@ -3713,7 +3840,7 @@ components:
                 error: BAD_REQUEST
                 errorMessage: cannot request more than 1 year of availability
     BookingCreateError:
-      description: Example response
+      description: Bad Request. The Booking could not be created, for example an unknown `productId`, `optionId`, `unitId` or `availabilityId`.
       content:
         application/json:
           schema:
@@ -3749,27 +3876,18 @@ components:
             INVALID_UNIT_ID:
               $ref: '#/components/examples/ErrorInvalidUnitID'
     BookingListError:
-      description: Example response
+      description: Bad Request. The query was missing a required filter or was otherwise invalid.
       content:
         application/json:
           schema:
-            type: object
-            additionalProperties: false
-            properties:
-              error:
-                type: string
-              errorMessage:
-                type: string
-            required:
-            - error
-            - errorMessage
+            $ref: '#/components/schemas/Error'
           examples:
             example-1:
               value:
                 error: BAD_REQUEST
                 errorMessage: either resellerReference, supplierReference, localDate or localDateStart/localDateEnd is required
     BookingCancelError:
-      description: Example response
+      description: Bad Request. The Booking could not be cancelled.
       content:
         application/json:
           schema:
@@ -3791,11 +3909,12 @@ components:
             UNPROCESSABLE_ENTITY:
               $ref: '#/components/examples/ErrorUnprocessableEntity'
     BookingConfirmError:
-      description: Example response
+      description: Bad Request. The Booking could not be confirmed.
       content:
         application/json:
           schema:
             type: object
+            additionalProperties: false
             properties:
               error:
                 type: string
@@ -3806,6 +3925,8 @@ components:
               optionId:
                 type: string
               unitId:
+                type: string
+              availabilityId:
                 type: string
               uuid:
                 type: string
@@ -3826,18 +3947,27 @@ components:
             UNPROCESSABLE_ENTITY:
               $ref: '#/components/examples/ErrorUnprocessableEntity'
     BookingGetError:
-      description: Example response
+      description: Bad Request. The Booking `uuid` was missing or invalid.
       content:
         application/json:
           schema:
+            type: object
+            additionalProperties: false
             properties:
-              id:
+              error:
                 type: string
+              errorMessage:
+                type: string
+              uuid:
+                type: string
+            required:
+            - error
+            - errorMessage
           examples:
             INVALID_BOOKING_UUID:
               $ref: '#/components/examples/ErrorInvalidBookingUUID'
     BookingExtendError:
-      description: Example response
+      description: Bad Request. The Booking hold could not be extended.
       content:
         application/json:
           schema:
@@ -3935,8 +4065,10 @@ components:
                 examples:
                 - AVAIL-AVAILABLE-001
               expirationMinutes:
-                type: string
+                type: integer
                 description: How many minutes to reserve the availability, otherwise defaults to the supplier default amount.
+                examples:
+                - 30
               notes:
                 type: string
                 description: Updated notes associated with the Booking.
@@ -3953,6 +4085,7 @@ components:
                   properties:
                     uuid:
                       type: string
+                      format: uuid
                       description: A unique UUID to identify the unit item.
                     unitId:
                       type: string
@@ -4041,6 +4174,7 @@ components:
                   properties:
                     uuid:
                       type: string
+                      format: uuid
                       description: |-
                         Unique idempotency key for the unit item.
 
@@ -4110,6 +4244,7 @@ components:
                   properties:
                     uuid:
                       type: string
+                      format: uuid
                       description: |-
                         Unique idempotency key for the unit item.
 
