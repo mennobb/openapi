@@ -1510,10 +1510,11 @@ components:
           examples:
           - STANDARD
         availabilityLocalStartTimes:
-          type:
-          - array
-          - 'null'
-          description: All possible start times for the Option, as returned during Availability checks (e.g., ["09:00", "14:00", "17:00"]).
+          type: array
+          description: |-
+            All possible start times for the Option, as returned during Availability checks (e.g., ["09:00", "14:00", "17:00"]).
+
+            If the Option has no fixed start times, this field MUST be an empty array. This applies, for example, to Products with `availabilityType` `OPENING_HOURS`.
           items:
             type: string
             default: '00:00'
