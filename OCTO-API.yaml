@@ -1863,7 +1863,7 @@ components:
         - "AVAILABLE": Slot is available with remaining capacity.
         - "FREESALE": No capacity limit, always available. The `vacancies` and `capacity` fields do not convey a capacity constraint; `vacancies` MUST be returned as `null` (see `Vacancies`).
         - "SOLD_OUT": No remaining capacity for this date/slot.
-        - "LIMITED": Available, but less than 50% of capacity remaining.
+        - "LIMITED": Available, but likely to sell out. The Supplier alone determines when Availability is limited. The `vacancies` field, if populated, SHOULD be used to determine the remaining quantity.
         - "CLOSED": The venue/Product is closed on this date/slot.
       examples:
       - AVAILABLE
