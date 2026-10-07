@@ -312,7 +312,7 @@ paths:
       description: |-
         Returns granular Availability details for the specified Product and Option. Returns individual Availability objects that each cover a specific timeslot/departure time or simply a single object per day, depending on the Product's configuration.  Provides the availability ID required to Create Booking.
 
-        One of the following parameter combinations MUST be provided, or a logical combination thereof: `localDate`; `localDateStart` and `localDateEnd`; or `availabilityIds`.
+        One of the following parameter combinations MUST be provided, or a logical combination thereof: `localDateStart` and `localDateEnd`; or `availabilityIds`.
   /bookings:
     post:
       summary: Create Booking
@@ -2026,6 +2026,7 @@ components:
       - status
       - utcRedeemedAt
       - contact
+      - ticket
       description: ''
       examples:
       - uuid: 3b1bc2ee-3155-4738-9471-f49842a07327
@@ -2589,7 +2590,7 @@ components:
       - voucher
     BookingUnitItems:
       type: array
-      description: Individual ticket items in the Booking (if `TICKET` is present in `deliveryMethods`)
+      description: The individual unit items in the Booking, one per unit booked. Each item's `ticket` is populated if `TICKET` is present in `Booking.deliveryMethods`.
       items:
         $ref: '#/components/schemas/UnitItem'
     BookedAvailability:
