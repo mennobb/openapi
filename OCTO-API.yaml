@@ -1921,7 +1921,7 @@ components:
         from:
           type: string
           examples:
-          - 09:00
+          - '09:00'
           description: Opening time
         to:
           type: string
