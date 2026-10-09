@@ -1587,8 +1587,8 @@ components:
         A single method by which tickets or vouchers are delivered for a Booking. Referenced by `Product.deliveryMethods` for the methods a Product supports, and by `Booking.deliveryMethods` for the methods applied to a given Booking.
 
         Possible values:
-        - "VOUCHER": A single voucher is delivered for the entire Booking (e.g., all people in the Booking share one voucher). The `Booking.voucher` object is populated.
-        - "TICKET": A separate ticket is delivered per unit item (e.g., each person in the Booking receives an individual ticket). `UnitItem.ticket` is populated on every unit item.
+        - `VOUCHER`: A single voucher is delivered for the entire Booking (e.g., all people in the Booking share one voucher). The `Booking.voucher` object is populated.
+        - `TICKET`: A separate ticket is delivered per unit item (e.g., each person in the Booking receives an individual ticket). `UnitItem.ticket` is populated on every unit item.
 
         For each method present in `Booking.deliveryMethods`, the corresponding object MUST be populated in the Booking response; the object for a method that is absent MUST be `null`. When `Booking.deliveryMethods` contains both values, both objects MUST be populated.
 
@@ -1617,18 +1617,18 @@ components:
         The payload itself is carried in `Ticket.deliveryOptions[].deliveryValue`, either as an encoded string or as a URL, depending on the format.
 
         Possible values:
-        - "QRCODE": A two-dimensional matrix barcode conforming to ISO/IEC 18004, encoded as a string. The Client MUST render the QR code.
-        - "PDF_URL": A URL resolving to a downloadable PDF document containing ticket details. The Client MUST retrieve and present the PDF to the customer.
-        - "CODE128": A high-density linear barcode conforming to ISO/IEC 15417, encoded as a string. The Client MUST render the barcode.
-        - "AZTEC": A two-dimensional matrix barcode conforming to ISO/IEC 24778, encoded as a string. The Client MUST render the barcode.
-        - "PDF417": A stacked two-dimensional barcode conforming to ISO/IEC 15438, encoded as a string. The Client MUST render the barcode.
-        - "PKPASS_URL": A URL resolving to a PKPass file compatible with Apple Wallet. The Client MUST present the pass to the customer.
-        - "GOOGLE_WALLET_URL": A URL resolving to a Google Wallet pass. The Client MUST present the pass to the customer.
-        - "DOTCODE": A two-dimensional barcode optimized for high-speed inkjet printing, encoded as a string. The Client MUST render the barcode.
-        - "DATAMATRIX": A two-dimensional matrix barcode conforming to ISO/IEC 16022, encoded as a string. The Client MUST render the barcode.
-        - "HANXIN": A two-dimensional matrix barcode conforming to GB/T 27766 with native support for Chinese characters, encoded as a string. The Client MUST render the barcode.
-        - "HTML_URL": A URL resolving to an HTML page containing ticket details. The Client MUST retrieve and present the content to the customer.
-        - "IMAGE_URL": A URL resolving to an image file containing the ticket. The Client MUST retrieve and present the image to the customer.
+        - `QRCODE`: A two-dimensional matrix barcode conforming to ISO/IEC 18004, encoded as a string. The Client MUST render the QR code.
+        - `PDF_URL`: A URL resolving to a downloadable PDF document containing ticket details. The Client MUST retrieve and present the PDF to the customer.
+        - `CODE128`: A high-density linear barcode conforming to ISO/IEC 15417, encoded as a string. The Client MUST render the barcode.
+        - `AZTEC`: A two-dimensional matrix barcode conforming to ISO/IEC 24778, encoded as a string. The Client MUST render the barcode.
+        - `PDF417`: A stacked two-dimensional barcode conforming to ISO/IEC 15438, encoded as a string. The Client MUST render the barcode.
+        - `PKPASS_URL`: A URL resolving to a PKPass file compatible with Apple Wallet. The Client MUST present the pass to the customer.
+        - `GOOGLE_WALLET_URL`: A URL resolving to a Google Wallet pass. The Client MUST present the pass to the customer.
+        - `DOTCODE`: A two-dimensional barcode optimized for high-speed inkjet printing, encoded as a string. The Client MUST render the barcode.
+        - `DATAMATRIX`: A two-dimensional matrix barcode conforming to ISO/IEC 16022, encoded as a string. The Client MUST render the barcode.
+        - `HANXIN`: A two-dimensional matrix barcode conforming to GB/T 27766 with native support for Chinese characters, encoded as a string. The Client MUST render the barcode.
+        - `HTML_URL`: A URL resolving to an HTML page containing ticket details. The Client MUST retrieve and present the content to the customer.
+        - `IMAGE_URL`: A URL resolving to an image file containing the ticket. The Client MUST retrieve and present the image to the customer.
       examples:
       - QRCODE
     AvailabilityType:
@@ -1641,8 +1641,8 @@ components:
         Specifies the type of Availability for the Product.
 
         Possible values:
-        - "START_TIME": For Products with fixed departure times (e.g., a walking tour at set times during the day).
-        - "OPENING_HOURS": For Products where customers select a date and can visit anytime during operating hours (e.g., a museum general admission ticket valid at any time when the museum is open).
+        - `START_TIME`: For Products with fixed departure times (e.g., a walking tour at set times during the day).
+        - `OPENING_HOURS`: For Products where customers select a date and can visit anytime during operating hours (e.g., a museum general admission ticket valid at any time when the museum is open).
       examples:
       - OPENING_HOURS
     DurationUnit:
@@ -1658,9 +1658,9 @@ components:
         Time unit for the cancellation cutoff period.
 
         Possible values:
-        - "hour": Hours unit for cancellation cutoff duration.
-        - "minute": Minutes unit for cancellation cutoff duration.
-        - "day": Days unit for cancellation cutoff duration.
+        - `hour`: Hours unit for cancellation cutoff duration.
+        - `minute`: Minutes unit for cancellation cutoff duration.
+        - `day`: Days unit for cancellation cutoff duration.
     RedemptionMethod:
       type: string
       title: RedemptionMethod
@@ -1672,9 +1672,9 @@ components:
         Specifies the redemption method for the Product.
 
         Possible values:
-        - "DIGITAL": The ticket MUST be scanned and MAY be presented on a mobile device.
-        - "PRINT": The ticket MUST be printed and presented physically upon arrival.
-        - "MANIFEST": The guest name is on a manifest. Ticket scanning is not required; the guest MUST present themselves at arrival.
+        - `DIGITAL`: The ticket MUST be scanned and MAY be presented on a mobile device.
+        - `PRINT`: The ticket MUST be printed and presented physically upon arrival.
+        - `MANIFEST`: The guest name is on a manifest. Ticket scanning is not required; the guest MUST present themselves at arrival.
       examples:
       - DIGITAL
     Supplier:
@@ -1831,7 +1831,7 @@ components:
           - '2026-06-15T08:00:00Z'
           description: UTC time by which a booking must be confirmed
         openingHours:
-          description: Opening hours for this day (empty array for START_TIME products)
+          description: Opening hours for this day (empty array for `START_TIME` products)
           type: array
           items:
             $ref: '#/components/schemas/OpeningHours'
@@ -1860,11 +1860,11 @@ components:
         Indicates the availability status for the given date.
 
         Possible values:
-        - "AVAILABLE": Slot is available with remaining capacity.
-        - "FREESALE": No capacity limit, always available. The `vacancies` and `capacity` fields do not convey a capacity constraint; `vacancies` MUST be returned as `null` (see `Vacancies`).
-        - "SOLD_OUT": No remaining capacity for this date/slot.
-        - "LIMITED": Available, but likely to sell out. The Supplier alone determines when Availability is limited. The `vacancies` field, if populated, SHOULD be used to determine the remaining quantity.
-        - "CLOSED": The venue/Product is closed on this date/slot.
+        - `AVAILABLE`: Slot is available with remaining capacity.
+        - `FREESALE`: No capacity limit, always available. The `vacancies` and `capacity` fields do not convey a capacity constraint; `vacancies` MUST be returned as `null` (see `Vacancies`).
+        - `SOLD_OUT`: No remaining capacity for this date/slot.
+        - `LIMITED`: Available, but likely to sell out. The Supplier alone determines when Availability is limited. The `vacancies` field, if populated, SHOULD be used to determine the remaining quantity.
+        - `CLOSED`: The venue/Product is closed on this date/slot.
       examples:
       - AVAILABLE
     AvailabilityCalendar:
@@ -1951,13 +1951,13 @@ components:
         Current Booking status.
 
         Possible values:
-        - "ON_HOLD": The Booking is pending confirmation. This is the default value when the Booking is created.
-        - "CONFIRMED": The Booking has been confirmed and is ready to be used.
-        - "EXPIRED": The Booking is not confirmed before the hold expiration and enters an expired state.
-        - "CANCELLED": The Booking has been cancelled.
-        - "REDEEMED": The Booking has already been redeemed.
-        - "PENDING": The Booking is awaiting external confirmation from the Supplier (`instantConfirmation=false`).
-        - "REJECTED": The Booking was rejected by the Supplier.
+        - `ON_HOLD`: The Booking is pending confirmation. This is the default value when the Booking is created.
+        - `CONFIRMED`: The Booking has been confirmed and is ready to be used.
+        - `EXPIRED`: The Booking is not confirmed before the hold expiration and enters an expired state.
+        - `CANCELLED`: The Booking has been cancelled.
+        - `REDEEMED`: The Booking has already been redeemed.
+        - `PENDING`: The Booking is awaiting external confirmation from the Supplier (`instantConfirmation=false`).
+        - `REJECTED`: The Booking was rejected by the Supplier.
     UnitItem:
       type: object
       properties:
@@ -1992,13 +1992,15 @@ components:
         status:
           description: |-
             Status of this individual ticket item.
-            - "ON_HOLD": The Booking is pending confirmation. This is the default value when the Booking is created.
-            - "CONFIRMED": The Booking has been confirmed and is ready to be used.
-            - "EXPIRED": The Booking is not confirmed before the hold expiration and enters an expired state.
-            - "CANCELLED": The Booking has been cancelled.
-            - "REDEEMED": The Booking has already been redeemed.
-            - "PENDING": The Booking is awaiting external confirmation from the Supplier (`instantConfirmation: false`).
-            - "REJECTED": The Booking was rejected by the Supplier.
+
+            Possible values:
+            - `ON_HOLD`: The Booking is pending confirmation. This is the default value when the Booking is created.
+            - `CONFIRMED`: The Booking has been confirmed and is ready to be used.
+            - `EXPIRED`: The Booking is not confirmed before the hold expiration and enters an expired state.
+            - `CANCELLED`: The Booking has been cancelled.
+            - `REDEEMED`: The Booking has already been redeemed.
+            - `PENDING`: The Booking is awaiting external confirmation from the Supplier (`instantConfirmation: false`).
+            - `REJECTED`: The Booking was rejected by the Supplier.
           allOf:
           - $ref: '#/components/schemas/BookingStatus'
         utcRedeemedAt:
@@ -2013,7 +2015,7 @@ components:
           allOf:
           - $ref: '#/components/schemas/Contact'
         ticket:
-          description: Per-ticket delivery payload (if "TICKET" in `Booking`.`deliveryMethods`). A `null` value implies there are no individual tickets.
+          description: Per-ticket delivery payload (if `TICKET` in `Booking.deliveryMethods`). A `null` value implies there are no individual tickets.
           oneOf:
           - $ref: '#/components/schemas/Ticket'
           - type: 'null'
@@ -2191,10 +2193,12 @@ components:
       examples:
       - FULL
       description: |-
-        Type of refund issued as a result of the cancellation request. Options available:
-        - "FULL": Indicates that a full refund is issued upon cancellation.
-        - "PARTIAL": Indicates that a partial refund is issued upon cancellation.
-        - "NONE": Indicates that no refund is issued upon cancellation.
+        Type of refund issued as a result of the cancellation request.
+
+        Possible values:
+        - `FULL`: Indicates that a full refund is issued upon cancellation.
+        - `PARTIAL`: Indicates that a partial refund is issued upon cancellation.
+        - `NONE`: Indicates that no refund is issued upon cancellation.
     Booking:
       type: object
       examples:
@@ -2496,7 +2500,7 @@ components:
           - 'null'
           examples:
           - '2026-06-15T08:35:00Z'
-          description: ISO 8601 UTC timestamp indicating when the Booking was confirmed. A Booking with `status` = "CANCELLED" should continue to have its `utcConfirmedAt` value set.
+          description: ISO 8601 UTC timestamp indicating when the Booking was confirmed. A Booking with `status` = `CANCELLED` should continue to have its `utcConfirmedAt` value set.
         productId:
           type: string
           examples:
