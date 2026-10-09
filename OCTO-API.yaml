@@ -738,7 +738,7 @@ paths:
         '500':
           $ref: '#/components/responses/InternalServerError'
       description: |-
-        Cancels a Booking. A Booking MAY only be cancelled if `booking.cancellable` is `true` and the request is within the cancellation cut-off window.
+        Cancels a Booking. A Booking MUST NOT be cancelled unless `booking.cancellable` is `true` and the request is within the cancellation cut-off window.
       requestBody:
         $ref: '#/components/requestBodies/BookingCancellation'
       parameters:
