@@ -877,21 +877,21 @@ components:
       - string
       examples:
       - John Doe
-      description: The full name of the booking holder or the ticket holder. Can also be retrieved as an alias for the concatenation of `firstName` and `lastName`.
+      description: The full name of the traveler. Can also be retrieved as an alias for the concatenation of `firstName` and `lastName`.
     FirstName:
       type:
       - 'null'
       - string
       examples:
       - John
-      description: The first name of the booking holder or the ticket holder.
+      description: The first name of the traveler.
     LastName:
       type:
       - 'null'
       - string
       examples:
       - Doe
-      description: The last name of the booking holder or the ticket holder.
+      description: The last name of the traveler.
     EmailAddress:
       type:
       - 'null'
@@ -899,79 +899,69 @@ components:
       format: email
       examples:
       - john.doe@example.com
-      description: The email address of the booking holder or the ticket holder.
+      description: The email address of the traveler.
     PhoneNumber:
       type:
       - 'null'
       - string
-      description: The phone number of the booking holder or the ticket holder.
+      description: The phone number of the traveler.
       examples:
       - '+442021436587'
     PostalCode:
       type:
       - 'null'
       - string
-      description: The postal / ZIP code of the booking holder or the ticket holder.
+      description: The postal / ZIP code of the traveler.
       examples:
       - SE1 9AA
     Country:
       type:
       - 'null'
       - string
-      description: The country code of the booking holder or the ticket holder. MUST use ISO 3166-1 alpha-2.
+      description: The country code of the traveler. MUST use ISO 3166-1 alpha-2.
       examples:
       - GB
     Locales:
       type: array
-      description: An array of locale values, equivalent to `navigator.languages` in a browser environment.
+      description: Locale preferences as BCP 47 language tags, in order of preference, equivalent to `navigator.languages` in a browser environment.
       items:
         type: string
         examples:
         - en-GB
-    BookingHolderContact:
+    ContactInput:
       type: object
+      description: Contact details sent when confirming or updating a Booking. Used for both the lead traveler (`contact`) and individual ticket holders (`unitItems[].contact`).
+      examples:
+      - fullName: John Doe
+        firstName: John
+        lastName: Doe
+        emailAddress: john.doe@example.com
+        phoneNumber: '+442021436587'
+        locales:
+        - en-GB
+        - en
+        postalCode: SE1 9AA
+        country: GB
+        notes: Wheelchair access requested
       properties:
-        country:
-          $ref: '#/components/schemas/Country'
-        emailAddress:
-          $ref: '#/components/schemas/EmailAddress'
-        firstName:
-          $ref: '#/components/schemas/FirstName'
         fullName:
           $ref: '#/components/schemas/FullName'
-        lastName:
-          $ref: '#/components/schemas/LastName'
-        locales:
-          $ref: '#/components/schemas/Locales'
-        notes:
-          type: string
-          description: Optional notes for the booking holder.
-        phoneNumber:
-          $ref: '#/components/schemas/PhoneNumber'
-        postalCode:
-          $ref: '#/components/schemas/PostalCode'
-    TicketHolderContact:
-      type: object
-      properties:
-        country:
-          $ref: '#/components/schemas/Country'
-        emailAddress:
-          $ref: '#/components/schemas/EmailAddress'
         firstName:
           $ref: '#/components/schemas/FirstName'
-        fullName:
-          $ref: '#/components/schemas/FullName'
         lastName:
           $ref: '#/components/schemas/LastName'
-        locales:
-          $ref: '#/components/schemas/Locales'
-        notes:
-          type: string
-          description: Optional notes for the ticket holder.
+        emailAddress:
+          $ref: '#/components/schemas/EmailAddress'
         phoneNumber:
           $ref: '#/components/schemas/PhoneNumber'
+        locales:
+          $ref: '#/components/schemas/Locales'
         postalCode:
           $ref: '#/components/schemas/PostalCode'
+        country:
+          $ref: '#/components/schemas/Country'
+        notes:
+          $ref: '#/components/schemas/ContactNotes'
     UnitResellerReference:
       type: string
       description: A reference the reseller uses to identify the unit within all bookings.
@@ -1531,16 +1521,7 @@ components:
           description: |-
             Contact fields required to confirm a Booking. Applies to the lead traveler only. Per-person required fields are defined separately on the Unit object.
 
-            Possible values:
-            - `firstName`: The first name of the lead traveler.
-            - `lastName`: The last name of the lead traveler.
-            - `fullName`: The full name of the lead traveler. Used when first/last name separation is not required.
-            - `emailAddress`: The email address of the lead traveler.
-            - `phoneNumber`: The phone number of the lead traveler.
-            - `postalCode`: The postal code of the lead traveler's address.
-            - `country`: The country of the lead traveler.
-            - `notes`: Optional free-text notes from the traveler, such as special requests or accessibility requirements.
-            - `locales`: The traveler's preferred language(s) for the experience, expressed as BCP 47 locale codes (e.g. `en`, `fr`, `pt-PT`).
+            See `ContactField` for the meaning of each value.
           examples:
           - - firstName
             - lastName
@@ -2001,7 +1982,7 @@ components:
         contact:
           description: Per-ticket contact details, to be populated in accordance with the requirements provided in `Unit.requiredContactFields`
           allOf:
-          - $ref: '#/components/schemas/Contact'
+          - $ref: '#/components/schemas/ContactOutput'
         ticket:
           description: Per-ticket delivery payload (if `TICKET` in `Booking.deliveryMethods`). A `null` value implies there are no individual tickets.
           oneOf:
@@ -2096,7 +2077,7 @@ components:
       - utcRedeemedAt
       - deliveryOptions
       description: ''
-    Contact:
+    ContactOutput:
       type: object
       examples:
       - fullName: John Doe
@@ -2110,7 +2091,7 @@ components:
         postalCode: SE1 9AA
         country: GB
         notes: Wheelchair access requested
-      description: Contact details for the guests that will attend the tour/attraction. Contact schema can be applied to both the booking object (the main reservation) or the unit object (individual ticket holders - if the supplier requires this information)
+      description: Contact details returned on a Booking. Used for both the lead traveler (`Booking.contact`) and individual ticket holders (`UnitItem.contact`).
       properties:
         fullName:
           $ref: '#/components/schemas/FullName'
@@ -2123,30 +2104,27 @@ components:
         phoneNumber:
           $ref: '#/components/schemas/PhoneNumber'
         locales:
-          type: array
-          description: Locale preferences following BCP 47 (Best Current Practice) by the IETF community.
-          items:
-            type: string
-            examples:
-            - en-GB
+          $ref: '#/components/schemas/Locales'
         postalCode:
           $ref: '#/components/schemas/PostalCode'
         country:
           $ref: '#/components/schemas/Country'
         notes:
-          type:
-          - 'null'
-          - string
-          description: |-
-            A general note related to the Contact that MAY be used to share information that is relevant to all parties but cannot be communicated through an existing capability or structured field.
-
-            This field is intended for exceptional or case-specific information only. Implementations SHOULD NOT use it as a substitute for existing capabilities, attributes, or standardized data models.
-
-            Information provided in this field MUST be considered visible to all relevant parties.
-          examples:
-          - Wheelchair access requested
+          $ref: '#/components/schemas/ContactNotes'
       required:
       - locales
+    ContactNotes:
+      type:
+      - 'null'
+      - string
+      description: |-
+        A general note related to the Contact that MAY be used to share information that is relevant to all parties but cannot be communicated through an existing capability or structured field.
+
+        This field is intended for exceptional or case-specific information only. Implementations SHOULD NOT use it as a substitute for existing capabilities, attributes, or standardized data models.
+
+        Information provided in this field MUST be considered visible to all relevant parties.
+      examples:
+      - Wheelchair access requested
     Cancellation:
       type:
       - 'null'
@@ -2534,11 +2512,11 @@ components:
         availability:
           $ref: '#/components/schemas/BookedAvailability'
         contact:
-          description: Lead traveller's contact details
+          description: Lead traveler's contact details
           allOf:
-          - $ref: '#/components/schemas/Contact'
+          - $ref: '#/components/schemas/ContactOutput'
         notes:
-          description: Booking-level notes, freely provided by or on behalf of the lead traveller.
+          description: Booking-level notes, freely provided by or on behalf of the lead traveler.
           type:
           - string
           - 'null'
@@ -4092,11 +4070,11 @@ components:
                     resellerReference:
                       $ref: '#/components/schemas/UnitResellerReference'
                     contact:
-                      $ref: '#/components/schemas/TicketHolderContact'
+                      $ref: '#/components/schemas/ContactInput'
                   required:
                   - unitId
               contact:
-                $ref: '#/components/schemas/BookingHolderContact'
+                $ref: '#/components/schemas/ContactInput'
           examples:
             example-1:
               value:
@@ -4231,8 +4209,8 @@ components:
                 - RES-BOOK-001
               contact:
                 allOf:
-                - $ref: '#/components/schemas/BookingHolderContact'
-                description: Contact details for the main guest who will attend the tour/attraction. Contact schema can be applied to both the booking object (the main reservation) or the unit object (individual ticket holders - if the supplier requires this information).
+                - $ref: '#/components/schemas/ContactInput'
+                description: Contact details for the lead traveler, the main guest who will attend the experience. The fields required are listed in `Option.requiredContactFields`.
               unitItems:
                 type: array
                 description: An array of unit items that will be included in the booking. This allows you to provide contact details or a reseller reference for each unit item. Be careful to make sure you include ALL unit items that you also had in the original booking reservation request, if you provide more or less than in the booking reservation call this will change the number of unit items being purchased also.
@@ -4266,8 +4244,8 @@ components:
                       - RES-TICKET-001
                     contact:
                       allOf:
-                      - $ref: '#/components/schemas/TicketHolderContact'
-                      description: Contact details for the main guest who will attend the tour/attraction. Contact schema can be applied to both the booking object (the main reservation) or the unit object (individual ticket holders - if the supplier requires this information).
+                      - $ref: '#/components/schemas/ContactInput'
+                      description: Contact details for the individual ticket holder of this unit item. The fields required are listed in `Unit.requiredContactFields`.
                   required:
                   - unitId
             required:
