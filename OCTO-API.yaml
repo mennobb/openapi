@@ -742,13 +742,7 @@ paths:
       requestBody:
         $ref: '#/components/requestBodies/BookingCancellation'
       parameters:
-      - schema:
-          type: string
-          enum:
-          - application/json
-        in: header
-        name: Content-Type
-        description: Required field on all DELETE requests
+      - $ref: '#/components/parameters/ContentType'
     parameters:
     - schema:
         type: string
@@ -821,13 +815,7 @@ paths:
       requestBody:
         $ref: '#/components/requestBodies/BookingUpdate'
       parameters:
-      - schema:
-          type: string
-          enum:
-          - application/json
-        in: header
-        name: Content-Type
-        description: Required field on all PATCH requests
+      - $ref: '#/components/parameters/ContentType'
       - schema:
           type: string
           format: uuid
@@ -3996,7 +3984,7 @@ components:
               $ref: '#/components/examples/ErrorUnprocessableEntity'
   parameters:
     ContentType:
-      description: Required field on all POST requests
+      description: Required on all requests that have a request body.
       in: header
       name: Content-Type
       schema:
