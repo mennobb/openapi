@@ -4097,7 +4097,10 @@ components:
                   - unitId
               contact:
                 $ref: '#/components/schemas/BookingHolderContact'
-          examples: {}
+          examples:
+            example-1:
+              value:
+                notes: Wheelchair accessible entry requested. Please also reserve a parking space close to the entrance.
     BookingReservation:
       content:
         application/json:
