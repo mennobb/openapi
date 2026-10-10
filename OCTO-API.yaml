@@ -1311,7 +1311,7 @@ components:
       examples:
       - firstName
       description: |-
-        A single contact field that a supplier may require before a Booking can be confirmed. Referenced by `Option.requiredContactFields` for the lead traveler and by `Unit.requiredContactFields` for individual ticket holders.
+        A field of the contact details that a Supplier MAY require to confirm a Booking. Values are listed in `Option.requiredContactFields` for the lead traveler and in `Unit.requiredContactFields` for each ticket holder.
 
         Possible values:
         - `firstName`: The first name of the traveler.
