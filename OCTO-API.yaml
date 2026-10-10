@@ -1221,7 +1221,10 @@ components:
           $ref: '#/components/schemas/UnitType'
         requiredContactFields:
           type: array
-          description: Per-ticket contact fields required at confirmation
+          description: |-
+            Contact fields required to confirm a Booking. Applies to each ticket holder of this Unit. Lead traveler fields are defined separately on the Option object.
+
+            See `ContactField` for the meaning of each value.
           items:
             $ref: '#/components/schemas/ContactField'
         restrictions:
