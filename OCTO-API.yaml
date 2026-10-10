@@ -4046,9 +4046,6 @@ components:
                 description: Updated notes associated with the Booking.
                 examples:
                 - Wheelchair accessible entry requested
-              emailReceipt:
-                type: boolean
-                description: Whether you want OCTO Cloud to email the guest a copy of their receipt and tickets. (defaults to false).
               unitItems:
                 type: array
                 description: An array of unit items in the booking. To retain or modify existing unit items, you must include the unit item with the associated uuid, otherwise that unit item will be removed.
@@ -4191,14 +4188,6 @@ components:
           schema:
             type: object
             properties:
-              emailReceipt:
-                type: boolean
-                description: |-
-                  Indicates whether the ticket receipt is sent to the guest by email.
-
-                  If not provided, the default value MUST be `false`.
-                examples:
-                - false
               resellerReference:
                 type: string
                 description: |-
