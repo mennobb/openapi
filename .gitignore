@@ -1,0 +1,6 @@
+# Ignore everything
+*
+
+# Except the spec and this file
+!OCTO-API.yaml
+!.gitignore
