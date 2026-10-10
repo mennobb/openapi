@@ -871,856 +871,6 @@ paths:
         Extends the reservation hold for a Booking with `ON_HOLD` status, preserving the reserved availability while additional time is required to complete the Booking. It is up to the Supplier to define what limits to apply.
 components:
   schemas:
-    FullName:
-      type:
-      - 'null'
-      - string
-      examples:
-      - John Doe
-      description: The full name of the traveler. Can also be retrieved as an alias for the concatenation of `firstName` and `lastName`.
-    FirstName:
-      type:
-      - 'null'
-      - string
-      examples:
-      - John
-      description: The first name of the traveler.
-    LastName:
-      type:
-      - 'null'
-      - string
-      examples:
-      - Doe
-      description: The last name of the traveler.
-    EmailAddress:
-      type:
-      - 'null'
-      - string
-      format: email
-      examples:
-      - john.doe@example.com
-      description: The email address of the traveler.
-    PhoneNumber:
-      type:
-      - 'null'
-      - string
-      description: The phone number of the traveler.
-      examples:
-      - '+442021436587'
-    PostalCode:
-      type:
-      - 'null'
-      - string
-      description: The postal / ZIP code of the traveler.
-      examples:
-      - SE1 9AA
-    Country:
-      type:
-      - 'null'
-      - string
-      description: The country code of the traveler. MUST use ISO 3166-1 alpha-2.
-      examples:
-      - GB
-    Locales:
-      type: array
-      description: Locale preferences as BCP 47 language tags, in order of preference, equivalent to `navigator.languages` in a browser environment.
-      items:
-        type: string
-        examples:
-        - en-GB
-    ContactInput:
-      type: object
-      description: Contact details sent when confirming or updating a Booking. Used for both the lead traveler (`contact`) and individual ticket holders (`unitItems[].contact`).
-      examples:
-      - fullName: John Doe
-        firstName: John
-        lastName: Doe
-        emailAddress: john.doe@example.com
-        phoneNumber: '+442021436587'
-        locales:
-        - en-GB
-        - en
-        postalCode: SE1 9AA
-        country: GB
-        notes: Wheelchair access requested
-      properties:
-        fullName:
-          $ref: '#/components/schemas/FullName'
-        firstName:
-          $ref: '#/components/schemas/FirstName'
-        lastName:
-          $ref: '#/components/schemas/LastName'
-        emailAddress:
-          $ref: '#/components/schemas/EmailAddress'
-        phoneNumber:
-          $ref: '#/components/schemas/PhoneNumber'
-        locales:
-          $ref: '#/components/schemas/Locales'
-        postalCode:
-          $ref: '#/components/schemas/PostalCode'
-        country:
-          $ref: '#/components/schemas/Country'
-        notes:
-          $ref: '#/components/schemas/ContactNotes'
-    UnitResellerReference:
-      type: string
-      description: A reference the reseller uses to identify the unit within all bookings.
-    Vacancies:
-      type:
-      - integer
-      - 'null'
-      description: Indicates the number of remaining vacancies. This value SHOULD be less than or equal to `capacity`. A `null` value MUST be returned when `status` equals `FREESALE`. A `null` value MAY be returned when capacity details cannot be reliably shared. This SHOULD NOT be done unless necessary. In this case, the `status` field SHOULD be used as an approximate indication of remaining availability.
-      examples:
-      - 25
-    Product:
-      type: object
-      examples:
-      - id: PROD-OBSWHEEL-001
-        internalName: Observation Wheel Admission
-        reference: OBSWHEEL
-        locale: en-GB
-        timeZone: Europe/London
-        allowFreesale: false
-        instantConfirmation: true
-        instantDelivery: true
-        availabilityRequired: true
-        availabilityType: START_TIME
-        deliveryFormats:
-        - QRCODE
-        - PDF_URL
-        deliveryMethods:
-        - TICKET
-        redemptionMethod: DIGITAL
-        options:
-        - id: OPT-STANDARD-001
-          default: true
-          internalName: Standard Admission
-          reference: STANDARD
-          availabilityLocalStartTimes:
-          - '10:00'
-          - '14:00'
-          - '16:00'
-          cancellationCutoff: 24 hours
-          cancellationCutoffAmount: 24
-          cancellationCutoffUnit: hour
-          requiredContactFields:
-          - firstName
-          - lastName
-          restrictions:
-            minUnits: 1
-            maxUnits: 20
-          units:
-          - id: UNIT-ADULT
-            internalName: Adult
-            reference: ADULT
-            type: ADULT
-            requiredContactFields:
-            - firstName
-            - lastName
-            restrictions:
-              minAge: 18
-              maxAge: 99
-              idRequired: false
-              minQuantity: 1
-              maxQuantity: 7
-              paxCount: 1
-              accompaniedBy: []
-          - id: UNIT-CHILD
-            internalName: Child
-            reference: CHILD
-            type: CHILD
-            requiredContactFields:
-            - firstName
-            - lastName
-            restrictions:
-              minAge: 3
-              maxAge: 17
-              idRequired: false
-              minQuantity: 0
-              maxQuantity: 7
-              paxCount: 1
-              accompaniedBy:
-              - UNIT-ADULT
-      description: A bookable product listed by a supplier.
-      properties:
-        id:
-          type: string
-          examples:
-          - PROD-OBSWHEEL-001
-          description: Unique identifier for the Product. Used across Availability checks, Bookings, and other operations. MUST be unique within the respective Supplier's scope. (Max. 255 ASCII characters)
-        internalName:
-          type:
-          - string
-          - 'null'
-          description: Internal name used by the Supplier to identify the Product. The customer-facing name is defined in title under the Content capability.
-          examples:
-          - Observation Wheel Admission
-        reference:
-          type:
-          - 'null'
-          - string
-          description: Internal reference code used by the Supplier to identify the Product.
-          examples:
-          - OBSWHEEL
-        locale:
-          type: string
-          examples:
-          - en-GB
-          description: Primary language of the Product. MUST conform to IETF BCP 47 (e.g., en-GB, fr-FR).
-        timeZone:
-          type:
-          - string
-          - 'null'
-          examples:
-          - Europe/London
-          description: IANA Time Zone identifier for the Product's location (e.g., Europe/London, America/New_York).
-        allowFreesale:
-          type: boolean
-          deprecated: true
-          description: |-
-            [DEPRECATED] Use availabilityRequired instead.
-            Indicates whether an `availabilityId` is required to create a Booking. When false, open-dated Bookings can be created without specifying a travel date.
-          examples:
-          - false
-        instantConfirmation:
-          type: boolean
-          description: Indicates whether a Booking is immediately confirmed upon a confirmation request. When false, the Booking enters a `PENDING` state until the Supplier accepts or rejects it.
-          examples:
-          - true
-        instantDelivery:
-          type: boolean
-          description: |-
-            Indicates whether Tickets are delivered to the Reseller immediately after Booking confirmation. When `false`, the Reseller MUST be able to delay delivery to the customer. The Reseller MUST either implement a polling mechanism or use the "Notifications" capability to detect when the Tickets have become available.
-            Note that the specification does not define a formal requirement for acceptable delays.
-          examples:
-          - true
-        availabilityRequired:
-          type: boolean
-          description: |-
-            Indicates whether Availability MUST be checked before creating a Booking.
-            If `true`, the Reseller MUST retrieve Availability using the /availability endpoint and provide a valid availabilityId when creating a Booking.
-            If `false`, a Booking MAY be created without retrieving Availability in advance.
-          examples:
-          - true
-        availabilityType:
-          $ref: '#/components/schemas/AvailabilityType'
-        deliveryFormats:
-          type: array
-          description: Specifies the ticket or voucher delivery formats supported by this Product. Each value MUST be a `DeliveryFormat`, which defines the meaning of each format and the Client's obligations when presenting it.
-          items:
-            $ref: '#/components/schemas/DeliveryFormat'
-        deliveryMethods:
-          type: array
-          description: Specifies the ticket or voucher delivery methods supported by this Product. Each value MUST be a `DeliveryMethod`, which defines the meaning of each method and which objects it populates in the Booking response.
-          items:
-            $ref: '#/components/schemas/DeliveryMethod'
-        redemptionMethod:
-          $ref: '#/components/schemas/RedemptionMethod'
-        options:
-          type: array
-          description: All Options for the Product. At least one Option MUST be present.
-          items:
-            $ref: '#/components/schemas/Option'
-      required:
-      - id
-      - internalName
-      - reference
-      - locale
-      - allowFreesale
-      - instantConfirmation
-      - instantDelivery
-      - availabilityRequired
-      - availabilityType
-      - deliveryFormats
-      - deliveryMethods
-      - redemptionMethod
-      - options
-      - timeZone
-    Unit:
-      type: object
-      examples:
-      - id: UNIT-ADULT
-        internalName: Adult
-        reference: ADULT
-        type: ADULT
-        requiredContactFields:
-        - firstName
-        - lastName
-        restrictions:
-          minAge: 18
-          maxAge: 99
-          idRequired: false
-          minQuantity: 1
-          maxQuantity: 7
-          paxCount: 1
-          accompaniedBy: []
-      - id: UNIT-CHILD
-        internalName: Child
-        reference: CHILD
-        type: CHILD
-        requiredContactFields:
-        - firstName
-        - lastName
-        restrictions:
-          minAge: 3
-          maxAge: 17
-          idRequired: false
-          minQuantity: 0
-          maxQuantity: 7
-          paxCount: 1
-          accompaniedBy:
-          - UNIT-ADULT
-      - id: UNIT-INFANT
-        internalName: Infant
-        reference: INFANT
-        type: INFANT
-        requiredContactFields: []
-        restrictions:
-          minAge: 0
-          maxAge: 2
-          idRequired: false
-          minQuantity: 0
-          maxQuantity: 7
-          paxCount: 1
-          accompaniedBy:
-          - UNIT-ADULT
-      - id: UNIT-SENIOR
-        internalName: Senior
-        reference: SENIOR
-        type: SENIOR
-        requiredContactFields:
-        - firstName
-        - lastName
-        restrictions:
-          minAge: 65
-          maxAge: 99
-          idRequired: true
-          minQuantity: 0
-          maxQuantity: 7
-          paxCount: 1
-          accompaniedBy: []
-      properties:
-        id:
-          type: string
-          description: Unique unit identifier within the Option scope. (Max. 255 ASCII characters)
-          examples:
-          - UNIT-ADULT
-        internalName:
-          type: string
-          examples:
-          - Adult
-          description: Supplier's label for this unit type. NOT for display to end customers.
-        reference:
-          type:
-          - 'null'
-          - string
-          description: Optional supplier internal reference for the unit
-          examples:
-          - ADULT
-        type:
-          $ref: '#/components/schemas/UnitType'
-        requiredContactFields:
-          type: array
-          description: |-
-            Contact fields required to confirm a Booking. Applies to each ticket holder of this Unit. Lead traveler fields are defined separately on the Option object.
-
-            See `ContactField` for the meaning of each value.
-          items:
-            $ref: '#/components/schemas/ContactField'
-        restrictions:
-          $ref: '#/components/schemas/UnitRestrictions'
-      required:
-      - id
-      - internalName
-      - type
-      - requiredContactFields
-      - restrictions
-      description: ''
-    UnitRestrictions:
-      type: object
-      description: unit restrictions
-      examples:
-      - minAge: 18
-        maxAge: 99
-        idRequired: false
-        minQuantity: 1
-        maxQuantity: 7
-        paxCount: 1
-        accompaniedBy: []
-      title: UnitRestrictions
-      properties:
-        minAge:
-          type: integer
-          examples:
-          - 18
-          description: Minimum age for this unit type
-        maxAge:
-          type: integer
-          examples:
-          - 99
-          description: Maximum age for this unit type
-        idRequired:
-          type: boolean
-          description: Whether the traveler is required to present proof of identity at ticket redemption
-          examples:
-          - false
-        minQuantity:
-          type:
-          - integer
-          - 'null'
-          examples:
-          - 1
-          description: Minimum number of this unit per booking
-        maxQuantity:
-          type:
-          - 'null'
-          - integer
-          examples:
-          - 7
-          description: Maximum number of this unit per booking
-        paxCount:
-          type: integer
-          description: Number of people this unit counts as (e.g. family = 4)
-          examples:
-          - 1
-        accompaniedBy:
-          type: array
-          description: Unit IDs that must be included in Bookings, together with this unit (e.g. infant with adult)
-          items:
-            type: string
-            examples:
-            - UNIT-ADULT
-      required:
-      - minAge
-      - maxAge
-      - idRequired
-      - minQuantity
-      - maxQuantity
-      - paxCount
-      - accompaniedBy
-    ContactField:
-      type: string
-      title: ContactField
-      enum:
-      - firstName
-      - lastName
-      - fullName
-      - emailAddress
-      - phoneNumber
-      - postalCode
-      - country
-      - notes
-      - locales
-      examples:
-      - firstName
-      description: |-
-        A field of the contact details that a Supplier MAY require to confirm a Booking. Values are listed in `Option.requiredContactFields` for the lead traveler and in `Unit.requiredContactFields` for each ticket holder.
-
-        Possible values:
-        - `firstName`: The first name of the traveler.
-        - `lastName`: The last name of the traveler.
-        - `fullName`: The full name of the traveler. Used when first/last name separation is not required.
-        - `emailAddress`: The email address of the traveler.
-        - `phoneNumber`: The phone number of the traveler.
-        - `postalCode`: The postal code of the traveler's address.
-        - `country`: The country of the traveler.
-        - `notes`: Optional free-text notes from the traveler, such as special requests or accessibility requirements.
-        - `locales`: The traveler's preferred language(s) for the experience, expressed as BCP 47 locale codes (e.g. `en`, `fr`, `pt-PT`).
-    UnitType:
-      type: string
-      title: UnitType
-      enum:
-      - ADULT
-      - YOUTH
-      - CHILD
-      - INFANT
-      - FAMILY
-      - SENIOR
-      - STUDENT
-      - MILITARY
-      - OTHER
-      examples:
-      - ADULT
-      - CHILD
-      description: |-
-        Base unit type category.
-
-        Possible values:
-        - `ADULT`: Standard adult ticket.
-        - `YOUTH`: Youth/teenager ticket.
-        - `CHILD`: Child ticket.
-        - `INFANT`: Infant/baby ticket.
-        - `FAMILY`: Family bundle ticket (see `paxCount` for equivalent adults).
-        - `SENIOR`: Senior/pensioner ticket.
-        - `STUDENT`: Student ticket (`idRequired` may apply).
-        - `MILITARY`: Military personnel ticket.
-        - `OTHER`: Any other unit type not covered by the above.
-    OptionRestrictions:
-      type: object
-      description: Booking restrictions for the Option.
-      examples:
-      - minUnits: 1
-        maxUnits: 20
-      properties:
-        minUnits:
-          type:
-          - integer
-          - 'null'
-          examples:
-          - 1
-          description: Minimum number of unique units (regardless of the units' quantities) that must be included in a Booking. A `null` value implies that there's no minimum.
-        maxUnits:
-          type:
-          - integer
-          - 'null'
-          examples:
-          - 20
-          description: Maximum number of units per Booking. A `null` value implies that there's no maximum.
-      required:
-      - minUnits
-      - maxUnits
-    Option:
-      type: object
-      examples:
-      - id: OPT-STANDARD-001
-        default: true
-        internalName: Standard Admission
-        reference: STANDARD
-        availabilityLocalStartTimes:
-        - '10:00'
-        - '14:00'
-        - '16:00'
-        cancellationCutoff: 24 hours
-        cancellationCutoffAmount: 24
-        cancellationCutoffUnit: hour
-        requiredContactFields:
-        - firstName
-        - lastName
-        restrictions:
-          minUnits: 1
-          maxUnits: 20
-        units:
-        - id: UNIT-ADULT
-          internalName: Adult
-          reference: ADULT
-          type: ADULT
-          requiredContactFields:
-          - firstName
-          - lastName
-          restrictions:
-            minAge: 18
-            maxAge: 99
-            idRequired: false
-            minQuantity: 1
-            maxQuantity: 7
-            paxCount: 1
-            accompaniedBy: []
-        - id: UNIT-CHILD
-          internalName: Child
-          reference: CHILD
-          type: CHILD
-          requiredContactFields:
-          - firstName
-          - lastName
-          restrictions:
-            minAge: 3
-            maxAge: 17
-            idRequired: false
-            minQuantity: 0
-            maxQuantity: 7
-            paxCount: 1
-            accompaniedBy:
-            - UNIT-ADULT
-      - id: OPT-PRIORITY-001
-        default: false
-        internalName: Priority Entry
-        reference: PRIORITY
-        availabilityLocalStartTimes:
-        - '10:00'
-        - '14:00'
-        - '16:00'
-        cancellationCutoff: 24 hours
-        cancellationCutoffAmount: 24
-        cancellationCutoffUnit: hour
-        requiredContactFields:
-        - firstName
-        - lastName
-        restrictions:
-          minUnits: 1
-          maxUnits: 20
-        units:
-        - id: UNIT-ADULT
-          internalName: Adult
-          reference: ADULT
-          type: ADULT
-          requiredContactFields:
-          - firstName
-          - lastName
-          restrictions:
-            minAge: 18
-            maxAge: 99
-            idRequired: false
-            minQuantity: 1
-            maxQuantity: 7
-            paxCount: 1
-            accompaniedBy: []
-      description: Product options are subdivisions of the original product that will affect price and / or duration. Within the OCTo spec, every product must contain an option.
-      properties:
-        id:
-          type: string
-          examples:
-          - OPT-STANDARD-001
-          description: Unique identifier for the Option within the Product. Used across Availability checks, Bookings, and other operations. MUST be unique within the respective Product's scope. (Max. 255 ASCII characters)
-        default:
-          type: boolean
-          description: Indicates whether the option is the default selection. Default option SHOULD be rendered and selected first in customer-facing interfaces.
-          examples:
-          - true
-        internalName:
-          type:
-          - string
-          - 'null'
-          description: Internal name used by the Supplier to identify the Option. The customer-facing name is defined in `title` under the Content capability if the Supplier System supports that capability.
-          examples:
-          - Standard Admission
-        reference:
-          type:
-          - 'null'
-          - string
-          description: Internal reference code used by the Supplier to identify the Option.
-          examples:
-          - STANDARD
-        availabilityLocalStartTimes:
-          type: array
-          description: |-
-            All possible start times for the Option, as returned during Availability checks (e.g., ["09:00", "14:00", "17:00"]).
-
-            If the Option has no fixed start times, this field MUST be an empty array. This applies, for example, to Products with `availabilityType` `OPENING_HOURS`.
-          items:
-            type: string
-            default: '00:00'
-            examples:
-            - '10:00'
-        cancellationCutoff:
-          type:
-          - string
-          - 'null'
-          examples:
-          - Free cancellation up to 24 hours before the start time.
-          description: Human-readable description of the cancellation policy for the Option.
-        cancellationCutoffAmount:
-          type:
-          - integer
-          - 'null'
-          examples:
-          - 24
-          description: Numeric value of the cancellation cutoff period, relative to the start time or closing hour of the Product.
-        cancellationCutoffUnit:
-          oneOf:
-          - $ref: '#/components/schemas/DurationUnit'
-          - type: 'null'
-        requiredContactFields:
-          type: array
-          description: |-
-            Contact fields required to confirm a Booking. Applies to the lead traveler only. Per-person required fields are defined separately on the Unit object.
-
-            See `ContactField` for the meaning of each value.
-          examples:
-          - - firstName
-            - lastName
-          items:
-            $ref: '#/components/schemas/ContactField'
-        restrictions:
-          $ref: '#/components/schemas/OptionRestrictions'
-        units:
-          type: array
-          description: The list of ticket types (units) available for sale.
-          items:
-            $ref: '#/components/schemas/Unit'
-      required:
-      - id
-      - default
-      - internalName
-      - reference
-      - availabilityLocalStartTimes
-      - cancellationCutoff
-      - cancellationCutoffAmount
-      - cancellationCutoffUnit
-      - requiredContactFields
-      - restrictions
-      - units
-    DeliveryMethod:
-      type: string
-      title: DeliveryMethod
-      enum:
-      - VOUCHER
-      - TICKET
-      description: |-
-        A single method by which tickets or vouchers are delivered for a Booking. Referenced by `Product.deliveryMethods` for the methods a Product supports, and by `Booking.deliveryMethods` for the methods applied to a given Booking.
-
-        Possible values:
-        - `VOUCHER`: A single voucher is delivered for the entire Booking (e.g., all people in the Booking share one voucher). The `Booking.voucher` object is populated.
-        - `TICKET`: A separate ticket is delivered per unit item (e.g., each person in the Booking receives an individual ticket). `UnitItem.ticket` is populated on every unit item.
-
-        For each method present in `Booking.deliveryMethods`, the corresponding object MUST be populated in the Booking response; the object for a method that is absent MUST be `null`. When `Booking.deliveryMethods` contains both values, both objects MUST be populated.
-
-        When a Product supports both methods, the Reseller MAY select the method that best fits their integration, or offer both options to the end customer.
-      examples:
-      - TICKET
-    DeliveryFormat:
-      type: string
-      title: DeliveryFormat
-      enum:
-      - QRCODE
-      - PDF_URL
-      - CODE128
-      - AZTEC
-      - PDF417
-      - PKPASS_URL
-      - GOOGLE_WALLET_URL
-      - DOTCODE
-      - DATAMATRIX
-      - HANXIN
-      - HTML_URL
-      - IMAGE_URL
-      description: |-
-        A single format in which a ticket or voucher can be delivered. Referenced by `Product.deliveryFormats` for the formats a Product supports, and by `Ticket.deliveryOptions[].deliveryFormat` for the format of a delivered ticket or voucher.
-
-        The payload itself is carried in `Ticket.deliveryOptions[].deliveryValue`, either as an encoded string or as a URL, depending on the format.
-
-        Possible values:
-        - `QRCODE`: A two-dimensional matrix barcode conforming to ISO/IEC 18004, encoded as a string. The Client MUST render the QR code.
-        - `PDF_URL`: A URL resolving to a downloadable PDF document containing ticket details. The Client MUST retrieve and present the PDF to the customer.
-        - `CODE128`: A high-density linear barcode conforming to ISO/IEC 15417, encoded as a string. The Client MUST render the barcode.
-        - `AZTEC`: A two-dimensional matrix barcode conforming to ISO/IEC 24778, encoded as a string. The Client MUST render the barcode.
-        - `PDF417`: A stacked two-dimensional barcode conforming to ISO/IEC 15438, encoded as a string. The Client MUST render the barcode.
-        - `PKPASS_URL`: A URL resolving to a PKPass file compatible with Apple Wallet. The Client MUST present the pass to the customer.
-        - `GOOGLE_WALLET_URL`: A URL resolving to a Google Wallet pass. The Client MUST present the pass to the customer.
-        - `DOTCODE`: A two-dimensional barcode optimized for high-speed inkjet printing, encoded as a string. The Client MUST render the barcode.
-        - `DATAMATRIX`: A two-dimensional matrix barcode conforming to ISO/IEC 16022, encoded as a string. The Client MUST render the barcode.
-        - `HANXIN`: A two-dimensional matrix barcode conforming to GB/T 27766 with native support for Chinese characters, encoded as a string. The Client MUST render the barcode.
-        - `HTML_URL`: A URL resolving to an HTML page containing ticket details. The Client MUST retrieve and present the content to the customer.
-        - `IMAGE_URL`: A URL resolving to an image file containing the ticket. The Client MUST retrieve and present the image to the customer.
-      examples:
-      - QRCODE
-    AvailabilityType:
-      type: string
-      title: AvailabilityType
-      enum:
-      - START_TIME
-      - OPENING_HOURS
-      description: |-
-        Specifies the type of Availability for the Product.
-
-        Possible values:
-        - `START_TIME`: For Products with fixed departure times (e.g., a walking tour at set times during the day).
-        - `OPENING_HOURS`: For Products where customers select a date and can visit anytime during operating hours (e.g., a museum general admission ticket valid at any time when the museum is open).
-      examples:
-      - OPENING_HOURS
-    DurationUnit:
-      type: string
-      title: DurationUnit
-      enum:
-      - hour
-      - minute
-      - day
-      examples:
-      - hour
-      description: |-
-        Time unit for the cancellation cutoff period.
-
-        Possible values:
-        - `hour`: Hours unit for cancellation cutoff duration.
-        - `minute`: Minutes unit for cancellation cutoff duration.
-        - `day`: Days unit for cancellation cutoff duration.
-    RedemptionMethod:
-      type: string
-      title: RedemptionMethod
-      enum:
-      - DIGITAL
-      - PRINT
-      - MANIFEST
-      description: |-
-        Specifies the redemption method for the Product.
-
-        Possible values:
-        - `DIGITAL`: The ticket MUST be scanned and MAY be presented on a mobile device.
-        - `PRINT`: The ticket MUST be printed and presented physically upon arrival.
-        - `MANIFEST`: The guest name is on a manifest. Ticket scanning is not required; the guest MUST present themselves at arrival.
-      examples:
-      - DIGITAL
-    Supplier:
-      type: object
-      examples:
-      - id: supplier-95857df1f640
-        name: Acme Attractions Ltd
-        endpoint: https://api.acme-attractions.com/octo
-        contact:
-          website: https://www.acme-attractions.com
-          email: support@acme-attractions.com
-          telephone: '+442012345678'
-          address: 100 Riverside Way, London SE1 9AA, United Kingdom
-      properties:
-        id:
-          type: string
-          examples:
-          - supplier-95857df1f640
-          description: A unique identifier for this Supplier. MUST NOT exceed 255 printable ASCII characters.
-        name:
-          type: string
-          description: The human-readable name of this Supplier, used to identify it within the system.
-          examples:
-          - Acme Attractions Ltd
-        endpoint:
-          type: string
-          format: uri
-          deprecated: true
-          description: '[DEPRECATED] The base URL prepended to all API request paths. MUST be a valid URI and MUST NOT include a trailing slash.'
-          examples:
-          - https://api.acme-attractions.com/octo
-        contact:
-          description: The contact details for this Supplier, including available communication methods and mailing address.
-          type: object
-          required:
-          - website
-          - email
-          - telephone
-          - address
-          properties:
-            website:
-              type:
-              - 'null'
-              - string
-              format: uri
-              description: The official website URL of this Supplier. MUST be a valid URI and MUST NOT include a trailing slash.
-              examples:
-              - https://www.acme-attractions.com
-            email:
-              type:
-              - 'null'
-              - string
-              format: email
-              description: The customer service email address for this Supplier.
-              examples:
-              - support@acme-attractions.com
-            telephone:
-              type:
-              - 'null'
-              - string
-              description: The customer service telephone number for this Supplier. MUST be formatted according to E.164.
-              examples:
-              - '+442012345678'
-            address:
-              type:
-              - 'null'
-              - string
-              description: The full mailing address for this Supplier, provided as a single string. SHOULD include street, city, postal code, and country.
-              examples:
-              - 100 Riverside Way, London SE1 9AA, United Kingdom
-      required:
-      - id
-      - name
-      - contact
     Availability:
       type: object
       examples:
@@ -1819,26 +969,6 @@ components:
       - maxUnits
       - utcCutoffAt
       - openingHours
-    AvailabilityStatus:
-      type: string
-      title: AvailabilityStatus
-      enum:
-      - AVAILABLE
-      - FREESALE
-      - SOLD_OUT
-      - LIMITED
-      - CLOSED
-      description: |-
-        Indicates the availability status for the given date.
-
-        Possible values:
-        - `AVAILABLE`: Slot is available with remaining capacity.
-        - `FREESALE`: No capacity limit, always available. The `vacancies` and `capacity` fields do not convey a capacity constraint; `vacancies` MUST be returned as `null` (see `Vacancies`).
-        - `SOLD_OUT`: No remaining capacity for this date/slot.
-        - `LIMITED`: Available, but likely to sell out. The Supplier alone determines when Availability is limited. The `vacancies` field, if populated, SHOULD be used to determine the remaining quantity.
-        - `CLOSED`: The venue/Product is closed on this date/slot.
-      examples:
-      - AVAILABLE
     AvailabilityCalendar:
       type: object
       examples:
@@ -1886,288 +1016,73 @@ components:
       - vacancies
       - capacity
       - openingHours
-    OpeningHours:
-      type: object
-      description: A list of opening hours that the product is open on this day.
-      properties:
-        from:
-          type: string
-          examples:
-          - '09:00'
-          description: Opening time
-        to:
-          type: string
-          examples:
-          - '17:00'
-          description: Closing time
-      required:
-      - from
-      - to
-      examples:
-      - from: '09:00'
-        to: '17:00'
-    BookingStatus:
+    AvailabilityStatus:
       type: string
-      title: BookingStatus
+      title: AvailabilityStatus
       enum:
-      - ON_HOLD
-      - CONFIRMED
-      - EXPIRED
-      - CANCELLED
-      - REDEEMED
-      - PENDING
-      - REJECTED
-      examples:
-      - CONFIRMED
+      - AVAILABLE
+      - FREESALE
+      - SOLD_OUT
+      - LIMITED
+      - CLOSED
       description: |-
-        Current Booking status.
+        Indicates the availability status for the given date.
 
         Possible values:
-        - `ON_HOLD`: The Booking is pending confirmation. This is the default value when the Booking is created.
-        - `CONFIRMED`: The Booking has been confirmed and is ready to be used.
-        - `EXPIRED`: The Booking is not confirmed before the hold expiration and enters an expired state.
-        - `CANCELLED`: The Booking has been cancelled.
-        - `REDEEMED`: The Booking has already been redeemed.
-        - `PENDING`: The Booking is awaiting external confirmation from the Supplier (`instantConfirmation=false`).
-        - `REJECTED`: The Booking was rejected by the Supplier.
-    UnitItem:
-      type: object
-      properties:
-        uuid:
-          type: string
-          examples:
-          - 3b1bc2ee-3155-4738-9471-f49842a07327
-          description: Per-unit item identifier conforming to the UUID standard.
-        resellerReference:
-          type:
-          - string
-          - 'null'
-          examples:
-          - RES-TICKET-001
-          description: Per-ticket reseller reference. Omitting this value MAY complicate cross-referencing between the Reseller and the Supplier.
-        supplierReference:
-          type:
-          - string
-          - 'null'
-          examples:
-          - SUP-TICKET-001
-          description: Per-ticket supplier reference. Omitting this value MAY complicate cross-referencing between the Reseller and the Supplier.
-        unitId:
-          description: Unit type ID (references the `Unit.id` field in the Option object)
-          type: string
-          examples:
-          - UNIT-ADULT
-        unit:
-          description: Embedded `Unit` definition.
-          allOf:
-          - $ref: '#/components/schemas/Unit'
-        status:
-          description: |-
-            Status of this individual ticket item.
+        - `AVAILABLE`: Slot is available with remaining capacity.
+        - `FREESALE`: No capacity limit, always available. The `vacancies` and `capacity` fields do not convey a capacity constraint; `vacancies` MUST be returned as `null` (see `Vacancies`).
+        - `SOLD_OUT`: No remaining capacity for this date/slot.
+        - `LIMITED`: Available, but likely to sell out. The Supplier alone determines when Availability is limited. The `vacancies` field, if populated, SHOULD be used to determine the remaining quantity.
+        - `CLOSED`: The venue/Product is closed on this date/slot.
+      examples:
+      - AVAILABLE
+    AvailabilityType:
+      type: string
+      title: AvailabilityType
+      enum:
+      - START_TIME
+      - OPENING_HOURS
+      description: |-
+        Specifies the type of Availability for the Product.
 
-            Possible values:
-            - `ON_HOLD`: The Booking is pending confirmation. This is the default value when the Booking is created.
-            - `CONFIRMED`: The Booking has been confirmed and is ready to be used.
-            - `EXPIRED`: The Booking is not confirmed before the hold expiration and enters an expired state.
-            - `CANCELLED`: The Booking has been cancelled.
-            - `REDEEMED`: The Booking has already been redeemed.
-            - `PENDING`: The Booking is awaiting external confirmation from the Supplier (`instantConfirmation: false`).
-            - `REJECTED`: The Booking was rejected by the Supplier.
-          allOf:
-          - $ref: '#/components/schemas/BookingStatus'
-        utcRedeemedAt:
-          type:
-          - 'null'
-          - string
-          description: ISO 8601 UTC timestamp indicating when the Ticket/Voucher was redeemed. `null` value implies that redemption hasn't happened or the system does not have this information
-          examples:
-          - null
-        contact:
-          description: Per-ticket contact details, to be populated in accordance with the requirements provided in `Unit.requiredContactFields`
-          allOf:
-          - $ref: '#/components/schemas/ContactOutput'
-        ticket:
-          description: Per-ticket delivery payload (if `TICKET` in `Booking.deliveryMethods`). A `null` value implies there are no individual tickets.
-          oneOf:
-          - $ref: '#/components/schemas/Ticket'
-          - type: 'null'
-      required:
-      - uuid
-      - resellerReference
-      - supplierReference
-      - unitId
-      - unit
-      - status
-      - utcRedeemedAt
-      - contact
-      - ticket
-      description: ''
+        Possible values:
+        - `START_TIME`: For Products with fixed departure times (e.g., a walking tour at set times during the day).
+        - `OPENING_HOURS`: For Products where customers select a date and can visit anytime during operating hours (e.g., a museum general admission ticket valid at any time when the museum is open).
       examples:
-      - uuid: 3b1bc2ee-3155-4738-9471-f49842a07327
-        resellerReference: RES-TICKET-001
-        supplierReference: SUP-TICKET-001
-        unitId: UNIT-ADULT
-        unit:
-          id: UNIT-ADULT
-          internalName: Adult
-          reference: ADULT
-          type: ADULT
-          requiredContactFields:
-          - firstName
-          - lastName
-          restrictions:
-            minAge: 18
-            maxAge: 99
-            idRequired: false
-            minQuantity: 1
-            maxQuantity: 7
-            paxCount: 1
-            accompaniedBy: []
-        status: CONFIRMED
-        utcRedeemedAt: null
-        contact:
-          firstName: John
-          lastName: Doe
-          locales:
-          - en-GB
-        ticket:
-          redemptionMethod: DIGITAL
-          utcRedeemedAt: null
-          deliveryOptions:
-          - deliveryFormat: QRCODE
-            deliveryValue: TICKET-QRCODE-001
-          - deliveryFormat: PDF_URL
-            deliveryValue: https://api.acme-attractions.com/octo/tickets/BOOK-CONFIRMED-001.pdf
-    Ticket:
+      - OPENING_HOURS
+    BookedAvailability:
       type: object
-      examples:
-      - redemptionMethod: DIGITAL
-        utcRedeemedAt: null
-        deliveryOptions:
-        - deliveryFormat: QRCODE
-          deliveryValue: TICKET-QRCODE-001
-        - deliveryFormat: PDF_URL
-          deliveryValue: https://api.acme-attractions.com/octo/tickets/BOOK-CONFIRMED-001.pdf
+      description: Snapshot of Availability object at time of Booking
+      required:
+      - id
+      - localDateTimeStart
+      - localDateTimeEnd
+      - allDay
+      - openingHours
       properties:
-        redemptionMethod:
-          $ref: '#/components/schemas/RedemptionMethod'
-        utcRedeemedAt:
-          type:
-          - 'null'
-          - string
-          description: ISO 8601 UTC timestamp indicating when the Ticket/Voucher was redeemed. `null` value implies that redemption hasn't happened or the system does not have this information
+        id:
+          type: string
           examples:
-          - '2026-06-15T10:05:00Z'
-        deliveryOptions:
-          description: Object containing available delivery options for the ticket or voucher. Each item defines a `deliveryFormat` and its corresponding `deliveryValue`.
+          - AVAIL-AVAILABLE-001
+          description: The availability id that was used in the request.
+        localDateTimeStart:
+          type: string
+          examples:
+          - '2026-06-15T10:00:00+01:00'
+          description: The `localDateTimeStart` value from the original availability object.
+        localDateTimeEnd:
+          type: string
+          examples:
+          - '2026-06-15T10:30:00+01:00'
+          description: The `localDateTimeEnd` value from the original availability object.
+        allDay:
+          type: boolean
+          description: A boolean value indicating whether the availability is all day.
+        openingHours:
           type: array
+          description: The opening hours from the original availability object.
           items:
-            type: object
-            properties:
-              deliveryFormat:
-                $ref: '#/components/schemas/DeliveryFormat'
-              deliveryValue:
-                type: string
-                description: Ticket payload or URL, depending on the `deliveryFormat`.
-                examples:
-                - https://api.acme-attractions.com/octo/tickets/BOOK-CONFIRMED-001.pdf
-                - TICKET-QRCODE-001
-            required:
-            - deliveryFormat
-            - deliveryValue
-      required:
-      - redemptionMethod
-      - utcRedeemedAt
-      - deliveryOptions
-      description: ''
-    ContactOutput:
-      type: object
-      examples:
-      - fullName: John Doe
-        firstName: John
-        lastName: Doe
-        emailAddress: john.doe@example.com
-        phoneNumber: '+442021436587'
-        locales:
-        - en-GB
-        - en
-        postalCode: SE1 9AA
-        country: GB
-        notes: Wheelchair access requested
-      description: Contact details returned on a Booking. Used for both the lead traveler (`Booking.contact`) and individual ticket holders (`UnitItem.contact`).
-      properties:
-        fullName:
-          $ref: '#/components/schemas/FullName'
-        firstName:
-          $ref: '#/components/schemas/FirstName'
-        lastName:
-          $ref: '#/components/schemas/LastName'
-        emailAddress:
-          $ref: '#/components/schemas/EmailAddress'
-        phoneNumber:
-          $ref: '#/components/schemas/PhoneNumber'
-        locales:
-          $ref: '#/components/schemas/Locales'
-        postalCode:
-          $ref: '#/components/schemas/PostalCode'
-        country:
-          $ref: '#/components/schemas/Country'
-        notes:
-          $ref: '#/components/schemas/ContactNotes'
-      required:
-      - locales
-    ContactNotes:
-      type:
-      - 'null'
-      - string
-      description: |-
-        A general note related to the Contact that MAY be used to share information that is relevant to all parties but cannot be communicated through an existing capability or structured field.
-
-        This field is intended for exceptional or case-specific information only. Implementations SHOULD NOT use it as a substitute for existing capabilities, attributes, or standardized data models.
-
-        Information provided in this field MUST be considered visible to all relevant parties.
-      examples:
-      - Wheelchair access requested
-    Cancellation:
-      type:
-      - 'null'
-      - object
-      description: Cancellation information. A `null` value implies the Booking has not been cancelled.
-      required:
-      - refund
-      - reason
-      - utcCancelledAt
-      properties:
-        refund:
-          $ref: '#/components/schemas/CancellationRefund'
-        reason:
-          type:
-          - 'null'
-          - string
-          description: Free text describing the reason for the cancellation.
-          examples:
-          - Customer requested
-        utcCancelledAt:
-          type: string
-          examples:
-          - '2026-06-15T09:30:00Z'
-          description: ISO 8601 UTC timestamp indicating when the Booking was cancelled.
-    CancellationRefund:
-      type: string
-      title: CancellationRefund
-      enum:
-      - FULL
-      - PARTIAL
-      - NONE
-      examples:
-      - FULL
-      description: |-
-        Type of refund issued as a result of the cancellation request.
-
-        Possible values:
-        - `FULL`: Indicates that a full refund is issued upon cancellation.
-        - `PARTIAL`: Indicates that a partial refund is issued upon cancellation.
-        - `NONE`: Indicates that no refund is issued upon cancellation.
+            $ref: '#/components/schemas/OpeningHours'
     Booking:
       type: object
       examples:
@@ -2561,44 +1476,270 @@ components:
       - deliveryMethods
       - unitItems
       - voucher
+    BookingStatus:
+      type: string
+      title: BookingStatus
+      enum:
+      - ON_HOLD
+      - CONFIRMED
+      - EXPIRED
+      - CANCELLED
+      - REDEEMED
+      - PENDING
+      - REJECTED
+      examples:
+      - CONFIRMED
+      description: |-
+        Current Booking status.
+
+        Possible values:
+        - `ON_HOLD`: The Booking is pending confirmation. This is the default value when the Booking is created.
+        - `CONFIRMED`: The Booking has been confirmed and is ready to be used.
+        - `EXPIRED`: The Booking is not confirmed before the hold expiration and enters an expired state.
+        - `CANCELLED`: The Booking has been cancelled.
+        - `REDEEMED`: The Booking has already been redeemed.
+        - `PENDING`: The Booking is awaiting external confirmation from the Supplier (`instantConfirmation=false`).
+        - `REJECTED`: The Booking was rejected by the Supplier.
     BookingUnitItems:
       type: array
       description: The individual unit items in the Booking, one per unit booked. Each item's `ticket` is populated if `TICKET` is present in `Booking.deliveryMethods`.
       items:
         $ref: '#/components/schemas/UnitItem'
-    BookedAvailability:
-      type: object
-      description: Snapshot of Availability object at time of Booking
+    Cancellation:
+      type:
+      - 'null'
+      - object
+      description: Cancellation information. A `null` value implies the Booking has not been cancelled.
       required:
-      - id
-      - localDateTimeStart
-      - localDateTimeEnd
-      - allDay
-      - openingHours
+      - refund
+      - reason
+      - utcCancelledAt
       properties:
-        id:
+        refund:
+          $ref: '#/components/schemas/CancellationRefund'
+        reason:
+          type:
+          - 'null'
+          - string
+          description: Free text describing the reason for the cancellation.
+          examples:
+          - Customer requested
+        utcCancelledAt:
           type: string
           examples:
-          - AVAIL-AVAILABLE-001
-          description: The availability id that was used in the request.
-        localDateTimeStart:
-          type: string
-          examples:
-          - '2026-06-15T10:00:00+01:00'
-          description: The `localDateTimeStart` value from the original availability object.
-        localDateTimeEnd:
-          type: string
-          examples:
-          - '2026-06-15T10:30:00+01:00'
-          description: The `localDateTimeEnd` value from the original availability object.
-        allDay:
-          type: boolean
-          description: A boolean value indicating whether the availability is all day.
-        openingHours:
-          type: array
-          description: The opening hours from the original availability object.
-          items:
-            $ref: '#/components/schemas/OpeningHours'
+          - '2026-06-15T09:30:00Z'
+          description: ISO 8601 UTC timestamp indicating when the Booking was cancelled.
+    CancellationRefund:
+      type: string
+      title: CancellationRefund
+      enum:
+      - FULL
+      - PARTIAL
+      - NONE
+      examples:
+      - FULL
+      description: |-
+        Type of refund issued as a result of the cancellation request.
+
+        Possible values:
+        - `FULL`: Indicates that a full refund is issued upon cancellation.
+        - `PARTIAL`: Indicates that a partial refund is issued upon cancellation.
+        - `NONE`: Indicates that no refund is issued upon cancellation.
+    ContactField:
+      type: string
+      title: ContactField
+      enum:
+      - firstName
+      - lastName
+      - fullName
+      - emailAddress
+      - phoneNumber
+      - postalCode
+      - country
+      - notes
+      - locales
+      examples:
+      - firstName
+      description: |-
+        A field of the contact details that a Supplier MAY require to confirm a Booking. Values are listed in `Option.requiredContactFields` for the lead traveler and in `Unit.requiredContactFields` for each ticket holder.
+
+        Possible values:
+        - `firstName`: The first name of the traveler.
+        - `lastName`: The last name of the traveler.
+        - `fullName`: The full name of the traveler. Used when first/last name separation is not required.
+        - `emailAddress`: The email address of the traveler.
+        - `phoneNumber`: The phone number of the traveler.
+        - `postalCode`: The postal code of the traveler's address.
+        - `country`: The country of the traveler.
+        - `notes`: Optional free-text notes from the traveler, such as special requests or accessibility requirements.
+        - `locales`: The traveler's preferred language(s) for the experience, expressed as BCP 47 locale codes (e.g. `en`, `fr`, `pt-PT`).
+    ContactInput:
+      type: object
+      description: Contact details sent when confirming or updating a Booking. Used for both the lead traveler (`contact`) and individual ticket holders (`unitItems[].contact`).
+      examples:
+      - fullName: John Doe
+        firstName: John
+        lastName: Doe
+        emailAddress: john.doe@example.com
+        phoneNumber: '+442021436587'
+        locales:
+        - en-GB
+        - en
+        postalCode: SE1 9AA
+        country: GB
+        notes: Wheelchair access requested
+      properties:
+        fullName:
+          $ref: '#/components/schemas/FullName'
+        firstName:
+          $ref: '#/components/schemas/FirstName'
+        lastName:
+          $ref: '#/components/schemas/LastName'
+        emailAddress:
+          $ref: '#/components/schemas/EmailAddress'
+        phoneNumber:
+          $ref: '#/components/schemas/PhoneNumber'
+        locales:
+          $ref: '#/components/schemas/Locales'
+        postalCode:
+          $ref: '#/components/schemas/PostalCode'
+        country:
+          $ref: '#/components/schemas/Country'
+        notes:
+          $ref: '#/components/schemas/ContactNotes'
+    ContactNotes:
+      type:
+      - 'null'
+      - string
+      description: |-
+        A general note related to the Contact that MAY be used to share information that is relevant to all parties but cannot be communicated through an existing capability or structured field.
+
+        This field is intended for exceptional or case-specific information only. Implementations SHOULD NOT use it as a substitute for existing capabilities, attributes, or standardized data models.
+
+        Information provided in this field MUST be considered visible to all relevant parties.
+      examples:
+      - Wheelchair access requested
+    ContactOutput:
+      type: object
+      examples:
+      - fullName: John Doe
+        firstName: John
+        lastName: Doe
+        emailAddress: john.doe@example.com
+        phoneNumber: '+442021436587'
+        locales:
+        - en-GB
+        - en
+        postalCode: SE1 9AA
+        country: GB
+        notes: Wheelchair access requested
+      description: Contact details returned on a Booking. Used for both the lead traveler (`Booking.contact`) and individual ticket holders (`UnitItem.contact`).
+      properties:
+        fullName:
+          $ref: '#/components/schemas/FullName'
+        firstName:
+          $ref: '#/components/schemas/FirstName'
+        lastName:
+          $ref: '#/components/schemas/LastName'
+        emailAddress:
+          $ref: '#/components/schemas/EmailAddress'
+        phoneNumber:
+          $ref: '#/components/schemas/PhoneNumber'
+        locales:
+          $ref: '#/components/schemas/Locales'
+        postalCode:
+          $ref: '#/components/schemas/PostalCode'
+        country:
+          $ref: '#/components/schemas/Country'
+        notes:
+          $ref: '#/components/schemas/ContactNotes'
+      required:
+      - locales
+    Country:
+      type:
+      - 'null'
+      - string
+      description: The country code of the traveler. MUST use ISO 3166-1 alpha-2.
+      examples:
+      - GB
+    DeliveryFormat:
+      type: string
+      title: DeliveryFormat
+      enum:
+      - QRCODE
+      - PDF_URL
+      - CODE128
+      - AZTEC
+      - PDF417
+      - PKPASS_URL
+      - GOOGLE_WALLET_URL
+      - DOTCODE
+      - DATAMATRIX
+      - HANXIN
+      - HTML_URL
+      - IMAGE_URL
+      description: |-
+        A single format in which a ticket or voucher can be delivered. Referenced by `Product.deliveryFormats` for the formats a Product supports, and by `Ticket.deliveryOptions[].deliveryFormat` for the format of a delivered ticket or voucher.
+
+        The payload itself is carried in `Ticket.deliveryOptions[].deliveryValue`, either as an encoded string or as a URL, depending on the format.
+
+        Possible values:
+        - `QRCODE`: A two-dimensional matrix barcode conforming to ISO/IEC 18004, encoded as a string. The Client MUST render the QR code.
+        - `PDF_URL`: A URL resolving to a downloadable PDF document containing ticket details. The Client MUST retrieve and present the PDF to the customer.
+        - `CODE128`: A high-density linear barcode conforming to ISO/IEC 15417, encoded as a string. The Client MUST render the barcode.
+        - `AZTEC`: A two-dimensional matrix barcode conforming to ISO/IEC 24778, encoded as a string. The Client MUST render the barcode.
+        - `PDF417`: A stacked two-dimensional barcode conforming to ISO/IEC 15438, encoded as a string. The Client MUST render the barcode.
+        - `PKPASS_URL`: A URL resolving to a PKPass file compatible with Apple Wallet. The Client MUST present the pass to the customer.
+        - `GOOGLE_WALLET_URL`: A URL resolving to a Google Wallet pass. The Client MUST present the pass to the customer.
+        - `DOTCODE`: A two-dimensional barcode optimized for high-speed inkjet printing, encoded as a string. The Client MUST render the barcode.
+        - `DATAMATRIX`: A two-dimensional matrix barcode conforming to ISO/IEC 16022, encoded as a string. The Client MUST render the barcode.
+        - `HANXIN`: A two-dimensional matrix barcode conforming to GB/T 27766 with native support for Chinese characters, encoded as a string. The Client MUST render the barcode.
+        - `HTML_URL`: A URL resolving to an HTML page containing ticket details. The Client MUST retrieve and present the content to the customer.
+        - `IMAGE_URL`: A URL resolving to an image file containing the ticket. The Client MUST retrieve and present the image to the customer.
+      examples:
+      - QRCODE
+    DeliveryMethod:
+      type: string
+      title: DeliveryMethod
+      enum:
+      - VOUCHER
+      - TICKET
+      description: |-
+        A single method by which tickets or vouchers are delivered for a Booking. Referenced by `Product.deliveryMethods` for the methods a Product supports, and by `Booking.deliveryMethods` for the methods applied to a given Booking.
+
+        Possible values:
+        - `VOUCHER`: A single voucher is delivered for the entire Booking (e.g., all people in the Booking share one voucher). The `Booking.voucher` object is populated.
+        - `TICKET`: A separate ticket is delivered per unit item (e.g., each person in the Booking receives an individual ticket). `UnitItem.ticket` is populated on every unit item.
+
+        For each method present in `Booking.deliveryMethods`, the corresponding object MUST be populated in the Booking response; the object for a method that is absent MUST be `null`. When `Booking.deliveryMethods` contains both values, both objects MUST be populated.
+
+        When a Product supports both methods, the Reseller MAY select the method that best fits their integration, or offer both options to the end customer.
+      examples:
+      - TICKET
+    DurationUnit:
+      type: string
+      title: DurationUnit
+      enum:
+      - hour
+      - minute
+      - day
+      examples:
+      - hour
+      description: |-
+        Time unit for the cancellation cutoff period.
+
+        Possible values:
+        - `hour`: Hours unit for cancellation cutoff duration.
+        - `minute`: Minutes unit for cancellation cutoff duration.
+        - `day`: Days unit for cancellation cutoff duration.
+    EmailAddress:
+      type:
+      - 'null'
+      - string
+      format: email
+      examples:
+      - john.doe@example.com
+      description: The email address of the traveler.
     Error:
       type: object
       title: Error
@@ -2621,6 +1762,865 @@ components:
         The standard error body returned by every error response in this specification.
 
         Error responses for operations that take an identifier MAY add that identifier as a further property, for example `productId` on `GET /products/{id}`, so that the Client can tell which value was rejected. Those responses declare the shape inline rather than referencing this schema, because they extend it.
+    FirstName:
+      type:
+      - 'null'
+      - string
+      examples:
+      - John
+      description: The first name of the traveler.
+    FullName:
+      type:
+      - 'null'
+      - string
+      examples:
+      - John Doe
+      description: The full name of the traveler. Can also be retrieved as an alias for the concatenation of `firstName` and `lastName`.
+    LastName:
+      type:
+      - 'null'
+      - string
+      examples:
+      - Doe
+      description: The last name of the traveler.
+    Locales:
+      type: array
+      description: Locale preferences as BCP 47 language tags, in order of preference, equivalent to `navigator.languages` in a browser environment.
+      items:
+        type: string
+        examples:
+        - en-GB
+    OpeningHours:
+      type: object
+      description: A list of opening hours that the product is open on this day.
+      properties:
+        from:
+          type: string
+          examples:
+          - '09:00'
+          description: Opening time
+        to:
+          type: string
+          examples:
+          - '17:00'
+          description: Closing time
+      required:
+      - from
+      - to
+      examples:
+      - from: '09:00'
+        to: '17:00'
+    Option:
+      type: object
+      examples:
+      - id: OPT-STANDARD-001
+        default: true
+        internalName: Standard Admission
+        reference: STANDARD
+        availabilityLocalStartTimes:
+        - '10:00'
+        - '14:00'
+        - '16:00'
+        cancellationCutoff: 24 hours
+        cancellationCutoffAmount: 24
+        cancellationCutoffUnit: hour
+        requiredContactFields:
+        - firstName
+        - lastName
+        restrictions:
+          minUnits: 1
+          maxUnits: 20
+        units:
+        - id: UNIT-ADULT
+          internalName: Adult
+          reference: ADULT
+          type: ADULT
+          requiredContactFields:
+          - firstName
+          - lastName
+          restrictions:
+            minAge: 18
+            maxAge: 99
+            idRequired: false
+            minQuantity: 1
+            maxQuantity: 7
+            paxCount: 1
+            accompaniedBy: []
+        - id: UNIT-CHILD
+          internalName: Child
+          reference: CHILD
+          type: CHILD
+          requiredContactFields:
+          - firstName
+          - lastName
+          restrictions:
+            minAge: 3
+            maxAge: 17
+            idRequired: false
+            minQuantity: 0
+            maxQuantity: 7
+            paxCount: 1
+            accompaniedBy:
+            - UNIT-ADULT
+      - id: OPT-PRIORITY-001
+        default: false
+        internalName: Priority Entry
+        reference: PRIORITY
+        availabilityLocalStartTimes:
+        - '10:00'
+        - '14:00'
+        - '16:00'
+        cancellationCutoff: 24 hours
+        cancellationCutoffAmount: 24
+        cancellationCutoffUnit: hour
+        requiredContactFields:
+        - firstName
+        - lastName
+        restrictions:
+          minUnits: 1
+          maxUnits: 20
+        units:
+        - id: UNIT-ADULT
+          internalName: Adult
+          reference: ADULT
+          type: ADULT
+          requiredContactFields:
+          - firstName
+          - lastName
+          restrictions:
+            minAge: 18
+            maxAge: 99
+            idRequired: false
+            minQuantity: 1
+            maxQuantity: 7
+            paxCount: 1
+            accompaniedBy: []
+      description: Product options are subdivisions of the original product that will affect price and / or duration. Within the OCTo spec, every product must contain an option.
+      properties:
+        id:
+          type: string
+          examples:
+          - OPT-STANDARD-001
+          description: Unique identifier for the Option within the Product. Used across Availability checks, Bookings, and other operations. MUST be unique within the respective Product's scope. (Max. 255 ASCII characters)
+        default:
+          type: boolean
+          description: Indicates whether the option is the default selection. Default option SHOULD be rendered and selected first in customer-facing interfaces.
+          examples:
+          - true
+        internalName:
+          type:
+          - string
+          - 'null'
+          description: Internal name used by the Supplier to identify the Option. The customer-facing name is defined in `title` under the Content capability if the Supplier System supports that capability.
+          examples:
+          - Standard Admission
+        reference:
+          type:
+          - 'null'
+          - string
+          description: Internal reference code used by the Supplier to identify the Option.
+          examples:
+          - STANDARD
+        availabilityLocalStartTimes:
+          type: array
+          description: |-
+            All possible start times for the Option, as returned during Availability checks (e.g., ["09:00", "14:00", "17:00"]).
+
+            If the Option has no fixed start times, this field MUST be an empty array. This applies, for example, to Products with `availabilityType` `OPENING_HOURS`.
+          items:
+            type: string
+            default: '00:00'
+            examples:
+            - '10:00'
+        cancellationCutoff:
+          type:
+          - string
+          - 'null'
+          examples:
+          - Free cancellation up to 24 hours before the start time.
+          description: Human-readable description of the cancellation policy for the Option.
+        cancellationCutoffAmount:
+          type:
+          - integer
+          - 'null'
+          examples:
+          - 24
+          description: Numeric value of the cancellation cutoff period, relative to the start time or closing hour of the Product.
+        cancellationCutoffUnit:
+          oneOf:
+          - $ref: '#/components/schemas/DurationUnit'
+          - type: 'null'
+        requiredContactFields:
+          type: array
+          description: |-
+            Contact fields required to confirm a Booking. Applies to the lead traveler only. Per-person required fields are defined separately on the Unit object.
+
+            See `ContactField` for the meaning of each value.
+          examples:
+          - - firstName
+            - lastName
+          items:
+            $ref: '#/components/schemas/ContactField'
+        restrictions:
+          $ref: '#/components/schemas/OptionRestrictions'
+        units:
+          type: array
+          description: The list of ticket types (units) available for sale.
+          items:
+            $ref: '#/components/schemas/Unit'
+      required:
+      - id
+      - default
+      - internalName
+      - reference
+      - availabilityLocalStartTimes
+      - cancellationCutoff
+      - cancellationCutoffAmount
+      - cancellationCutoffUnit
+      - requiredContactFields
+      - restrictions
+      - units
+    OptionRestrictions:
+      type: object
+      description: Booking restrictions for the Option.
+      examples:
+      - minUnits: 1
+        maxUnits: 20
+      properties:
+        minUnits:
+          type:
+          - integer
+          - 'null'
+          examples:
+          - 1
+          description: Minimum number of unique units (regardless of the units' quantities) that must be included in a Booking. A `null` value implies that there's no minimum.
+        maxUnits:
+          type:
+          - integer
+          - 'null'
+          examples:
+          - 20
+          description: Maximum number of units per Booking. A `null` value implies that there's no maximum.
+      required:
+      - minUnits
+      - maxUnits
+    PhoneNumber:
+      type:
+      - 'null'
+      - string
+      description: The phone number of the traveler.
+      examples:
+      - '+442021436587'
+    PostalCode:
+      type:
+      - 'null'
+      - string
+      description: The postal / ZIP code of the traveler.
+      examples:
+      - SE1 9AA
+    Product:
+      type: object
+      examples:
+      - id: PROD-OBSWHEEL-001
+        internalName: Observation Wheel Admission
+        reference: OBSWHEEL
+        locale: en-GB
+        timeZone: Europe/London
+        allowFreesale: false
+        instantConfirmation: true
+        instantDelivery: true
+        availabilityRequired: true
+        availabilityType: START_TIME
+        deliveryFormats:
+        - QRCODE
+        - PDF_URL
+        deliveryMethods:
+        - TICKET
+        redemptionMethod: DIGITAL
+        options:
+        - id: OPT-STANDARD-001
+          default: true
+          internalName: Standard Admission
+          reference: STANDARD
+          availabilityLocalStartTimes:
+          - '10:00'
+          - '14:00'
+          - '16:00'
+          cancellationCutoff: 24 hours
+          cancellationCutoffAmount: 24
+          cancellationCutoffUnit: hour
+          requiredContactFields:
+          - firstName
+          - lastName
+          restrictions:
+            minUnits: 1
+            maxUnits: 20
+          units:
+          - id: UNIT-ADULT
+            internalName: Adult
+            reference: ADULT
+            type: ADULT
+            requiredContactFields:
+            - firstName
+            - lastName
+            restrictions:
+              minAge: 18
+              maxAge: 99
+              idRequired: false
+              minQuantity: 1
+              maxQuantity: 7
+              paxCount: 1
+              accompaniedBy: []
+          - id: UNIT-CHILD
+            internalName: Child
+            reference: CHILD
+            type: CHILD
+            requiredContactFields:
+            - firstName
+            - lastName
+            restrictions:
+              minAge: 3
+              maxAge: 17
+              idRequired: false
+              minQuantity: 0
+              maxQuantity: 7
+              paxCount: 1
+              accompaniedBy:
+              - UNIT-ADULT
+      description: A bookable product listed by a supplier.
+      properties:
+        id:
+          type: string
+          examples:
+          - PROD-OBSWHEEL-001
+          description: Unique identifier for the Product. Used across Availability checks, Bookings, and other operations. MUST be unique within the respective Supplier's scope. (Max. 255 ASCII characters)
+        internalName:
+          type:
+          - string
+          - 'null'
+          description: Internal name used by the Supplier to identify the Product. The customer-facing name is defined in title under the Content capability.
+          examples:
+          - Observation Wheel Admission
+        reference:
+          type:
+          - 'null'
+          - string
+          description: Internal reference code used by the Supplier to identify the Product.
+          examples:
+          - OBSWHEEL
+        locale:
+          type: string
+          examples:
+          - en-GB
+          description: Primary language of the Product. MUST conform to IETF BCP 47 (e.g., en-GB, fr-FR).
+        timeZone:
+          type:
+          - string
+          - 'null'
+          examples:
+          - Europe/London
+          description: IANA Time Zone identifier for the Product's location (e.g., Europe/London, America/New_York).
+        allowFreesale:
+          type: boolean
+          deprecated: true
+          description: |-
+            [DEPRECATED] Use availabilityRequired instead.
+            Indicates whether an `availabilityId` is required to create a Booking. When false, open-dated Bookings can be created without specifying a travel date.
+          examples:
+          - false
+        instantConfirmation:
+          type: boolean
+          description: Indicates whether a Booking is immediately confirmed upon a confirmation request. When false, the Booking enters a `PENDING` state until the Supplier accepts or rejects it.
+          examples:
+          - true
+        instantDelivery:
+          type: boolean
+          description: |-
+            Indicates whether Tickets are delivered to the Reseller immediately after Booking confirmation. When `false`, the Reseller MUST be able to delay delivery to the customer. The Reseller MUST either implement a polling mechanism or use the "Notifications" capability to detect when the Tickets have become available.
+            Note that the specification does not define a formal requirement for acceptable delays.
+          examples:
+          - true
+        availabilityRequired:
+          type: boolean
+          description: |-
+            Indicates whether Availability MUST be checked before creating a Booking.
+            If `true`, the Reseller MUST retrieve Availability using the /availability endpoint and provide a valid availabilityId when creating a Booking.
+            If `false`, a Booking MAY be created without retrieving Availability in advance.
+          examples:
+          - true
+        availabilityType:
+          $ref: '#/components/schemas/AvailabilityType'
+        deliveryFormats:
+          type: array
+          description: Specifies the ticket or voucher delivery formats supported by this Product. Each value MUST be a `DeliveryFormat`, which defines the meaning of each format and the Client's obligations when presenting it.
+          items:
+            $ref: '#/components/schemas/DeliveryFormat'
+        deliveryMethods:
+          type: array
+          description: Specifies the ticket or voucher delivery methods supported by this Product. Each value MUST be a `DeliveryMethod`, which defines the meaning of each method and which objects it populates in the Booking response.
+          items:
+            $ref: '#/components/schemas/DeliveryMethod'
+        redemptionMethod:
+          $ref: '#/components/schemas/RedemptionMethod'
+        options:
+          type: array
+          description: All Options for the Product. At least one Option MUST be present.
+          items:
+            $ref: '#/components/schemas/Option'
+      required:
+      - id
+      - internalName
+      - reference
+      - locale
+      - allowFreesale
+      - instantConfirmation
+      - instantDelivery
+      - availabilityRequired
+      - availabilityType
+      - deliveryFormats
+      - deliveryMethods
+      - redemptionMethod
+      - options
+      - timeZone
+    RedemptionMethod:
+      type: string
+      title: RedemptionMethod
+      enum:
+      - DIGITAL
+      - PRINT
+      - MANIFEST
+      description: |-
+        Specifies the redemption method for the Product.
+
+        Possible values:
+        - `DIGITAL`: The ticket MUST be scanned and MAY be presented on a mobile device.
+        - `PRINT`: The ticket MUST be printed and presented physically upon arrival.
+        - `MANIFEST`: The guest name is on a manifest. Ticket scanning is not required; the guest MUST present themselves at arrival.
+      examples:
+      - DIGITAL
+    Supplier:
+      type: object
+      examples:
+      - id: supplier-95857df1f640
+        name: Acme Attractions Ltd
+        endpoint: https://api.acme-attractions.com/octo
+        contact:
+          website: https://www.acme-attractions.com
+          email: support@acme-attractions.com
+          telephone: '+442012345678'
+          address: 100 Riverside Way, London SE1 9AA, United Kingdom
+      properties:
+        id:
+          type: string
+          examples:
+          - supplier-95857df1f640
+          description: A unique identifier for this Supplier. MUST NOT exceed 255 printable ASCII characters.
+        name:
+          type: string
+          description: The human-readable name of this Supplier, used to identify it within the system.
+          examples:
+          - Acme Attractions Ltd
+        endpoint:
+          type: string
+          format: uri
+          deprecated: true
+          description: '[DEPRECATED] The base URL prepended to all API request paths. MUST be a valid URI and MUST NOT include a trailing slash.'
+          examples:
+          - https://api.acme-attractions.com/octo
+        contact:
+          description: The contact details for this Supplier, including available communication methods and mailing address.
+          type: object
+          required:
+          - website
+          - email
+          - telephone
+          - address
+          properties:
+            website:
+              type:
+              - 'null'
+              - string
+              format: uri
+              description: The official website URL of this Supplier. MUST be a valid URI and MUST NOT include a trailing slash.
+              examples:
+              - https://www.acme-attractions.com
+            email:
+              type:
+              - 'null'
+              - string
+              format: email
+              description: The customer service email address for this Supplier.
+              examples:
+              - support@acme-attractions.com
+            telephone:
+              type:
+              - 'null'
+              - string
+              description: The customer service telephone number for this Supplier. MUST be formatted according to E.164.
+              examples:
+              - '+442012345678'
+            address:
+              type:
+              - 'null'
+              - string
+              description: The full mailing address for this Supplier, provided as a single string. SHOULD include street, city, postal code, and country.
+              examples:
+              - 100 Riverside Way, London SE1 9AA, United Kingdom
+      required:
+      - id
+      - name
+      - contact
+    Ticket:
+      type: object
+      examples:
+      - redemptionMethod: DIGITAL
+        utcRedeemedAt: null
+        deliveryOptions:
+        - deliveryFormat: QRCODE
+          deliveryValue: TICKET-QRCODE-001
+        - deliveryFormat: PDF_URL
+          deliveryValue: https://api.acme-attractions.com/octo/tickets/BOOK-CONFIRMED-001.pdf
+      properties:
+        redemptionMethod:
+          $ref: '#/components/schemas/RedemptionMethod'
+        utcRedeemedAt:
+          type:
+          - 'null'
+          - string
+          description: ISO 8601 UTC timestamp indicating when the Ticket/Voucher was redeemed. `null` value implies that redemption hasn't happened or the system does not have this information
+          examples:
+          - '2026-06-15T10:05:00Z'
+        deliveryOptions:
+          description: Object containing available delivery options for the ticket or voucher. Each item defines a `deliveryFormat` and its corresponding `deliveryValue`.
+          type: array
+          items:
+            type: object
+            properties:
+              deliveryFormat:
+                $ref: '#/components/schemas/DeliveryFormat'
+              deliveryValue:
+                type: string
+                description: Ticket payload or URL, depending on the `deliveryFormat`.
+                examples:
+                - https://api.acme-attractions.com/octo/tickets/BOOK-CONFIRMED-001.pdf
+                - TICKET-QRCODE-001
+            required:
+            - deliveryFormat
+            - deliveryValue
+      required:
+      - redemptionMethod
+      - utcRedeemedAt
+      - deliveryOptions
+      description: ''
+    Unit:
+      type: object
+      examples:
+      - id: UNIT-ADULT
+        internalName: Adult
+        reference: ADULT
+        type: ADULT
+        requiredContactFields:
+        - firstName
+        - lastName
+        restrictions:
+          minAge: 18
+          maxAge: 99
+          idRequired: false
+          minQuantity: 1
+          maxQuantity: 7
+          paxCount: 1
+          accompaniedBy: []
+      - id: UNIT-CHILD
+        internalName: Child
+        reference: CHILD
+        type: CHILD
+        requiredContactFields:
+        - firstName
+        - lastName
+        restrictions:
+          minAge: 3
+          maxAge: 17
+          idRequired: false
+          minQuantity: 0
+          maxQuantity: 7
+          paxCount: 1
+          accompaniedBy:
+          - UNIT-ADULT
+      - id: UNIT-INFANT
+        internalName: Infant
+        reference: INFANT
+        type: INFANT
+        requiredContactFields: []
+        restrictions:
+          minAge: 0
+          maxAge: 2
+          idRequired: false
+          minQuantity: 0
+          maxQuantity: 7
+          paxCount: 1
+          accompaniedBy:
+          - UNIT-ADULT
+      - id: UNIT-SENIOR
+        internalName: Senior
+        reference: SENIOR
+        type: SENIOR
+        requiredContactFields:
+        - firstName
+        - lastName
+        restrictions:
+          minAge: 65
+          maxAge: 99
+          idRequired: true
+          minQuantity: 0
+          maxQuantity: 7
+          paxCount: 1
+          accompaniedBy: []
+      properties:
+        id:
+          type: string
+          description: Unique unit identifier within the Option scope. (Max. 255 ASCII characters)
+          examples:
+          - UNIT-ADULT
+        internalName:
+          type: string
+          examples:
+          - Adult
+          description: Supplier's label for this unit type. NOT for display to end customers.
+        reference:
+          type:
+          - 'null'
+          - string
+          description: Optional supplier internal reference for the unit
+          examples:
+          - ADULT
+        type:
+          $ref: '#/components/schemas/UnitType'
+        requiredContactFields:
+          type: array
+          description: |-
+            Contact fields required to confirm a Booking. Applies to each ticket holder of this Unit. Lead traveler fields are defined separately on the Option object.
+
+            See `ContactField` for the meaning of each value.
+          items:
+            $ref: '#/components/schemas/ContactField'
+        restrictions:
+          $ref: '#/components/schemas/UnitRestrictions'
+      required:
+      - id
+      - internalName
+      - type
+      - requiredContactFields
+      - restrictions
+      description: ''
+    UnitItem:
+      type: object
+      properties:
+        uuid:
+          type: string
+          examples:
+          - 3b1bc2ee-3155-4738-9471-f49842a07327
+          description: Per-unit item identifier conforming to the UUID standard.
+        resellerReference:
+          type:
+          - string
+          - 'null'
+          examples:
+          - RES-TICKET-001
+          description: Per-ticket reseller reference. Omitting this value MAY complicate cross-referencing between the Reseller and the Supplier.
+        supplierReference:
+          type:
+          - string
+          - 'null'
+          examples:
+          - SUP-TICKET-001
+          description: Per-ticket supplier reference. Omitting this value MAY complicate cross-referencing between the Reseller and the Supplier.
+        unitId:
+          description: Unit type ID (references the `Unit.id` field in the Option object)
+          type: string
+          examples:
+          - UNIT-ADULT
+        unit:
+          description: Embedded `Unit` definition.
+          allOf:
+          - $ref: '#/components/schemas/Unit'
+        status:
+          description: |-
+            Status of this individual ticket item.
+
+            Possible values:
+            - `ON_HOLD`: The Booking is pending confirmation. This is the default value when the Booking is created.
+            - `CONFIRMED`: The Booking has been confirmed and is ready to be used.
+            - `EXPIRED`: The Booking is not confirmed before the hold expiration and enters an expired state.
+            - `CANCELLED`: The Booking has been cancelled.
+            - `REDEEMED`: The Booking has already been redeemed.
+            - `PENDING`: The Booking is awaiting external confirmation from the Supplier (`instantConfirmation: false`).
+            - `REJECTED`: The Booking was rejected by the Supplier.
+          allOf:
+          - $ref: '#/components/schemas/BookingStatus'
+        utcRedeemedAt:
+          type:
+          - 'null'
+          - string
+          description: ISO 8601 UTC timestamp indicating when the Ticket/Voucher was redeemed. `null` value implies that redemption hasn't happened or the system does not have this information
+          examples:
+          - null
+        contact:
+          description: Per-ticket contact details, to be populated in accordance with the requirements provided in `Unit.requiredContactFields`
+          allOf:
+          - $ref: '#/components/schemas/ContactOutput'
+        ticket:
+          description: Per-ticket delivery payload (if `TICKET` in `Booking.deliveryMethods`). A `null` value implies there are no individual tickets.
+          oneOf:
+          - $ref: '#/components/schemas/Ticket'
+          - type: 'null'
+      required:
+      - uuid
+      - resellerReference
+      - supplierReference
+      - unitId
+      - unit
+      - status
+      - utcRedeemedAt
+      - contact
+      - ticket
+      description: ''
+      examples:
+      - uuid: 3b1bc2ee-3155-4738-9471-f49842a07327
+        resellerReference: RES-TICKET-001
+        supplierReference: SUP-TICKET-001
+        unitId: UNIT-ADULT
+        unit:
+          id: UNIT-ADULT
+          internalName: Adult
+          reference: ADULT
+          type: ADULT
+          requiredContactFields:
+          - firstName
+          - lastName
+          restrictions:
+            minAge: 18
+            maxAge: 99
+            idRequired: false
+            minQuantity: 1
+            maxQuantity: 7
+            paxCount: 1
+            accompaniedBy: []
+        status: CONFIRMED
+        utcRedeemedAt: null
+        contact:
+          firstName: John
+          lastName: Doe
+          locales:
+          - en-GB
+        ticket:
+          redemptionMethod: DIGITAL
+          utcRedeemedAt: null
+          deliveryOptions:
+          - deliveryFormat: QRCODE
+            deliveryValue: TICKET-QRCODE-001
+          - deliveryFormat: PDF_URL
+            deliveryValue: https://api.acme-attractions.com/octo/tickets/BOOK-CONFIRMED-001.pdf
+    UnitResellerReference:
+      type: string
+      description: A reference the reseller uses to identify the unit within all bookings.
+    UnitRestrictions:
+      type: object
+      description: unit restrictions
+      examples:
+      - minAge: 18
+        maxAge: 99
+        idRequired: false
+        minQuantity: 1
+        maxQuantity: 7
+        paxCount: 1
+        accompaniedBy: []
+      title: UnitRestrictions
+      properties:
+        minAge:
+          type: integer
+          examples:
+          - 18
+          description: Minimum age for this unit type
+        maxAge:
+          type: integer
+          examples:
+          - 99
+          description: Maximum age for this unit type
+        idRequired:
+          type: boolean
+          description: Whether the traveler is required to present proof of identity at ticket redemption
+          examples:
+          - false
+        minQuantity:
+          type:
+          - integer
+          - 'null'
+          examples:
+          - 1
+          description: Minimum number of this unit per booking
+        maxQuantity:
+          type:
+          - 'null'
+          - integer
+          examples:
+          - 7
+          description: Maximum number of this unit per booking
+        paxCount:
+          type: integer
+          description: Number of people this unit counts as (e.g. family = 4)
+          examples:
+          - 1
+        accompaniedBy:
+          type: array
+          description: Unit IDs that must be included in Bookings, together with this unit (e.g. infant with adult)
+          items:
+            type: string
+            examples:
+            - UNIT-ADULT
+      required:
+      - minAge
+      - maxAge
+      - idRequired
+      - minQuantity
+      - maxQuantity
+      - paxCount
+      - accompaniedBy
+    UnitType:
+      type: string
+      title: UnitType
+      enum:
+      - ADULT
+      - YOUTH
+      - CHILD
+      - INFANT
+      - FAMILY
+      - SENIOR
+      - STUDENT
+      - MILITARY
+      - OTHER
+      examples:
+      - ADULT
+      - CHILD
+      description: |-
+        Base unit type category.
+
+        Possible values:
+        - `ADULT`: Standard adult ticket.
+        - `YOUTH`: Youth/teenager ticket.
+        - `CHILD`: Child ticket.
+        - `INFANT`: Infant/baby ticket.
+        - `FAMILY`: Family bundle ticket (see `paxCount` for equivalent adults).
+        - `SENIOR`: Senior/pensioner ticket.
+        - `STUDENT`: Student ticket (`idRequired` may apply).
+        - `MILITARY`: Military personnel ticket.
+        - `OTHER`: Any other unit type not covered by the above.
+    Vacancies:
+      type:
+      - integer
+      - 'null'
+      description: Indicates the number of remaining vacancies. This value SHOULD be less than or equal to `capacity`. A `null` value MUST be returned when `status` equals `FREESALE`. A `null` value MAY be returned when capacity details cannot be reliably shared. This SHOULD NOT be done unless necessary. In this case, the `status` field SHOULD be used as an approximate indication of remaining availability.
+      examples:
+      - 25
   examples:
     AvailabilityOpeningHours:
       value:
